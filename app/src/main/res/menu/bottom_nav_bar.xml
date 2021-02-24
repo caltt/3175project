@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/expenseTrackerFragment"
+        android:icon="@drawable/ic_baseline_looks_one_24"
+        android:title="Expense Tracker" />
+    <item
+        android:id="@+id/bigExpensePlannerFragment"
+        android:icon="@drawable/ic_baseline_looks_two_24"
+        android:title="Big Expense Planner" />
+</menu>

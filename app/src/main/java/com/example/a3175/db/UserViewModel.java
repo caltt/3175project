@@ -1,0 +1,42 @@
+package com.example.a3175.db;
+
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+
+import java.util.List;
+
+public class UserViewModel extends AndroidViewModel {
+    private A3175Repository repository;
+
+    public UserViewModel(@NonNull Application application) {
+        super(application);
+        repository = new A3175Repository(application);
+    }
+
+    public List<User> getUserById(int id) {
+        return repository.getUserById(id);
+    }
+
+    public List<User> getUserByEmail(String email) {
+        return repository.getUserByEmail(email);
+    }
+
+    public List<User> getUserByEmailPassword(String email, String password) {
+        return repository.getUserByEmailPassword(email, password);
+    }
+
+    public void insertUsers(User... users) {
+        repository.insertUsers(users);
+    }
+
+    public void updateUsers(User... users) {
+        repository.updateUsers(users);
+    }
+
+    public void deleteUser(User... users) {
+        repository.deleteUsers(users);
+    }
+}
