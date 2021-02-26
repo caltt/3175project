@@ -116,20 +116,20 @@ public class CreateAccountFragment extends Fragment {
         editTextPassword.addTextChangedListener(textWatcherForPassword);
         editTextVerifyPassword.addTextChangedListener(textWatcherForPassword);
 
+            // FIXME: cipher
         buttonCreateAccount.setOnClickListener(v -> {
             String email = editTextEmail.getText().toString();
-            // FIXME: cipher
             String password = editTextPassword.getText().toString();
             User newUser = new User(email, password);
             if (userViewModel.getUserByEmail(email).size() != 0) {
                 Toast.makeText(activity, "Email already exists.", Toast.LENGTH_SHORT).show();
             } else {
+                // add to db
                 userViewModel.insertUsers(newUser);
-
                 // mark as new user and will ask for password change & start info later
-                int userId = userViewModel.getUserByEmail(email).get(0).getId();
-                editor.putBoolean(getResources().getString(R.string.is_first_time_login) + userId, true).apply();
-                 navController.navigate(R.id.loginFragment);
+                int newUserId = userViewModel.getUserByEmail(email).get(0).getId();
+                editor.putBoolean(getResources().getString(R.string.is_first_time_login) + newUserId, true).apply();
+                navController.navigateUp();
                 Toast.makeText(activity, "Account created.", Toast.LENGTH_SHORT).show();
             }
         });

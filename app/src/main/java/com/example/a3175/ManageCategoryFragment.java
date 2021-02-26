@@ -2,15 +2,16 @@ package com.example.a3175;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ManageBillFragment extends Fragment {
+public class ManageCategoryFragment extends Fragment {
 
-    public ManageBillFragment() {
+    public ManageCategoryFragment() {
         // Required empty public constructor
     }
 
@@ -18,6 +19,11 @@ public class ManageBillFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_manage_bill, container, false);
+        return inflater.inflate(R.layout.fragment_manage_category, container, false);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 }

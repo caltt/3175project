@@ -1,5 +1,6 @@
 package com.example.a3175.db;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -20,5 +21,5 @@ public interface CategoryDao {
     void deleteCategories(Category... categories);
 
     @Query("SELECT * FROM category")
-    List<Category> getAllCategories();
+    LiveData<List<Category>> getAllCategories();
 }

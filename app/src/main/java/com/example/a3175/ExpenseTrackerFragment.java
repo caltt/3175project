@@ -15,14 +15,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.a3175.db.OverviewViewModel;
+import com.example.a3175.db.TransactionViewModel;
+
 public class ExpenseTrackerFragment extends Fragment {
     FragmentActivity activity;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     NavController navController;
 
-    // test
-    //    Fragment mainFragment;
+    OverviewViewModel overviewViewModel;
+    TransactionViewModel transactionViewModel;
+
     String TAG = "test";
 
     public ExpenseTrackerFragment() {

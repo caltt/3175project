@@ -6,34 +6,23 @@ import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
-import com.example.a3175.utils.Converters;
-
-import java.sql.Date;
-
-@Entity(foreignKeys = {
-        @ForeignKey(entity = User.class, parentColumns = "id", childColumns = "user_id"),
-        @ForeignKey(entity = Category.class, parentColumns = "id", childColumns = "category_id")
-})
-@TypeConverters({Converters.class})
-public class Expense {
+@Entity(foreignKeys = @ForeignKey(entity = User.class, parentColumns = "id", childColumns = "user_id"))
+public class RecurringTransaction {
     @PrimaryKey(autoGenerate = true)
     private int id;
     @ColumnInfo(name = "user_id")
     private int userId;
-    @ColumnInfo(name = "category_id")
-    private int categoryId;
     @ColumnInfo(name = "amount")
     private double amount;
-    @ColumnInfo(name = "datetime")
-    private Date datetime;
+    @ColumnInfo(name = "date")
+    private int date;
     @ColumnInfo(name = "description")
     private String description;
 
-    public Expense(int userId, int categoryId, double amount, Date datetime, String description) {
+    public RecurringTransaction(int userId, double amount, int date, String description) {
         this.userId = userId;
-        this.categoryId = categoryId;
         this.amount = amount;
-        this.datetime = datetime;
+        this.date = date;
         this.description = description;
     }
 
@@ -53,14 +42,6 @@ public class Expense {
         this.userId = userId;
     }
 
-    public int getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
-    }
-
     public double getAmount() {
         return amount;
     }
@@ -69,12 +50,12 @@ public class Expense {
         this.amount = amount;
     }
 
-    public Date getDatetime() {
-        return datetime;
+    public int getDate() {
+        return date;
     }
 
-    public void setDatetime(Date datetime) {
-        this.datetime = datetime;
+    public void setDate(int date) {
+        this.date = date;
     }
 
     public String getDescription() {
@@ -84,4 +65,5 @@ public class Expense {
     public void setDescription(String description) {
         this.description = description;
     }
+
 }

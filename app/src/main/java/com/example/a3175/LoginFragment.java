@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -69,38 +70,42 @@ public class LoginFragment extends Fragment {
         buttonLogin = activity.findViewById(R.id.buttonLogin);
         buttonCreateAccount = activity.findViewById(R.id.buttonLoginCreateAccount);
 
-        // FIXME
+        // FIXME cipher
         buttonLogin.setOnClickListener(v -> {
             // verify tokens
             String email = editTextEmail.getText().toString();
             String password = editTextPassword.getText().toString();
 
-            // tokens correct, record current user and login
-            List<User> users = userViewModel.getUserByEmailPassword(email, password);
-            if (users == null) {
-                Toast.makeText(activity, "Invalid email / password.", Toast.LENGTH_SHORT).show();
+            // FIXME hardcoded
+            // as admin: nav to admin fragment
+            if ("admin".equals(email) && "admin".equals(password)) {
+                navController.navigate(R.id.action_loginFragment_to_adminFragment);
             } else {
-                // save logged in user id to shared preferences for auto-login
-                int userId = users.get(0).getId();
-                editor.putInt(getResources().getString(R.string.logged_in_user_id), userId).apply();
+                // as user: tokens correct, record current user and login
+                List<User> users = userViewModel.getUserByEmailPassword(email, password);
+                if (users == null || users.size() == 0) {
+                    Toast.makeText(activity, "Invalid email / password.", Toast.LENGTH_SHORT).show();
+                } else {
+                    // save logged in user id to shared preferences for auto-login
+                    int currentUserId = users.get(0).getId();
+                    editor.putInt(getResources().getString(R.string.logged_in_user_id), currentUserId).apply();
 
-                // nav
+                    // nav
 //                Bundle bundle = new Bundle();
 //                bundle.putString(loggedInUserEmail, email);
 
-                if (preferences.getBoolean(getResources().getString(R.string.is_first_time_login) + userId, false)) {
-                    // to first time login fragment
-                    navController.navigate(R.id.action_loginFragment_to_firstTimeLoginFragment);
-                } else {
-                    // to main fragment with logged in user info
-                    navController.navigate(R.id.action_loginFragment_to_mainFragment);
+                    if (preferences.getBoolean(getResources().getString(R.string.is_first_time_login) + currentUserId, false)) {
+                        // to first time login fragment
+                        navController.navigate(R.id.action_loginFragment_to_firstTimeLoginFragment);
+                    } else {
+                        // to main fragment with logged in user info
+                        navController.navigate(R.id.action_loginFragment_to_mainFragment);
+                    }
                 }
             }
-
         });
 
         buttonCreateAccount.setOnClickListener(v -> {
-            navController = Navigation.findNavController(v);
             navController.navigate(R.id.action_loginFragment_to_createAccountFragment);
         });
 

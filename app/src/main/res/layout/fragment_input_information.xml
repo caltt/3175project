@@ -37,23 +37,11 @@
         android:id="@+id/buttonFirstTimeManageSalary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Manage Salary"
+        android:text="Manage Salary and Bill"
         app:layout_constraintBottom_toTopOf="@+id/guideline8"
-        app:layout_constraintEnd_toStartOf="@+id/buttonFirstTimeManageBill"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline10" />
-
-    <Button
-        android:id="@+id/buttonFirstTimeManageBill"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Manage Bill"
-        app:layout_constraintBottom_toBottomOf="@+id/buttonFirstTimeManageSalary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/buttonFirstTimeManageSalary"
-        app:layout_constraintTop_toTopOf="@+id/buttonFirstTimeManageSalary" />
 
     <Button
         android:id="@+id/buttonInputInformationToMain"

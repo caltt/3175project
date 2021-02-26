@@ -7,12 +7,12 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 public class A3175Repository {
+    private static A3175Repository instance;
+
     private static UserDao userDao;
     private static OverviewDao overviewDao;
-    private static SalaryDao salaryDao;
-    private static BillDao billDao;
-    private static IncomeDao incomeDao;
-    private static ExpenseDao expenseDao;
+    private static RecurringTransactionDao recurringTransactionDao;
+    private static TransactionDao transactionDao;
     private static CategoryDao categoryDao;
     private static BigExpenseDao bigExpenseDao;
 
@@ -20,11 +20,19 @@ public class A3175Repository {
         A3175Database database = A3175Database.getDatabase(context.getApplicationContext());
         userDao = database.getUserDao();
         overviewDao = database.getOverviewDao();
+        transactionDao = database.getTransactionDao();
+        recurringTransactionDao = database.getRecurringTransactionDao();
+    }
 
-
+    public static A3175Repository getInstance(Context context) {
+        if (instance == null) {
+            instance = new A3175Repository(context);
+        }
+        return instance;
     }
 
     // user
+    LiveData<List<User>> getAllUsers(){ return userDao.getAllUsers();}
     List<User> getUserByEmail(String email) {
         return userDao.getUserByEmail(email);
     }
@@ -50,7 +58,7 @@ public class A3175Repository {
     }
 
     // overview
-    List<Overview> getOverviewByUserId(int id) {
+    LiveData<List<Overview>> getOverviewByUserId(int id) {
         return overviewDao.getOverviewByUserId(id);
     }
 
@@ -66,43 +74,63 @@ public class A3175Repository {
         overviewDao.deleteOverviews(overviews);
     }
 
-    // salary
-    LiveData<List<Salary>> getSalariesByUserId(int id) {
-        return salaryDao.getSalariesByUserId(id);
+    // recurring transaction
+    LiveData<List<RecurringTransaction>> getRecurringTransactionsByUserId(int id) {
+        return recurringTransactionDao.getRecurringTransactionsByUserId(id);
     }
 
-    void insertSalaries(Salary... salaries) {
-        salaryDao.insertSalaries(salaries);
+    LiveData<List<RecurringTransaction>> getRecurringExpensesByUserId(int id){
+        return recurringTransactionDao.getRecurringExpensesByUserId(id);
     }
 
-    void updateSalaries(Salary... salaries) {
-        salaryDao.updateSalaries(salaries);
+    LiveData<List<RecurringTransaction>> getRecurringIncomesByUserId(int id){
+        return recurringTransactionDao.getRecurringIncomesByUserId(id);
     }
 
-    void deleteSalaries(Salary... salaries) {
-        salaryDao.deleteSalaries(salaries);
+    void insertRecurringTransactions(RecurringTransaction... transactions) {
+        recurringTransactionDao.insertRecurringTransactions(transactions);
     }
 
-    // bill
-    LiveData<List<Bill>> getBillsByUserId(int id) {
-        return billDao.getBillsByUserId(id);
+    void updateRecurringTransactions(RecurringTransaction... transactions) {
+        recurringTransactionDao.updateRecurringTransactions(transactions);
     }
 
-    void insertBills(Bill... bills) {
-        billDao.insertBills(bills);
+    void deleteRecurringTransactions(RecurringTransaction... transactions) {
+        recurringTransactionDao.deleteRecurringTransactions(transactions);
     }
 
-    void updateBills(Bill... bills) {
-        billDao.updateBills(bills);
+
+    // transaction
+    LiveData<List<Transaction>> getTransactionsByUserId(int id) {
+        return transactionDao.getTransactionsByUserId(id);
     }
 
-    void deleteBills(Bill... bills) {
-        billDao.deleteBills(bills);
+    void insertTransactions(Transaction... transactions) {
+        transactionDao.insertTransactions(transactions);
     }
 
-    // expense
+    void updateTransactions(Transaction... transactions) {
+        transactionDao.updateTransactions(transactions);
+    }
 
-    // income
+    void deleteTransactions(Transaction... transactions) {
+        transactionDao.deleteTransactions(transactions);
+    }
 
     // category
+    LiveData<List<Category>> getCategories() {
+        return categoryDao.getAllCategories();
+    }
+
+    void insertCategories(Category... categories) {
+        categoryDao.insertCategories(categories);
+    }
+
+    void updateCategories(Category... categories) {
+        categoryDao.updateCategories(categories);
+    }
+
+    void deleteCategories(Category... categories) {
+        categoryDao.deleteCategories(categories);
+    }
 }

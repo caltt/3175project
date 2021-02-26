@@ -20,6 +20,9 @@ public interface UserDao {
     @Delete
     void deleteUsers(User... users);
 
+    @Query("SELECT * FROM user")
+    LiveData<List<User>> getAllUsers();
+
     @Query("SELECT * FROM user WHERE id = :id")
     List<User> getUserById(int id);
 

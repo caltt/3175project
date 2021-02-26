@@ -19,21 +19,30 @@
         <action
             android:id="@+id/action_loginFragment_to_firstTimeLoginFragment"
             app:destination="@id/firstTimeLoginFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_adminFragment"
+            app:destination="@id/adminFragment" />
     </fragment>
     <fragment
         android:id="@+id/createAccountFragment"
         android:name="com.example.a3175.CreateAccountFragment"
         android:label="fragment_create_account"
-        tools:layout="@layout/fragment_create_account" >
-        <action
-            android:id="@+id/action_createAccountFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_create_account" />
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.a3175.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_manageRecurringTransactionFragment"
+            app:destination="@id/manageRecurringTransactionFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_addTransactionFragment"
+            app:destination="@id/addTransactionFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_addBigExpenseFragment"
+            app:destination="@id/addBigExpenseFragment" />
+    </fragment>
     <fragment
         android:id="@+id/inputInformationFragment"
         android:name="com.example.a3175.InputInformationFragment"
@@ -44,28 +53,16 @@
             app:destination="@id/mainFragment" />
         <action
             android:id="@+id/action_inputInformationFragment_to_manageSalaryFragment"
-            app:destination="@id/manageSalaryFragment" />
-        <action
-            android:id="@+id/action_inputInformationFragment_to_manageBillFragment"
-            app:destination="@id/manageBillFragment" />
+            app:destination="@id/manageRecurringTransactionFragment" />
     </fragment>
     <fragment
-        android:id="@+id/manageSalaryFragment"
-        android:name="com.example.a3175.ManageSalaryFragment"
+        android:id="@+id/manageRecurringTransactionFragment"
+        android:name="com.example.a3175.ManageRecurringTransactionFragment"
         android:label="fragment_manage_salary"
-        tools:layout="@layout/fragment_manage_salary" >
+        tools:layout="@layout/fragment_manage_recurring_transaction" >
         <action
             android:id="@+id/action_manageSalaryFragment_to_addSalaryFragment"
-            app:destination="@id/addSalaryFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/manageBillFragment"
-        android:name="com.example.a3175.ManageBillFragment"
-        android:label="fragment_manage_bill"
-        tools:layout="@layout/fragment_manage_bill" >
-        <action
-            android:id="@+id/action_manageBillFragment_to_addBillFragment"
-            app:destination="@id/addBillFragment" />
+            app:destination="@id/addRecurringTransactionFragment" />
     </fragment>
     <fragment
         android:id="@+id/firstTimeLoginFragment"
@@ -77,13 +74,27 @@
             app:destination="@id/inputInformationFragment" />
     </fragment>
     <fragment
-        android:id="@+id/addSalaryFragment"
-        android:name="com.example.a3175.AddSalaryFragment"
+        android:id="@+id/addRecurringTransactionFragment"
+        android:name="com.example.a3175.AddRecurringTransactionFragment"
         android:label="fragment_add_salary"
-        tools:layout="@layout/fragment_add_salary" />
+        tools:layout="@layout/fragment_add_recurring_transaction" />
     <fragment
-        android:id="@+id/addBillFragment"
-        android:name="com.example.a3175.AddBillFragment"
-        android:label="fragment_add_bill"
-        tools:layout="@layout/fragment_add_bill" />
+        android:id="@+id/adminFragment"
+        android:name="com.example.a3175.AdminFragment"
+        android:label="fragment_admin"
+        tools:layout="@layout/fragment_admin" >
+        <action
+            android:id="@+id/action_adminFragment_to_createAccountFragment"
+            app:destination="@id/createAccountFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addTransactionFragment"
+        android:name="com.example.a3175.AddTransactionFragment"
+        android:label="fragment_add_transaction"
+        tools:layout="@layout/fragment_add_transaction" />
+    <fragment
+        android:id="@+id/addBigExpenseFragment"
+        android:name="com.example.a3175.AddBigExpenseFragment"
+        android:label="fragment_add_big_expense"
+        tools:layout="@layout/fragment_add_big_expense" />
 </navigation>

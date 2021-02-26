@@ -10,6 +10,8 @@ public class Category {
     private int id;
     @ColumnInfo(name = "name")
     private String name;
+    @ColumnInfo(name = "is_recurring")
+    private boolean isRecurring;
 
     public Category(String name) {
         this.name = name;
@@ -29,5 +31,13 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isRecurring() {
+        return isRecurring;
+    }
+
+    public void setRecurring(boolean recurring) {
+        isRecurring = recurring;
     }
 }

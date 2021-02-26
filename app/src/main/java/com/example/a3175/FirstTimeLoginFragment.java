@@ -88,12 +88,12 @@ public class FirstTimeLoginFragment extends Fragment {
 
         buttonToInputInformation.setOnClickListener(v -> {
             // update db
-            int userId = preferences.getInt(getResources().getString(R.string.logged_in_user_id), -1);
-            User user = userViewModel.getUserById(userId).get(0);
-            Log.d(TAG, "onActivityCreated: "+user.getPassword());
+            int currentUserId = preferences.getInt(getResources().getString(R.string.logged_in_user_id), -1);
+            User currentUser = userViewModel.getUserById(currentUserId).get(0);
+            Log.d(TAG, "onActivityCreated: "+currentUser.getPassword());
             //FIXME: cipher pw
-            user.setPassword(editTextNewPassword.getText().toString());
-            userViewModel.updateUsers(user);
+            currentUser.setPassword(editTextNewPassword.getText().toString());
+            userViewModel.updateUsers(currentUser);
 
             // nav to input info fragment
             navController = Navigation.findNavController(v);

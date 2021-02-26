@@ -4,20 +4,21 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
-import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
 
-import com.example.a3175.utils.Converters;
+import com.example.a3175.utils.DateConverter;
 
 import java.sql.Date;
 
 @Entity(foreignKeys = @ForeignKey(entity = User.class, parentColumns = "id", childColumns = "user_id"))
-@TypeConverters({Converters.class})
-public class Income {
+@TypeConverters({DateConverter.class})
+public class Transaction {
     @PrimaryKey(autoGenerate = true)
     private int id;
     @ColumnInfo(name = "user_id")
     private int userId;
+    @ColumnInfo(name = "category_id")
+    private int categoryId;
     @ColumnInfo(name = "amount")
     private double amount;
     @ColumnInfo(name = "datetime")
@@ -25,10 +26,11 @@ public class Income {
     @ColumnInfo(name = "description")
     private String description;
 
-    public Income(int userId, double amount, Date datetime, String description) {
+    public Transaction(int userId, double amount, Date datetime, int categoryId, String description) {
         this.userId = userId;
         this.amount = amount;
         this.datetime = datetime;
+        this.categoryId = categoryId;
         this.description = description;
     }
 
@@ -70,5 +72,13 @@ public class Income {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 }

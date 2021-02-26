@@ -13,7 +13,12 @@ public class UserViewModel extends AndroidViewModel {
 
     public UserViewModel(@NonNull Application application) {
         super(application);
-        repository = new A3175Repository(application);
+        repository = A3175Repository.getInstance(application);
+    }
+
+
+    public LiveData<List<User>> getAllUsers() {
+        return repository.getAllUsers();
     }
 
     public List<User> getUserById(int id) {
@@ -36,7 +41,7 @@ public class UserViewModel extends AndroidViewModel {
         repository.updateUsers(users);
     }
 
-    public void deleteUser(User... users) {
+    public void deleteUsers(User... users) {
         repository.deleteUsers(users);
     }
 }

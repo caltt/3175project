@@ -28,7 +28,7 @@ public class InputInformationFragment extends Fragment {
     NavController navController;
 
     EditText editTextCurrentSavings;
-    Button buttonManageSalary, buttonManageBill, buttonInputInformationToMain;
+    Button buttonManageSalaryBill, buttonInputInformationToMain;
 
     public InputInformationFragment() {
         // Required empty public constructor
@@ -54,23 +54,19 @@ public class InputInformationFragment extends Fragment {
 
         // setup view
         editTextCurrentSavings = activity.findViewById(R.id.editTextCurrentSavings);
-        buttonManageSalary = activity.findViewById(R.id.buttonFirstTimeManageSalary);
-        buttonManageBill = activity.findViewById(R.id.buttonFirstTimeManageBill);
+        buttonManageSalaryBill = activity.findViewById(R.id.buttonFirstTimeManageSalary);
         buttonInputInformationToMain = activity.findViewById(R.id.buttonInputInformationToMain);
 
-        buttonManageSalary.setOnClickListener(v -> {
-            navController.navigate(R.id.manageSalaryFragment);
-        });
-        buttonManageBill.setOnClickListener(v -> {
-            navController.navigate(R.id.manageBillFragment);
+        buttonManageSalaryBill.setOnClickListener(v -> {
+            navController.navigate(R.id.manageRecurringTransactionFragment);
         });
         buttonInputInformationToMain.setOnClickListener(v -> {
             // insert to db
-            int userId = preferences.getInt(getResources().getString(R.string.logged_in_user_id), -1);
-            Overview newOverview = new Overview(userId, 0, Double.parseDouble(editTextCurrentSavings.getText().toString()), 0);
+            int currentUserId = preferences.getInt(getResources().getString(R.string.logged_in_user_id), -1);
+            Overview newOverview = new Overview(currentUserId, 0, Double.parseDouble(editTextCurrentSavings.getText().toString()), 0);
             overviewViewModel.insertOverviews(newOverview);
             // remove the new account flag in pref
-            editor.putBoolean(getResources().getString(R.string.is_first_time_login) + userId, false).apply();
+            editor.putBoolean(getResources().getString(R.string.is_first_time_login) + currentUserId, false).apply();
             // nav to main
             navController.navigate(R.id.action_inputInformationFragment_to_mainFragment);
         });
