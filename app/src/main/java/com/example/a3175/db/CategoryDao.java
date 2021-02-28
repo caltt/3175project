@@ -20,6 +20,16 @@ public interface CategoryDao {
     @Delete
     void deleteCategories(Category... categories);
 
+    @Query("SELECT * FROM category WHERE id = :id")
+    List<Category> getCategoryById(int id);
+
     @Query("SELECT * FROM category")
     LiveData<List<Category>> getAllCategories();
+
+    @Query("SELECT * FROM category WHERE is_income = 0")
+    LiveData<List<Category>> getAllExpenseCategories();
+
+    @Query("SELECT * FROM category WHERE is_income = 1")
+    LiveData<List<Category>> getAllIncomeCategories();
+
 }

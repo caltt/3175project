@@ -4,43 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateAccountFragment">
+    tools:context=".EditUserFragment">
 
     <EditText
-        android:id="@+id/editTextCreateAccountEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/editTextCreateAccountPassword"
-        app:layout_constraintEnd_toEndOf="@+id/textView"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <EditText
-        android:id="@+id/editTextCreateAccountPassword"
+        android:id="@+id/editTextEditUserPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/editTextCreateAccountVerifyPassword"
-        app:layout_constraintEnd_toEndOf="@+id/editTextCreateAccountEmail"
-        app:layout_constraintStart_toStartOf="@+id/editTextCreateAccountEmail"
-        app:layout_constraintTop_toBottomOf="@+id/editTextCreateAccountEmail" />
+        app:layout_constraintBottom_toTopOf="@+id/editTextEditUserVerifyPassword"
+        app:layout_constraintEnd_toEndOf="@+id/editTextEditUserOldPassword"
+        app:layout_constraintStart_toStartOf="@+id/editTextEditUserOldPassword"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEditUserOldPassword" />
 
     <EditText
-        android:id="@+id/editTextCreateAccountVerifyPassword"
+        android:id="@+id/editTextEditUserVerifyPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Verify password"
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
-        app:layout_constraintEnd_toEndOf="@+id/editTextCreateAccountPassword"
-        app:layout_constraintStart_toStartOf="@+id/editTextCreateAccountPassword"
-        app:layout_constraintTop_toBottomOf="@+id/editTextCreateAccountPassword" />
+        app:layout_constraintEnd_toEndOf="@+id/editTextEditUserPassword"
+        app:layout_constraintStart_toStartOf="@+id/editTextEditUserPassword"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEditUserPassword" />
+
+    <EditText
+        android:id="@+id/editTextEditUserOldPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Old password"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/editTextEditUserPassword"
+        app:layout_constraintEnd_toEndOf="@+id/editTextEditUserEmail"
+        app:layout_constraintStart_toStartOf="@+id/editTextEditUserEmail"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEditUserEmail" />
 
     <TextView
         android:id="@+id/textView"
@@ -48,10 +48,22 @@
         android:layout_height="wrap_content"
         android:text="Create Account"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextCreateAccountEmail"
+        app:layout_constraintBottom_toTopOf="@+id/editTextEditUserEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline7" />
+
+    <EditText
+        android:id="@+id/editTextEditUserEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toTopOf="@+id/editTextEditUserOldPassword"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"
@@ -72,7 +84,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".1" />
+        app:layout_constraintGuide_percent="0.05" />
 
     <Button
         android:id="@+id/buttonCreateAccount"
@@ -83,4 +95,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline6" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

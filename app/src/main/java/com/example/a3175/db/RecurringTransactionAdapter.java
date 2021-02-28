@@ -1,16 +1,21 @@
 package com.example.a3175.db;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
+import com.example.a3175.R;
+import com.example.a3175.utils.AppManager;
+
 public class RecurringTransactionAdapter extends ListAdapter<RecurringTransaction, RecurringTransactionViewHolder> {
-    //    private RecurringTransactionViewModel viewModel;
-    private int layoutId;
+    NavController navController;
+    private final int layoutId;
 
     public RecurringTransactionAdapter(int layoutId) {
         super(new DiffUtil.ItemCallback<RecurringTransaction>() {
@@ -27,7 +32,7 @@ public class RecurringTransactionAdapter extends ListAdapter<RecurringTransactio
                         && oldItem.getDescription().equals(newItem.getDescription());
             }
         });
-//        this.viewModel = viewModel;
+        this.navController = AppManager.getNavController();
         this.layoutId = layoutId;
     }
 
@@ -44,11 +49,17 @@ public class RecurringTransactionAdapter extends ListAdapter<RecurringTransactio
 
     @Override
     public void onBindViewHolder(@NonNull RecurringTransactionViewHolder holder, int position) {
-        RecurringTransaction transaction = getItem(position);
+        RecurringTransaction recurringTransaction = getItem(position);
 
         holder.textViewRecurringTransactionId.setText(String.valueOf(position + 1));
-        holder.textViewRecurringTransactionDate.setText(String.valueOf(transaction.getDate()));
-        holder.textViewRecurringTransactionDescription.setText(transaction.getDescription());
-        holder.textViewRecurringTransactionAmount.setText(String.valueOf(transaction.getAmount()));
+        holder.textViewRecurringTransactionDate.setText(String.valueOf(recurringTransaction.getDate()));
+        holder.textViewRecurringTransactionDescription.setText(recurringTransaction.getDescription());
+        holder.textViewRecurringTransactionAmount.setText(String.valueOf(recurringTransaction.getAmount()));
+
+        holder.itemView.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt("recurringTransactionId", recurringTransaction.getId());
+            navController.navigate(R.id.action_recurringTransactionFragment_to_editRecurringTransactionFragment, bundle);
+        });
     }
 }

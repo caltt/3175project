@@ -44,24 +44,19 @@ public class ExpenseTrackerFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        // setup
         activity = requireActivity();
         preferences = activity.getPreferences(Context.MODE_PRIVATE);
         editor = preferences.edit();
         navController = Navigation.findNavController(activity, R.id.ConstraintLayoutFragmentMain);
 
-//        mainFragment = getParentFragment().getParentFragment();
         int loggedInUserId = preferences.getInt(getResources().getString(R.string.logged_in_user_id), -1);
 
-        // test
-        TextView textView = requireActivity().findViewById(R.id.textViewExpenseTrackerTest);
-        textView.setText(String.valueOf(loggedInUserId));
+        // setup view
 
-//        Button buttonLogout = activity.findViewById(R.id.buttonLogout);
-//        buttonLogout.setOnClickListener(v -> {
-//            // remove from spref
-//            editor.remove(getResources().getString(R.string.logged_in_user_email)).apply();
-//            // nav to login fragment
-//            navController.navigate(R.id.action_mainFragment_to_loginFragment);
-//        });
+        // overview
+
+        // transaction
+
     }
 }

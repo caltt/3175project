@@ -15,7 +15,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
         Transaction.class,
         Category.class,
         BigExpense.class,
-}, version = 5, exportSchema = false)
+}, version = 6, exportSchema = false)
 public abstract class A3175Database extends RoomDatabase {
     private static A3175Database instance;
 
@@ -44,6 +44,8 @@ public abstract class A3175Database extends RoomDatabase {
     abstract OverviewDao getOverviewDao();
 
     abstract TransactionDao getTransactionDao();
+
+    abstract CategoryDao getCategoryDao();
 
     abstract RecurringTransactionDao getRecurringTransactionDao();
 

@@ -20,12 +20,15 @@ public interface RecurringTransactionDao {
     @Delete
     void deleteRecurringTransactions(RecurringTransaction... transactions);
 
+    @Query("SELECT * FROM recurringtransaction WHERE id = :id")
+    List<RecurringTransaction> getRecurringTransactionById(int id);
+
     @Query("SELECT * FROM recurringtransaction WHERE user_id = :userId")
     LiveData<List<RecurringTransaction>> getRecurringTransactionsByUserId(int userId);
 
-    @Query("SELECT * FROM recurringtransaction WHERE user_id = :userId AND amount < 0")
+    @Query("SELECT * FROM recurringtransaction WHERE user_id = :userId AND amount < 0 ORDER BY date ASC")
     LiveData<List<RecurringTransaction>> getRecurringExpensesByUserId(int userId);
 
-    @Query("SELECT * FROM recurringtransaction WHERE user_id = :userId AND amount > 0")
+    @Query("SELECT * FROM recurringtransaction WHERE user_id = :userId AND amount > 0 ORDER BY date ASC")
     LiveData<List<RecurringTransaction>> getRecurringIncomesByUserId(int userId);
 }

@@ -58,16 +58,16 @@ public class AdminFragment extends Fragment {
         recyclerView = activity.findViewById(R.id.recyclerViewUser);
         buttonCreateAccount = activity.findViewById(R.id.buttonAdminCreateAccount);
 
-        // recycle view
+        // recycler view
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setAdapter(userAdapter);
 
         LiveData<List<User>> liveDataUser = userViewModel.getAllUsers();
-        liveDataUser.observe(getViewLifecycleOwner(), users -> userAdapter.submitList(liveDataUser.getValue()));
+        liveDataUser.observe(getViewLifecycleOwner(), users -> userAdapter.submitList(users));
 
         // button
         buttonCreateAccount.setOnClickListener(v -> {
-            navController.navigate(R.id.action_adminFragment_to_createAccountFragment);
+            navController.navigate(R.id.action_adminFragment_to_editUserFragment);
         });
     }
 }

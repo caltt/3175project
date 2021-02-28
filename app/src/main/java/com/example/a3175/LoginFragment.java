@@ -24,21 +24,21 @@ import com.example.a3175.db.UserViewModel;
 
 import java.util.List;
 
-public class LoginFragment extends Fragment {
-    FragmentActivity activity;
-    NavController navController;
-    UserViewModel userViewModel;
-    SharedPreferences preferences;
-    SharedPreferences.Editor editor;
+public class LoginFragment extends BaseFragment {
+//    FragmentActivity activity;
+//    NavController navController;
+//    UserViewModel userViewModel;
+//    SharedPreferences preferences;
+//    SharedPreferences.Editor editor;
 
     EditText editTextEmail, editTextPassword;
     Button buttonLogin, buttonCreateAccount;
 
     String TAG = "test";
-
-    public LoginFragment() {
-        // Required empty public constructor
-    }
+//
+//    public LoginFragment() {
+//        // Required empty public constructor
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,11 +52,11 @@ public class LoginFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         // setup
-        activity = requireActivity();
-        navController = Navigation.findNavController(activity, R.id.buttonLogin);
-        preferences = activity.getPreferences(Context.MODE_PRIVATE);
-        editor = preferences.edit();
-        userViewModel = new ViewModelProvider(activity).get(UserViewModel.class);
+//        activity = requireActivity();
+//        navController = Navigation.findNavController(activity, R.id.buttonLogin);
+//        preferences = activity.getPreferences(Context.MODE_PRIVATE);
+//        editor = preferences.edit();
+//        userViewModel = new ViewModelProvider(activity).get(UserViewModel.class);
 
         // if a user already logged in, go to the main fragment
         if (preferences.getInt(getResources().getString(R.string.logged_in_user_id), -1) != -1) {
@@ -106,7 +106,7 @@ public class LoginFragment extends Fragment {
         });
 
         buttonCreateAccount.setOnClickListener(v -> {
-            navController.navigate(R.id.action_loginFragment_to_createAccountFragment);
+            navController.navigate(R.id.action_loginFragment_to_editUserFragment);
         });
 
     }

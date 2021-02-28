@@ -25,7 +25,7 @@ import com.example.a3175.db.RecurringTransactionViewModel;
 
 import java.util.List;
 
-public class ManageRecurringTransactionFragment extends Fragment {
+public class RecurringTransactionFragment extends Fragment {
     FragmentActivity activity;
     SharedPreferences preferences;
     RecurringTransactionViewModel viewModel;
@@ -36,7 +36,7 @@ public class ManageRecurringTransactionFragment extends Fragment {
 
     Button buttonToAdd;
 
-    public ManageRecurringTransactionFragment() {
+    public RecurringTransactionFragment() {
         // Required empty public constructor
     }
 
@@ -44,7 +44,7 @@ public class ManageRecurringTransactionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_manage_recurring_transaction, container, false);
+        return inflater.inflate(R.layout.fragment_recurring_transaction, container, false);
     }
 
     @Override
@@ -84,7 +84,7 @@ public class ManageRecurringTransactionFragment extends Fragment {
 
         // button
         buttonToAdd.setOnClickListener(v -> {
-            navController.navigate(R.id.action_manageSalaryFragment_to_addSalaryFragment);
+            navController.navigate(R.id.action_recurringTransactionFragment_to_editRecurringTransactionFragment);
         });
     }
 }

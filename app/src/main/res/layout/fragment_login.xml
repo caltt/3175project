@@ -40,7 +40,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextCreateAccountEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextEditUserEmail" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"

@@ -58,7 +58,7 @@ public class InputInformationFragment extends Fragment {
         buttonInputInformationToMain = activity.findViewById(R.id.buttonInputInformationToMain);
 
         buttonManageSalaryBill.setOnClickListener(v -> {
-            navController.navigate(R.id.manageRecurringTransactionFragment);
+            navController.navigate(R.id.action_inputInformationFragment_to_recurringTransactionFragment);
         });
         buttonInputInformationToMain.setOnClickListener(v -> {
             // insert to db

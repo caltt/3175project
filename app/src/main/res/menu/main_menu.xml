@@ -2,8 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/menuItemCategory"
+        android:title="Category" />
+    <item
         android:id="@+id/menuItemSalaryBill"
         android:title="Salary and Bill" />
+    <item
+        android:id="@+id/menuItemAccount"
+        android:title="Account" />
     <item
         android:id="@+id/menuItemLogout"
         android:title="Log out" />

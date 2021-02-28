@@ -10,8 +10,8 @@ public class Category {
     private int id;
     @ColumnInfo(name = "name")
     private String name;
-    @ColumnInfo(name = "is_recurring")
-    private boolean isRecurring;
+    @ColumnInfo(name = "is_income")
+    private boolean isIncome;
 
     public Category(String name) {
         this.name = name;
@@ -33,11 +33,11 @@ public class Category {
         this.name = name;
     }
 
-    public boolean isRecurring() {
-        return isRecurring;
+    public boolean isIncome() {
+        return isIncome;
     }
 
-    public void setRecurring(boolean recurring) {
-        isRecurring = recurring;
+    public void setIncome(boolean income) {
+        isIncome = income;
     }
 }

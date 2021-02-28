@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.a3175.utils.AppManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -31,7 +32,7 @@ public class MainFragment extends Fragment {
     FragmentActivity activity;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
-    NavController navController;
+    NavController navController, navControllerBottomNav;
 
     NavHostFragment navHostFragment;
     FloatingActionButton floatingActionButton;
@@ -55,9 +56,10 @@ public class MainFragment extends Fragment {
         setHasOptionsMenu(true);
 
         activity = requireActivity();
-        preferences = activity.getPreferences(Context.MODE_PRIVATE);
+        preferences = AppManager.getPreferences();
         editor = preferences.edit();
-        navController = Navigation.findNavController(activity, R.id.ConstraintLayoutFragmentMain);
+        navController = AppManager.getNavController();
+        navControllerBottomNav = Navigation.findNavController(activity, R.id.navHostFragmentMain);
 
         // in case from login back to main
 //        if (preferences.getString(getResources().getString(R.string.logged_in_user_email), null)==null){
@@ -66,7 +68,6 @@ public class MainFragment extends Fragment {
 
         // setup bottom nav bar
         BottomNavigationView bottomNavigationView = activity.findViewById(R.id.bottomNavigationView);
-        NavController navControllerBottomNav = Navigation.findNavController(activity, R.id.navHostFragmentMain);
         AppBarConfiguration configuration = new AppBarConfiguration.Builder(bottomNavigationView.getMenu()).build();
 
         NavigationUI.setupActionBarWithNavController((AppCompatActivity) activity, navControllerBottomNav, configuration);
@@ -78,9 +79,11 @@ public class MainFragment extends Fragment {
             // nav based on current fragment id
             int currentFragmentId = navControllerBottomNav.getCurrentDestination().getId();
             if (currentFragmentId == R.id.expenseTrackerFragment) {
-                navController.navigate(R.id.action_mainFragment_to_addTransactionFragment);
+                Bundle bundle = new Bundle();
+                bundle.putBoolean("isAddingTransaction", true);
+                navController.navigate(R.id.action_mainFragment_to_categoryFragment, bundle);
             } else if (currentFragmentId == R.id.bigExpensePlannerFragment) {
-                navController.navigate(R.id.action_mainFragment_to_addBigExpenseFragment);
+                navController.navigate(R.id.action_mainFragment_to_editBigExpenseFragment);
             }
 
         });
@@ -96,8 +99,14 @@ public class MainFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.menuItemCategory:
+                navController.navigate(R.id.action_mainFragment_to_categoryFragment);
+                break;
             case R.id.menuItemSalaryBill:
-                navController.navigate(R.id.action_mainFragment_to_manageRecurringTransactionFragment);
+                navController.navigate(R.id.action_mainFragment_to_recurringTransactionFragment);
+                break;
+            case R.id.menuItemAccount:
+                navController.navigate(R.id.action_mainFragment_to_editUserFragment);
                 break;
             case R.id.menuItemLogout:
                 // remove from spref

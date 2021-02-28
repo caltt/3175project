@@ -22,6 +22,7 @@ public class A3175Repository {
         overviewDao = database.getOverviewDao();
         transactionDao = database.getTransactionDao();
         recurringTransactionDao = database.getRecurringTransactionDao();
+        categoryDao = database.getCategoryDao();
     }
 
     public static A3175Repository getInstance(Context context) {
@@ -32,7 +33,10 @@ public class A3175Repository {
     }
 
     // user
-    LiveData<List<User>> getAllUsers(){ return userDao.getAllUsers();}
+    LiveData<List<User>> getAllUsers() {
+        return userDao.getAllUsers();
+    }
+
     List<User> getUserByEmail(String email) {
         return userDao.getUserByEmail(email);
     }
@@ -75,15 +79,19 @@ public class A3175Repository {
     }
 
     // recurring transaction
+    List<RecurringTransaction> getRecurringTransactionById(int id) {
+        return recurringTransactionDao.getRecurringTransactionById(id);
+    }
+
     LiveData<List<RecurringTransaction>> getRecurringTransactionsByUserId(int id) {
         return recurringTransactionDao.getRecurringTransactionsByUserId(id);
     }
 
-    LiveData<List<RecurringTransaction>> getRecurringExpensesByUserId(int id){
+    LiveData<List<RecurringTransaction>> getRecurringExpensesByUserId(int id) {
         return recurringTransactionDao.getRecurringExpensesByUserId(id);
     }
 
-    LiveData<List<RecurringTransaction>> getRecurringIncomesByUserId(int id){
+    LiveData<List<RecurringTransaction>> getRecurringIncomesByUserId(int id) {
         return recurringTransactionDao.getRecurringIncomesByUserId(id);
     }
 
@@ -118,8 +126,20 @@ public class A3175Repository {
     }
 
     // category
-    LiveData<List<Category>> getCategories() {
+    List<Category> getCategoryById(int id) {
+        return categoryDao.getCategoryById(id);
+    }
+
+    LiveData<List<Category>> getAllCategories() {
         return categoryDao.getAllCategories();
+    }
+
+    LiveData<List<Category>> getAllIncomeCategories() {
+        return categoryDao.getAllIncomeCategories();
+    }
+
+    LiveData<List<Category>> getAllExpenseCategories() {
+        return categoryDao.getAllExpenseCategories();
     }
 
     void insertCategories(Category... categories) {
