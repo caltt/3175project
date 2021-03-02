@@ -7,7 +7,7 @@
     tools:context=".EditTransactionFragment">
 
     <Button
-        android:id="@+id/buttonAddTransaction"
+        android:id="@+id/buttonEditTransactionOK"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="OK"
@@ -16,41 +16,38 @@
         app:layout_constraintTop_toTopOf="@+id/guideline25" />
 
     <EditText
-        android:id="@+id/editTextAddTransactionDescription"
+        android:id="@+id/editTextEditTransactionDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Description"
         android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="147dp"
-        tools:layout_editor_absoluteY="361dp" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline25"
+        app:layout_constraintEnd_toEndOf="@+id/editTextEditTransactionDate"
+        app:layout_constraintStart_toStartOf="@+id/editTextEditTransactionDate"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEditTransactionDate" />
 
     <EditText
-        android:id="@+id/editTextAddTransactionAmount"
+        android:id="@+id/editTextEditTransactionAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Amount"
         android:inputType="numberDecimal"
-        tools:layout_editor_absoluteX="147dp"
-        tools:layout_editor_absoluteY="185dp" />
+        app:layout_constraintBottom_toTopOf="@+id/editTextEditTransactionDate"
+        app:layout_constraintEnd_toEndOf="@+id/editTextEditTransactionCategory"
+        app:layout_constraintStart_toStartOf="@+id/editTextEditTransactionCategory"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEditTransactionCategory" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Income / Expense"
+        android:text="Transaction"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline26"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline24"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent=".3" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline25"
@@ -65,5 +62,28 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.2" />
+
+    <EditText
+        android:id="@+id/editTextEditTransactionDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Date"
+        android:inputType="date"
+        app:layout_constraintBottom_toTopOf="@+id/editTextEditTransactionDescription"
+        app:layout_constraintEnd_toEndOf="@+id/editTextEditTransactionAmount"
+        app:layout_constraintStart_toStartOf="@+id/editTextEditTransactionAmount"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEditTransactionAmount" />
+
+    <EditText
+        android:id="@+id/editTextEditTransactionCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/editTextEditTransactionAmount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline26" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

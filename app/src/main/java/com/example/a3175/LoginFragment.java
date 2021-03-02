@@ -25,20 +25,9 @@ import com.example.a3175.db.UserViewModel;
 import java.util.List;
 
 public class LoginFragment extends BaseFragment {
-//    FragmentActivity activity;
-//    NavController navController;
-//    UserViewModel userViewModel;
-//    SharedPreferences preferences;
-//    SharedPreferences.Editor editor;
 
     EditText editTextEmail, editTextPassword;
     Button buttonLogin, buttonCreateAccount;
-
-    String TAG = "test";
-//
-//    public LoginFragment() {
-//        // Required empty public constructor
-//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,13 +40,6 @@ public class LoginFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        // setup
-//        activity = requireActivity();
-//        navController = Navigation.findNavController(activity, R.id.buttonLogin);
-//        preferences = activity.getPreferences(Context.MODE_PRIVATE);
-//        editor = preferences.edit();
-//        userViewModel = new ViewModelProvider(activity).get(UserViewModel.class);
-
         // if a user already logged in, go to the main fragment
         if (preferences.getInt(getResources().getString(R.string.logged_in_user_id), -1) != -1) {
             navController.navigate(R.id.action_loginFragment_to_mainFragment);
@@ -66,11 +48,10 @@ public class LoginFragment extends BaseFragment {
         // setup view
         editTextEmail = activity.findViewById(R.id.editTextLoginEmail);
         editTextPassword = activity.findViewById(R.id.editTextLoginPassword);
-
         buttonLogin = activity.findViewById(R.id.buttonLogin);
         buttonCreateAccount = activity.findViewById(R.id.buttonLoginCreateAccount);
 
-        // FIXME cipher
+        // FIXME cipher the password
         buttonLogin.setOnClickListener(v -> {
             // verify tokens
             String email = editTextEmail.getText().toString();
@@ -81,24 +62,28 @@ public class LoginFragment extends BaseFragment {
             if ("admin".equals(email) && "admin".equals(password)) {
                 navController.navigate(R.id.action_loginFragment_to_adminFragment);
             } else {
-                // as user: tokens correct, record current user and login
-                List<User> users = userViewModel.getUserByEmailPassword(email, password);
-                if (users == null || users.size() == 0) {
+                // as user
+                User user = userViewModel.getUserByEmailPassword(email, password);
+                if (user == null) {
+                    // login failed
                     Toast.makeText(activity, "Invalid email / password.", Toast.LENGTH_SHORT).show();
                 } else {
-                    // save logged in user id to shared preferences for auto-login
-                    int currentUserId = users.get(0).getId();
+                    // login successful
+                    // save logged in user id to shared preferences for future auto-login
+                    int currentUserId = user.getId();
                     editor.putInt(getResources().getString(R.string.logged_in_user_id), currentUserId).apply();
 
-                    // nav
-//                Bundle bundle = new Bundle();
-//                bundle.putString(loggedInUserEmail, email);
+                    if (preferences.getBoolean(getResources().getString(R.string.need_change_password) + currentUserId, false)) {
 
-                    if (preferences.getBoolean(getResources().getString(R.string.is_first_time_login) + currentUserId, false)) {
-                        // to first time login fragment
-                        navController.navigate(R.id.action_loginFragment_to_firstTimeLoginFragment);
-                    } else {
-                        // to main fragment with logged in user info
+                        // nav to first time login fragment
+                        navController.navigate(R.id.action_loginFragment_to_editUserFragment);
+                    } else if (preferences.getBoolean(getResources().getString(R.string.need_initialize) + currentUserId, false)){
+
+                        // nav to initialize
+                        navController.navigate(R.id.action_loginFragment_to_initializeFragment);
+                    }else{
+
+                        // nav to main
                         navController.navigate(R.id.action_loginFragment_to_mainFragment);
                     }
                 }

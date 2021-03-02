@@ -24,11 +24,11 @@ public interface UserDao {
     LiveData<List<User>> getAllUsers();
 
     @Query("SELECT * FROM user WHERE id = :id")
-    List<User> getUserById(int id);
+    User getUserById(int id);
 
     @Query("SELECT * FROM user WHERE email = :email")
-    List<User> getUserByEmail(String email);
+    User getUserByEmail(String email);
 
     @Query("SELECT * FROM user WHERE email = :email AND password = :password")
-    List<User> getUserByEmailPassword(String email, String password);
+    User getUserByEmailPassword(String email, String password);
 }

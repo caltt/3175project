@@ -16,7 +16,7 @@ public class RecurringTransactionViewModel extends AndroidViewModel {
         repository = A3175Repository.getInstance(application);
     }
 
-    public List<RecurringTransaction> getRecurringTransactionById(int id) {
+    public RecurringTransaction getRecurringTransactionById(int id) {
         return repository.getRecurringTransactionById(id);
     }
     public LiveData<List<RecurringTransaction>> getRecurringTransactionsByUserId(int id) {

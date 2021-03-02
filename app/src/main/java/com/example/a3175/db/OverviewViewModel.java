@@ -15,7 +15,7 @@ public class OverviewViewModel extends AndroidViewModel {
         super(application);
         repository = A3175Repository.getInstance(application);
     }
-    public LiveData<List<Overview>> getOverviewByUserId(int id){return repository.getOverviewByUserId(id);}
+    public LiveData<Overview> getOverviewByUserId(int id){return repository.getOverviewByUserId(id);}
 
     public void insertOverviews(Overview... overviews) {
         repository.insertOverviews(overviews);

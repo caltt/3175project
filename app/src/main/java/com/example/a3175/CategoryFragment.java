@@ -3,11 +3,7 @@ package com.example.a3175;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,18 +13,15 @@ import android.view.ViewGroup;
 
 import com.example.a3175.db.Category;
 import com.example.a3175.db.CategoryAdapter;
-import com.example.a3175.db.CategoryViewModel;
-import com.example.a3175.utils.AppManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-public class CategoryFragment extends Fragment {
-    FragmentActivity activity;
-    CategoryViewModel categoryViewModel;
-    CategoryAdapter adapterIncomeCategories, adapterExpenseCategories;
-    NavController navController;
+public class CategoryFragment extends BaseFragment {
 
+    private static final String TAG = "test";
+    CategoryAdapter adapterIncomeCategories, adapterExpenseCategories,
+            adapterIncomeForTransaction, adapterExpenseForTransaction;
     RecyclerView recyclerViewIncomeCategories, recyclerViewExpenseCategories;
     FloatingActionButton floatingActionButton;
 
@@ -47,36 +40,49 @@ public class CategoryFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        // setup
-        activity = requireActivity();
-        categoryViewModel = AppManager.getCategoryViewModel();
-        navController = AppManager.getNavController();
-        adapterExpenseCategories = new CategoryAdapter(R.layout.cell_category);
-        adapterIncomeCategories = new CategoryAdapter(R.layout.cell_category);
+        // adapter
+        adapterIncomeForTransaction = new CategoryAdapter(activity, R.layout.cell_category, true);
+        adapterExpenseForTransaction = new CategoryAdapter(activity, R.layout.cell_category, true);
+        adapterExpenseCategories = new CategoryAdapter(activity, R.layout.cell_category, false);
+        adapterIncomeCategories = new CategoryAdapter(activity, R.layout.cell_category, false);
 
         // setup view
         recyclerViewExpenseCategories = activity.findViewById(R.id.recyclerViewExpenseCategories);
         recyclerViewIncomeCategories = activity.findViewById(R.id.recyclerViewIncomeCategories);
         floatingActionButton = activity.findViewById(R.id.floatingActionButtonToAddCategory);
 
-        if (getArguments() != null && getArguments().getBoolean("isAddingTransaction", false)) {
-            floatingActionButton.setVisibility(View.GONE);
-        }
-
         // recyclerView
         recyclerViewIncomeCategories.setLayoutManager(new LinearLayoutManager(activity));
         recyclerViewExpenseCategories.setLayoutManager(new LinearLayoutManager(activity));
-        recyclerViewIncomeCategories.setAdapter(adapterIncomeCategories);
-        recyclerViewExpenseCategories.setAdapter(adapterExpenseCategories);
 
+
+        // add transaction or edit category?
         LiveData<List<Category>> incomeCategories = categoryViewModel.getAllIncomeCategories();
-        incomeCategories.observe(getViewLifecycleOwner(), categories -> {
-            adapterIncomeCategories.submitList(categories);
-        });
         LiveData<List<Category>> expenseCategories = categoryViewModel.getAllExpenseCategories();
-        expenseCategories.observe(getViewLifecycleOwner(), categories -> {
-            adapterExpenseCategories.submitList(categories);
-        });
+        if (getArguments() != null && getArguments().getBoolean("isAddingTransaction", false)) {
+            floatingActionButton.setVisibility(View.GONE);  // hide button +
+            recyclerViewIncomeCategories.setAdapter(adapterIncomeForTransaction);
+            recyclerViewExpenseCategories.setAdapter(adapterExpenseForTransaction);
+
+            incomeCategories.observe(getViewLifecycleOwner(), categories -> {
+                adapterIncomeForTransaction.submitList(categories);
+            });
+            expenseCategories.observe(getViewLifecycleOwner(), categories -> {
+                adapterExpenseForTransaction.submitList(categories);
+            });
+
+        } else {
+            recyclerViewIncomeCategories.setAdapter(adapterIncomeCategories);
+            recyclerViewExpenseCategories.setAdapter(adapterExpenseCategories);
+
+            incomeCategories.observe(getViewLifecycleOwner(), categories -> {
+                adapterIncomeCategories.submitList(categories);
+            });
+            expenseCategories.observe(getViewLifecycleOwner(), categories -> {
+                adapterExpenseCategories.submitList(categories);
+            });
+        }
+
 
         // button
         floatingActionButton.setOnClickListener(v -> {

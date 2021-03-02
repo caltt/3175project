@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class EditBigExpenseFragment extends Fragment {
+public class EditBigExpenseFragment extends BaseFragment {
 
     public EditBigExpenseFragment() {
         // Required empty public constructor

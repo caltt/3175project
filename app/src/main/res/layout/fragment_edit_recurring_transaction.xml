@@ -30,7 +30,7 @@
         app:layout_constraintGuide_percent="0.2" />
 
     <Button
-        android:id="@+id/buttonAddRecurringTransaction"
+        android:id="@+id/buttonEditRecurringTransactionOK"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="OK"
@@ -39,7 +39,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline9" />
 
     <EditText
-        android:id="@+id/editTextAddRecurringTransactionAmount"
+        android:id="@+id/editTextEditRecurringTransactionAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -47,21 +47,21 @@
         android:ems="10"
         android:hint="Amount"
         android:inputType="numberDecimal"
-        app:layout_constraintBottom_toTopOf="@+id/editTextAddRecurringTransactionDate"
+        app:layout_constraintBottom_toTopOf="@+id/editTextEditRecurringTransactionDate"
         app:layout_constraintStart_toStartOf="@+id/guideline18"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <EditText
-        android:id="@+id/editTextAddRecurringTransactionDate"
+        android:id="@+id/editTextEditRecurringTransactionDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Date"
         android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/editTextAddRecurringTransactionDescription"
-        app:layout_constraintEnd_toEndOf="@+id/editTextAddRecurringTransactionAmount"
-        app:layout_constraintStart_toStartOf="@+id/editTextAddRecurringTransactionAmount"
-        app:layout_constraintTop_toBottomOf="@+id/editTextAddRecurringTransactionAmount" />
+        app:layout_constraintBottom_toTopOf="@+id/editTextEditRecurringTransactionDescription"
+        app:layout_constraintEnd_toEndOf="@+id/editTextEditRecurringTransactionAmount"
+        app:layout_constraintStart_toStartOf="@+id/editTextEditRecurringTransactionAmount"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEditRecurringTransactionAmount" />
 
     <TextView
         android:id="@+id/textView4"
@@ -74,16 +74,16 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editTextAddRecurringTransactionDescription"
+        android:id="@+id/editTextEditRecurringTransactionDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Description"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/buttonAddRecurringTransaction"
-        app:layout_constraintEnd_toEndOf="@+id/editTextAddRecurringTransactionDate"
-        app:layout_constraintStart_toStartOf="@+id/editTextAddRecurringTransactionDate"
-        app:layout_constraintTop_toBottomOf="@+id/editTextAddRecurringTransactionDate" />
+        app:layout_constraintBottom_toTopOf="@+id/buttonEditRecurringTransactionOK"
+        app:layout_constraintEnd_toEndOf="@+id/editTextEditRecurringTransactionDate"
+        app:layout_constraintStart_toStartOf="@+id/editTextEditRecurringTransactionDate"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEditRecurringTransactionDate" />
 
     <RadioGroup
         android:layout_width="wrap_content"

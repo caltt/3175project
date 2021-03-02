@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_loginFragment_to_editUserFragment"
             app:destination="@id/editUserFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_initializeFragment"
+            app:destination="@id/initializeFragment" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
@@ -40,18 +43,21 @@
         <action
             android:id="@+id/action_mainFragment_to_editUserFragment"
             app:destination="@id/editUserFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_editTransactionFragment"
+            app:destination="@id/editTransactionFragment" />
     </fragment>
     <fragment
-        android:id="@+id/inputInformationFragment"
-        android:name="com.example.a3175.InputInformationFragment"
-        android:label="fragment_input_information"
-        tools:layout="@layout/fragment_input_information" >
-        <action
-            android:id="@+id/action_inputInformationFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
+        android:id="@+id/initializeFragment"
+        android:name="com.example.a3175.InitializeFragment"
+        android:label="fragment_initialize"
+        tools:layout="@layout/fragment_initialize">
         <action
             android:id="@+id/action_inputInformationFragment_to_recurringTransactionFragment"
             app:destination="@id/recurringTransactionFragment" />
+        <action
+            android:id="@+id/action_initializeFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
     <fragment
         android:id="@+id/firstTimeLoginFragment"
@@ -60,7 +66,7 @@
         tools:layout="@layout/fragment_first_time_login" >
         <action
             android:id="@+id/action_firstTimeLoginFragment_to_inputInformationFragment"
-            app:destination="@id/inputInformationFragment" />
+            app:destination="@id/initializeFragment" />
     </fragment>
     <fragment
         android:id="@+id/adminFragment"
@@ -116,5 +122,9 @@
         android:id="@+id/editUserFragment"
         android:name="com.example.a3175.EditUserFragment"
         android:label="fragment_edit_user"
-        tools:layout="@layout/fragment_edit_user" />
+        tools:layout="@layout/fragment_edit_user" >
+        <action
+            android:id="@+id/action_editUserFragment_to_initializeFragment"
+            app:destination="@id/initializeFragment" />
+    </fragment>
 </navigation>

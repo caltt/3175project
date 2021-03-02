@@ -25,14 +25,9 @@ import com.example.a3175.db.RecurringTransactionViewModel;
 
 import java.util.List;
 
-public class RecurringTransactionFragment extends Fragment {
-    FragmentActivity activity;
-    SharedPreferences preferences;
-    RecurringTransactionViewModel viewModel;
+public class RecurringTransactionFragment extends BaseFragment {
     RecyclerView recyclerViewSalary, recyclerViewBill;
     RecurringTransactionAdapter adapterForSalary, adapterForBill;
-
-    NavController navController;
 
     Button buttonToAdd;
 
@@ -52,12 +47,8 @@ public class RecurringTransactionFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         // setup
-        activity = requireActivity();
-        preferences = activity.getPreferences(Context.MODE_PRIVATE);
-        viewModel = new ViewModelProvider(activity).get(RecurringTransactionViewModel.class);
-        adapterForSalary = new RecurringTransactionAdapter(R.layout.cell_recurring_transaction);
-        adapterForBill = new RecurringTransactionAdapter(R.layout.cell_recurring_transaction);
-        navController = Navigation.findNavController(activity, R.id.navHostFragment);
+        adapterForSalary = new RecurringTransactionAdapter(activity, R.layout.cell_recurring_transaction);
+        adapterForBill = new RecurringTransactionAdapter(activity, R.layout.cell_recurring_transaction);
 
         int currentUserId = preferences.getInt(getResources().getString(R.string.logged_in_user_id), -1);
 
@@ -73,8 +64,8 @@ public class RecurringTransactionFragment extends Fragment {
         recyclerViewSalary.setAdapter(adapterForSalary);
         recyclerViewBill.setAdapter(adapterForBill);
 
-        LiveData<List<RecurringTransaction>> liveDataSalary = viewModel.getRecurringIncomesByUserId(currentUserId);
-        LiveData<List<RecurringTransaction>> liveDataBill = viewModel.getRecurringExpensesByUserId(currentUserId);
+        LiveData<List<RecurringTransaction>> liveDataSalary = recurringTransactionViewModel.getRecurringIncomesByUserId(currentUserId);
+        LiveData<List<RecurringTransaction>> liveDataBill = recurringTransactionViewModel.getRecurringExpensesByUserId(currentUserId);
         liveDataSalary.observe(getViewLifecycleOwner(), recurringTransactions -> {
             adapterForSalary.submitList(liveDataSalary.getValue());
         });

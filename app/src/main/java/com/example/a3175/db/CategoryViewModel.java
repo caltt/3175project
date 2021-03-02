@@ -17,7 +17,7 @@ public class CategoryViewModel extends AndroidViewModel {
         repository = A3175Repository.getInstance(application);
     }
 
-    public List<Category> getCategoryById(int id){
+    public Category getCategoryById(int id){
         return repository.getCategoryById(id);
     }
 

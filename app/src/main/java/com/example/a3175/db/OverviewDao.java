@@ -21,5 +21,5 @@ public interface OverviewDao {
     void deleteOverviews(Overview... overviews);
 
     @Query("SELECT * FROM overview WHERE user_id = :userId")
-    LiveData<List<Overview>> getOverviewByUserId(int userId);
+    LiveData<Overview> getOverviewByUserId(int userId);
 }

@@ -20,6 +20,9 @@ public interface TransactionDao {
     @Delete
     void deleteTransactions(Transaction... transactions);
 
+    @Query("SELECT * FROM `transaction` WHERE id = :id")
+    Transaction getTransactionById(int id);
+
     @Query("SELECT * FROM `transaction` WHERE user_id = :userId")
     LiveData<List<Transaction>> getTransactionsByUserId(int userId);
 }

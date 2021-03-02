@@ -13,8 +13,9 @@ public class Category {
     @ColumnInfo(name = "is_income")
     private boolean isIncome;
 
-    public Category(String name) {
+    public Category(String name, boolean isIncome) {
         this.name = name;
+        this.isIncome = isIncome;
     }
 
     public int getId() {

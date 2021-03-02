@@ -15,20 +15,20 @@
         app:layout_constraintTop_toTopOf="@+id/guideline29">
 
         <RadioButton
-            android:id="@+id/radioButtonIsCategoryIncome"
+            android:id="@+id/radioButtonEditCategoryIsIncome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Income" />
 
         <RadioButton
-            android:id="@+id/radioButtonIsCategoryExpense"
+            android:id="@+id/radioButtonEditCategoryIsExpense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Expense" />
     </RadioGroup>
 
     <EditText
-        android:id="@+id/editTextCategoryName"
+        android:id="@+id/editTextEditCategoryName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -60,7 +60,7 @@
         app:layout_constraintGuide_percent=".6" />
 
     <Button
-        android:id="@+id/buttonAddCategory"
+        android:id="@+id/buttonEditCategoryOK"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="OK"

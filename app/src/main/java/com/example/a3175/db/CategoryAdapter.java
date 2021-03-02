@@ -1,5 +1,6 @@
 package com.example.a3175.db;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,17 +8,18 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
 import com.example.a3175.R;
-import com.example.a3175.utils.AppManager;
 
 public class CategoryAdapter extends ListAdapter<Category, CategoryViewHolder> {
-    NavController navController;
+    private NavController navController;
     private final int layoutId;
+    private boolean isForTransaction;
 
-    public CategoryAdapter(int layoutId ){
+    public CategoryAdapter(Activity activity, int layoutId, boolean isForTransaction) {
         super(new DiffUtil.ItemCallback<Category>() {
             @Override
             public boolean areItemsTheSame(@NonNull Category oldItem, @NonNull Category newItem) {
@@ -29,8 +31,9 @@ public class CategoryAdapter extends ListAdapter<Category, CategoryViewHolder> {
                 return oldItem.getName().equals(newItem.getName());
             }
         });
-        this.navController = AppManager.getNavController();
+        this.navController = Navigation.findNavController(activity, R.id.navHostFragment);
         this.layoutId = layoutId;
+        this.isForTransaction = isForTransaction;
     }
 
     @NonNull
@@ -50,10 +53,12 @@ public class CategoryAdapter extends ListAdapter<Category, CategoryViewHolder> {
 
         holder.textViewCategoryName.setText(category.getName());
 
+        // nav to add transaction or edit category
         holder.itemView.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putInt("categoryId", category.getId());
-            navController.navigate(R.id.action_categoryFragment_to_editCategoryFragment, bundle);
+            navController.navigate(isForTransaction ? R.id.action_categoryFragment_to_editTransactionFragment
+                    : R.id.action_categoryFragment_to_editCategoryFragment, bundle);
         });
     }
 }

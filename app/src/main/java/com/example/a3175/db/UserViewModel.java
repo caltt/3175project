@@ -21,15 +21,15 @@ public class UserViewModel extends AndroidViewModel {
         return repository.getAllUsers();
     }
 
-    public List<User> getUserById(int id) {
+    public User getUserById(int id) {
         return repository.getUserById(id);
     }
 
-    public List<User> getUserByEmail(String email) {
+    public User getUserByEmail(String email) {
         return repository.getUserByEmail(email);
     }
 
-    public List<User> getUserByEmailPassword(String email, String password) {
+    public User getUserByEmailPassword(String email, String password) {
         return repository.getUserByEmailPassword(email, password);
     }
 

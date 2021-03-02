@@ -21,7 +21,7 @@ public interface RecurringTransactionDao {
     void deleteRecurringTransactions(RecurringTransaction... transactions);
 
     @Query("SELECT * FROM recurringtransaction WHERE id = :id")
-    List<RecurringTransaction> getRecurringTransactionById(int id);
+    RecurringTransaction getRecurringTransactionById(int id);
 
     @Query("SELECT * FROM recurringtransaction WHERE user_id = :userId")
     LiveData<List<RecurringTransaction>> getRecurringTransactionsByUserId(int userId);

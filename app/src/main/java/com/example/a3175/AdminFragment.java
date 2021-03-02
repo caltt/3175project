@@ -3,11 +3,7 @@ package com.example.a3175;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
-import androidx.navigation.NavController;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,24 +14,15 @@ import android.widget.Button;
 
 import com.example.a3175.db.User;
 import com.example.a3175.db.UserAdapter;
-import com.example.a3175.db.UserViewModel;
-import com.example.a3175.utils.AppManager;
 
 import java.util.List;
 
-public class AdminFragment extends Fragment {
-    FragmentActivity activity;
-    UserViewModel userViewModel;
-    NavController navController;
+public class AdminFragment extends BaseFragment {
 
     UserAdapter userAdapter;
 
     RecyclerView recyclerView;
     Button buttonCreateAccount;
-
-    public AdminFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,17 +35,12 @@ public class AdminFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        // setup
-        activity = requireActivity();
-        navController = AppManager.getNavController();
-        userViewModel = AppManager.getUserViewModel();
-        userAdapter = new UserAdapter(R.layout.cell_user);
-
-        // setup view
+        // view
         recyclerView = activity.findViewById(R.id.recyclerViewUser);
         buttonCreateAccount = activity.findViewById(R.id.buttonAdminCreateAccount);
 
         // recycler view
+        userAdapter = new UserAdapter(R.layout.cell_user);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setAdapter(userAdapter);
 

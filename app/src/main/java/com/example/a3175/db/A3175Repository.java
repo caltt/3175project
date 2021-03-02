@@ -37,15 +37,15 @@ public class A3175Repository {
         return userDao.getAllUsers();
     }
 
-    List<User> getUserByEmail(String email) {
+    User getUserByEmail(String email) {
         return userDao.getUserByEmail(email);
     }
 
-    List<User> getUserById(int id) {
+    User getUserById(int id) {
         return userDao.getUserById(id);
     }
 
-    List<User> getUserByEmailPassword(String email, String password) {
+    User getUserByEmailPassword(String email, String password) {
         return userDao.getUserByEmailPassword(email, password);
     }
 
@@ -62,7 +62,7 @@ public class A3175Repository {
     }
 
     // overview
-    LiveData<List<Overview>> getOverviewByUserId(int id) {
+    LiveData<Overview> getOverviewByUserId(int id) {
         return overviewDao.getOverviewByUserId(id);
     }
 
@@ -79,7 +79,7 @@ public class A3175Repository {
     }
 
     // recurring transaction
-    List<RecurringTransaction> getRecurringTransactionById(int id) {
+    RecurringTransaction getRecurringTransactionById(int id) {
         return recurringTransactionDao.getRecurringTransactionById(id);
     }
 
@@ -109,6 +109,9 @@ public class A3175Repository {
 
 
     // transaction
+    Transaction getTransactionById(int id){
+        return transactionDao.getTransactionById(id);
+    }
     LiveData<List<Transaction>> getTransactionsByUserId(int id) {
         return transactionDao.getTransactionsByUserId(id);
     }
@@ -126,7 +129,7 @@ public class A3175Repository {
     }
 
     // category
-    List<Category> getCategoryById(int id) {
+    Category getCategoryById(int id) {
         return categoryDao.getCategoryById(id);
     }
 

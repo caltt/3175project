@@ -3,5 +3,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="logged_in_user_id">loggedInUserId</string>
-    <string name="is_first_time_login">isFirstTimeLogin</string>
+    <string name="need_initialize">needInitialize</string>
+    <string name="need_change_password">needChangePassword</string>
 </resources>

@@ -3,9 +3,6 @@ package com.example.a3175;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.navigation.NavController;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,24 +14,15 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 
 import com.example.a3175.db.Category;
-import com.example.a3175.db.CategoryViewModel;
-import com.example.a3175.utils.AppManager;
 
-public class EditCategoryFragment extends Fragment {
-    FragmentActivity activity;
-    CategoryViewModel categoryViewModel;
-    NavController navController;
+public class EditCategoryFragment extends BaseFragment {
 
     RadioButton radioButtonIsIncome, radioButtonIsExpense;
     EditText editTextCategoryName;
-    Button buttonEditCategory;
+    Button buttonOK;
 
     Category currentCategory;
     int currentCategoryId;
-
-    public EditCategoryFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,34 +35,22 @@ public class EditCategoryFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        activity = requireActivity();
-        categoryViewModel = AppManager.getCategoryViewModel();
-        navController = AppManager.getNavController();
-
         // view
-        radioButtonIsIncome = activity.findViewById(R.id.radioButtonIsCategoryIncome);
-        radioButtonIsExpense = activity.findViewById(R.id.radioButtonIsCategoryExpense);
-        editTextCategoryName = activity.findViewById(R.id.editTextCategoryName);
-        buttonEditCategory = activity.findViewById(R.id.buttonAddCategory);
+        radioButtonIsIncome = activity.findViewById(R.id.radioButtonEditCategoryIsIncome);
+        radioButtonIsExpense = activity.findViewById(R.id.radioButtonEditCategoryIsExpense);
+        editTextCategoryName = activity.findViewById(R.id.editTextEditCategoryName);
+        buttonOK = activity.findViewById(R.id.buttonEditCategoryOK);
 
-        // fill editText with data
-        currentCategoryId = -1;     // a default value for create
-        if (getArguments() != null) {
-            currentCategoryId = getArguments().getInt("categoryId", -1);
-            if (currentCategoryId != -1) {
-                currentCategory = categoryViewModel.getCategoryById(currentCategoryId).get(0);
-                if (currentCategory.isIncome()) {
-                    radioButtonIsIncome.setChecked(true);
-                } else {
-                    radioButtonIsExpense.setChecked(true);
-                }
-                editTextCategoryName.setText(currentCategory.getName());
-            }
-        }
+        radioButtonIsExpense.setChecked(true);
 
-        // activate ok button when data valid
-        buttonEditCategory.setEnabled(false);
+        // validate input & activate ok button
+        buttonOK.setEnabled(false);
 
+        View.OnClickListener onClickListener = v -> {
+            buttonOK.setEnabled(!editTextCategoryName.getText().toString().isEmpty());
+        };
+        radioButtonIsIncome.setOnClickListener(onClickListener);
+        radioButtonIsExpense.setOnClickListener(onClickListener);
 
         editTextCategoryName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -84,7 +60,7 @@ public class EditCategoryFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                buttonEditCategory.setEnabled(!editTextCategoryName.getText().toString().isEmpty());
+                buttonOK.setEnabled(!editTextCategoryName.getText().toString().isEmpty());
             }
 
             @Override
@@ -93,20 +69,60 @@ public class EditCategoryFragment extends Fragment {
             }
         });
 
-        // button: insert / update
-        buttonEditCategory.setOnClickListener(v -> {
-            if (currentCategoryId == -1) {
-                // db insert
-                categoryViewModel.insertCategories(new Category(editTextCategoryName.getText().toString()));
+
+        // determine fragment purpose (create / edit)
+        currentCategoryId = -1;     // a default value for create
+        if (getArguments() != null) {
+            currentCategoryId = getArguments().getInt("categoryId", -1);
+        }
+
+        if (currentCategoryId == -1) {
+            // create
+            buttonOK.setOnClickListener(v -> {
+                categoryViewModel.insertCategories(
+                        new Category(editTextCategoryName.getText().toString(), radioButtonIsIncome.isChecked()));
+                navController.navigateUp();
+
+            });
+        } else {
+            // edit
+
+            // fill editText with data
+            currentCategory = categoryViewModel.getCategoryById(currentCategoryId);
+            if (currentCategory.isIncome()) {
+                radioButtonIsIncome.setChecked(true);
             } else {
-                // db update
+                radioButtonIsExpense.setChecked(true);
+            }
+            editTextCategoryName.setText(currentCategory.getName());
+
+            // button function
+            buttonOK.setOnClickListener(v -> {
                 currentCategory.setName(editTextCategoryName.getText().toString());
                 currentCategory.setIncome(radioButtonIsIncome.isChecked());
                 categoryViewModel.updateCategories(currentCategory);
-            }
+                navController.navigateUp();
 
-            // nav back
-            navController.navigateUp();
-        });
+            });
+        }
+
+
+
+        // button: insert / update
+//        buttonEditCategory.setOnClickListener(v -> {
+//            if (currentCategoryId == -1) {
+//                // db insert
+//                categoryViewModel.insertCategories(new Category(editTextCategoryName.getText().toString()));
+//            } else {
+//                // db update
+//                currentCategory.setName(editTextCategoryName.getText().toString());
+//                currentCategory.setIncome(radioButtonIsIncome.isChecked());
+//                categoryViewModel.updateCategories(currentCategory);
+//            }
+//
+//            // nav back
+//            navController.navigateUp();
+//        });
+
     }
 }
