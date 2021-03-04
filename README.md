@@ -44,8 +44,8 @@ Display the list of retrieved data
 
 ## Main Activity
 
-The only activity in the app
-Has a NavHostFragment as the container of all fragments under navigation
+* The only activity in the app
+* Has a NavHostFragment as the container of all fragments under navigation
 
 ## Base fragment
 
