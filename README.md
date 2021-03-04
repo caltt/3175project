@@ -1,16 +1,28 @@
-## Structure
+# Modules
 
-### Room database
-#### Entity
-#### Dao
-#### Repository
+## Room database
 
-### ViewModel
+### Entity
 
-### Base fragment
+### Dao
 
-#### Shared preferences
+### Repository
 
-#### Navigation
+## ViewModel
 
-### 
+## Shared preferences
+
+## Navigation
+
+### Nav graph
+/res/navigation/nav_graph.xml
+
+
+# Structure
+
+## Main Activity
+
+## Base fragment
+
+
+
