@@ -71,18 +71,22 @@ public class EditCategoryFragment extends BaseFragment {
 
 
         // determine fragment purpose (create / edit)
-        currentCategoryId = -1;     // a default value for create
-        if (getArguments() != null) {
-            currentCategoryId = getArguments().getInt("categoryId", -1);
-        }
+        currentCategoryId = getArguments() != null
+                ? getArguments().getInt("categoryId", -1)
+                : -1;
 
         if (currentCategoryId == -1) {
             // create
+
+            // button
             buttonOK.setOnClickListener(v -> {
+                // db insert
                 categoryViewModel.insertCategories(
                         new Category(editTextCategoryName.getText().toString(), radioButtonIsIncome.isChecked()));
-                navController.navigateUp();
 
+                // nav back
+                navController.navigateUp();
+                inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
             });
         } else {
             // edit
@@ -96,33 +100,18 @@ public class EditCategoryFragment extends BaseFragment {
             }
             editTextCategoryName.setText(currentCategory.getName());
 
-            // button function
+            // button
             buttonOK.setOnClickListener(v -> {
+                // db update
                 currentCategory.setName(editTextCategoryName.getText().toString());
                 currentCategory.setIncome(radioButtonIsIncome.isChecked());
                 categoryViewModel.updateCategories(currentCategory);
-                navController.navigateUp();
 
+                // nav back
+                navController.navigateUp();
+                inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
             });
         }
-
-
-
-        // button: insert / update
-//        buttonEditCategory.setOnClickListener(v -> {
-//            if (currentCategoryId == -1) {
-//                // db insert
-//                categoryViewModel.insertCategories(new Category(editTextCategoryName.getText().toString()));
-//            } else {
-//                // db update
-//                currentCategory.setName(editTextCategoryName.getText().toString());
-//                currentCategory.setIncome(radioButtonIsIncome.isChecked());
-//                categoryViewModel.updateCategories(currentCategory);
-//            }
-//
-//            // nav back
-//            navController.navigateUp();
-//        });
 
     }
 }

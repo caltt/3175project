@@ -6,6 +6,48 @@
     android:layout_height="match_parent"
     tools:context=".ExpenseTrackerFragment">
 
+    <TextView
+        android:id="@+id/textViewAvailableTodayTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Available Today"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewSavingsTitle"
+        app:layout_constraintEnd_toStartOf="@+id/guideline24"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewSavingsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Savings"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewIncomeTitle"
+        app:layout_constraintEnd_toEndOf="@+id/textViewAvailableTodayTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAvailableTodayTitle" />
+
+    <TextView
+        android:id="@+id/textViewIncomeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Income"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewDebtTitle"
+        app:layout_constraintEnd_toEndOf="@+id/textViewSavingsTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSavingsTitle" />
+
+    <TextView
+        android:id="@+id/textViewDebtTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Debt"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewTransaction"
+        app:layout_constraintEnd_toEndOf="@+id/textViewIncomeTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textViewIncomeTitle" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline27"
         android:layout_width="wrap_content"
@@ -14,10 +56,61 @@
         app:layout_constraintGuide_percent=".5" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewTransaction"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline27" />
+
+    <TextView
+        android:id="@+id/textViewAvailableTodayAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewSavingsAmount"
+        app:layout_constraintStart_toStartOf="@+id/guideline24"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="15" />
+
+    <TextView
+        android:id="@+id/textViewSavingsAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewIncomeAmount"
+        app:layout_constraintStart_toStartOf="@+id/textViewAvailableTodayAmount"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAvailableTodayAmount"
+        tools:text="5" />
+
+    <TextView
+        android:id="@+id/textViewIncomeAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewDebtAmount"
+        app:layout_constraintStart_toStartOf="@+id/textViewSavingsAmount"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSavingsAmount"
+        tools:text="15" />
+
+    <TextView
+        android:id="@+id/textViewDebtAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewTransaction"
+        app:layout_constraintStart_toStartOf="@+id/textViewIncomeAmount"
+        app:layout_constraintTop_toBottomOf="@+id/textViewIncomeAmount"
+        tools:text="15" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".5" />
 </androidx.constraintlayout.widget.ConstraintLayout>

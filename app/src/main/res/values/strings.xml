@@ -2,7 +2,54 @@
     <string name="app_name">3175</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--    for shared preferences-->
+    <string name="logging_in_user_id">loggingInUserId</string>
     <string name="logged_in_user_id">loggedInUserId</string>
     <string name="need_initialize">needInitialize</string>
     <string name="need_change_password">needChangePassword</string>
+
+    <!--    title text-->
+    <string name="title_first_login_set_password">Please set a new password</string>
+    <string name="title_create_account">Create account</string>
+    <string name="title_expense">Expense</string>
+    <string name="title_income">Income</string>
+    <string name="title_salary">Salary</string>
+    <string name="title_bill">Bill</string>
+    <string name="title_category">Category</string>
+    <string name="title_salary_bill">Salary and Bill</string>
+    <string name="title_transaction">Transaction</string>
+    <string name="title_initialize">Before using...</string>
+    <string name="title_edit_account">Edit account</string>
+
+    <!--    button text-->
+    <string name="button_text_next">Next</string>
+    <string name="button_text_create">Create</string>
+    <string name="button_text_add">Add</string>
+    <string name="button_text_ok">Ok</string>
+    <string name="button_text_login">Login</string>
+    <string name="button_text_create_account">Create account</string>
+    <string name="button_text_salary_bill">Manage Salary and Bill</string>
+    <string name="radio_button_text_category_1">Income</string>
+    <string name="radio_button_text_category_2">Expense</string>
+    <string name="radio_button_text_recurring_1">Salary</string>
+    <string name="radio_button_text_recurring_2">Bill</string>
+
+    <!--    hint text-->
+    <string name="hint_email">Email</string>
+    <string name="hint_old_password">Old password</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_verify_password">Verify password</string>
+    <string name="hint_new_password">New password</string>
+    <string name="hint_verify_new_password">Verify new password</string>
+    <string name="hint_category_name">Category name</string>
+    <string name="hint_amount">Amount</string>
+    <string name="hint_date">Date</string>
+    <string name="hint_description">Description</string>
+    <string name="hint_current_savings">Current savings</string>
+
+
+    <!--    others-->
+    <string name="content_description_floating_button">Add</string>
+    <string name="content_description_login_logo">Login logo</string>
 </resources>

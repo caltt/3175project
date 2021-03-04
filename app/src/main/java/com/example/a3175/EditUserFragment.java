@@ -3,25 +3,29 @@ package com.example.a3175;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import com.example.a3175.db.User;
+import com.example.a3175.utils.Utils;
 
 public class EditUserFragment extends BaseFragment {
 
+    TextView textViewTitle;
     EditText editTextEmail, editTextPassword, editTextVerifyPassword, editTextOldPassword;
     Button buttonOK;
 
     User currentUser;
-    boolean isPasswordValid, isEmailValid;
     int currentUserId;
+    boolean isPasswordValid, isEmailValid;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,11 +39,13 @@ public class EditUserFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
 
         // setup view
+        textViewTitle = activity.findViewById(R.id.textViewEditUserTitle);
         editTextEmail = activity.findViewById(R.id.editTextEditUserEmail);
         editTextPassword = activity.findViewById(R.id.editTextEditUserPassword);
         editTextVerifyPassword = activity.findViewById(R.id.editTextEditUserVerifyPassword);
         editTextOldPassword = activity.findViewById(R.id.editTextEditUserOldPassword);
         buttonOK = activity.findViewById(R.id.buttonEditUserOK);
+
 
         // determine fragment purpose based on previous fragment
         currentUser = userViewModel.getUserById(preferences.getInt(getResources().getString(R.string.logged_in_user_id), -1));
@@ -49,34 +55,15 @@ public class EditUserFragment extends BaseFragment {
         boolean needChangePassword = preferences.getBoolean(getResources().getString(R.string.need_change_password) + currentUserId, false);
 
         int previousFragmentId = navController.getPreviousBackStackEntry().getDestination().getId();
-        if (previousFragmentId == R.id.loginFragment && needChangePassword) {
-            // ADMIN CREATED ACCOUNT CHANGE PASSWORD FOR FIRST LOGIN
+        if (previousFragmentId != R.id.mainFragment) {
+            // CREATE ACCOUNT
 
             // view
-            editTextEmail.setVisibility(View.GONE);
+            textViewTitle.setText(R.string.title_create_account);
+            buttonOK.setText(R.string.button_text_create);
             editTextOldPassword.setVisibility(View.GONE);
+            editTextEmail.requestFocus();
 
-            // FIXME: cipher
-            // button function
-            buttonOK.setOnClickListener(v -> {
-                String password = editTextPassword.getText().toString();
-                // db update
-                currentUser.setPassword(password);
-                userViewModel.updateUsers(currentUser);
-
-                // remove flag
-                editor.remove(getResources().getString(R.string.need_change_password) + currentUserId).apply();
-
-                // nav
-                navController.navigate(R.id.action_editUserFragment_to_initializeFragment);
-            });
-        } else if (previousFragmentId == R.id.loginFragment) {
-            // USER CREATE ACCOUNT
-
-            // view
-            editTextOldPassword.setVisibility(View.GONE);
-
-            // FIXME: cipher
             // button function
             buttonOK.setOnClickListener(v -> {
                 String email = editTextEmail.getText().toString();
@@ -86,75 +73,55 @@ public class EditUserFragment extends BaseFragment {
                     Toast.makeText(activity, "Email already exists.", Toast.LENGTH_SHORT).show();
                 } else {
                     // db insert
-                    userViewModel.insertUsers(new User(email, password));
+                    userViewModel.insertUsers(new User(email, Utils.encode(password)));
 
                     // need initialize later
                     int newUserId = userViewModel.getUserByEmail(email).getId();
-                    editor.putBoolean(getResources().getString(R.string.need_initialize) + newUserId, true)
-                            .apply();
+                    editor.putBoolean(getResources().getString(R.string.need_initialize) + newUserId, true).apply();
 
-                    // nav
+                    // need change password (admin created user)
+                    if (previousFragmentId == R.id.adminFragment) {
+                        editor.putBoolean(getResources().getString(R.string.need_change_password) + newUserId, true).apply();
+                    }
+
+                    // nav back
                     navController.navigateUp();
                     Toast.makeText(activity, "Account created.", Toast.LENGTH_SHORT).show();
+                    inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }
             });
 
-        } else if (previousFragmentId == R.id.adminFragment) {
-            // ADMIN CREATE ACCOUNT
-
-            // view
-            editTextOldPassword.setVisibility(View.GONE);
-
-            // FIXME: cipher
-            // button function
-            buttonOK.setOnClickListener(v -> {
-                String email = editTextEmail.getText().toString();
-                String password = editTextPassword.getText().toString();
-
-                if (userViewModel.getUserByEmail(email) != null) {
-                    Toast.makeText(activity, "Email already exists.", Toast.LENGTH_SHORT).show();
-                } else {
-                    // db insert
-                    userViewModel.insertUsers(new User(email, password));
-
-                    // need change password & initialize later
-                    int newUserId = userViewModel.getUserByEmail(email).getId();
-                    editor.putBoolean(getResources().getString(R.string.need_change_password) + newUserId, true)
-                            .putBoolean(getResources().getString(R.string.need_initialize) + newUserId, true)
-                            .apply();
-
-                    // nav
-                    navController.navigateUp();
-                    Toast.makeText(activity, "Account created.", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        } else if (previousFragmentId == R.id.mainFragment) {
+        } else {
             // LOGGED IN USER EDIT ACCOUNT
 
             // view
+            textViewTitle.setText(R.string.title_edit_account);
+            editTextPassword.setHint(R.string.hint_new_password);
+            editTextVerifyPassword.setHint(R.string.hint_verify_new_password);
             editTextEmail.setEnabled(false);
+            editTextOldPassword.requestFocus();
+
 
             // fill user data
             editTextEmail.setText(currentUser.getEmail());
 
-            // FIXME: cipher
             // button function
             buttonOK.setOnClickListener(v -> {
                 String password = editTextPassword.getText().toString();
                 String oldPassword = editTextOldPassword.getText().toString();
 
                 // check old password
-                if (!currentUser.getPassword().equals(oldPassword)) {
+                if (!currentUser.getPassword().equals(Utils.encode(oldPassword))) {
                     Toast.makeText(activity, "Incorrect old password", Toast.LENGTH_SHORT).show();
                 } else {
                     // db update
-                    currentUser.setPassword(password);
+                    currentUser.setPassword(Utils.encode(password));
                     userViewModel.updateUsers(currentUser);
 
-                    // nav
+                    // nav back
                     navController.navigateUp();
                     Toast.makeText(activity, "Account information updated.", Toast.LENGTH_SHORT).show();
+                    inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }
             });
         }

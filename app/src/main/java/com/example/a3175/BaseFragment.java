@@ -3,6 +3,7 @@ package com.example.a3175;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -19,10 +20,12 @@ import com.example.a3175.db.TransactionViewModel;
 import com.example.a3175.db.UserViewModel;
 
 public class BaseFragment extends Fragment {
+    protected static String TAG = "test";
     protected static FragmentActivity activity;
     protected static SharedPreferences preferences;
     protected static SharedPreferences.Editor editor;
     protected static NavController navController;
+    protected static InputMethodManager inputMethodManager;
 
     protected static UserViewModel userViewModel;
     protected static OverviewViewModel overviewViewModel;
@@ -39,6 +42,7 @@ public class BaseFragment extends Fragment {
         preferences = activity.getPreferences(Context.MODE_PRIVATE);
         editor = preferences.edit();
         navController = Navigation.findNavController(activity, R.id.navHostFragment);
+        inputMethodManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
 
         userViewModel = new ViewModelProvider(activity).get(UserViewModel.class);
         overviewViewModel = new ViewModelProvider(activity).get(OverviewViewModel.class);
@@ -47,4 +51,6 @@ public class BaseFragment extends Fragment {
         recurringTransactionViewModel = new ViewModelProvider(activity).get(RecurringTransactionViewModel.class);
         bigExpenseViewModel = new ViewModelProvider(activity).get(BigExpenseViewModel.class);
     }
+
+
 }

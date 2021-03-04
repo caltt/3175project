@@ -56,14 +56,21 @@ public class CategoryFragment extends BaseFragment {
         recyclerViewExpenseCategories.setLayoutManager(new LinearLayoutManager(activity));
 
 
-        // add transaction or edit category?
+        // determine fragment purpose
+        // argument passed in:  add transaction
+        // no argument:         edit category
         LiveData<List<Category>> incomeCategories = categoryViewModel.getAllIncomeCategories();
         LiveData<List<Category>> expenseCategories = categoryViewModel.getAllExpenseCategories();
+
         if (getArguments() != null && getArguments().getBoolean("isAddingTransaction", false)) {
-            floatingActionButton.setVisibility(View.GONE);  // hide button +
+            // for adding transaction
+
+            // view
+            floatingActionButton.setVisibility(View.GONE);
             recyclerViewIncomeCategories.setAdapter(adapterIncomeForTransaction);
             recyclerViewExpenseCategories.setAdapter(adapterExpenseForTransaction);
 
+            // live data
             incomeCategories.observe(getViewLifecycleOwner(), categories -> {
                 adapterIncomeForTransaction.submitList(categories);
             });
@@ -72,9 +79,13 @@ public class CategoryFragment extends BaseFragment {
             });
 
         } else {
+            // for edit
+
+            // view
             recyclerViewIncomeCategories.setAdapter(adapterIncomeCategories);
             recyclerViewExpenseCategories.setAdapter(adapterExpenseCategories);
 
+            // live data
             incomeCategories.observe(getViewLifecycleOwner(), categories -> {
                 adapterIncomeCategories.submitList(categories);
             });

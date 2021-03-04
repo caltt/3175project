@@ -46,11 +46,15 @@ public class RecurringTransactionFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        // get user id
+        int currentUserId = preferences.getInt(getResources().getString(R.string.logged_in_user_id), -1);
+        if (currentUserId == -1) {
+            currentUserId = preferences.getInt(getResources().getString(R.string.logging_in_user_id), -1);
+        }
+
         // setup
         adapterForSalary = new RecurringTransactionAdapter(activity, R.layout.cell_recurring_transaction);
         adapterForBill = new RecurringTransactionAdapter(activity, R.layout.cell_recurring_transaction);
-
-        int currentUserId = preferences.getInt(getResources().getString(R.string.logged_in_user_id), -1);
 
         // setup view
         recyclerViewSalary = activity.findViewById(R.id.recyclerViewSalary);

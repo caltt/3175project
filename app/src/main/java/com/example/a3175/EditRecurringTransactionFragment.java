@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,7 @@ public class EditRecurringTransactionFragment extends BaseFragment {
     RadioButton radioButtonIsSalary, radioButtonIsBill;
 
     RecurringTransaction currentRecurringTransaction;
-    int currentRecurringTransactionId;
+    int currentUserId, currentRecurringTransactionId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,6 +35,12 @@ public class EditRecurringTransactionFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        // get user id
+        currentUserId = preferences.getInt(getResources().getString(R.string.logged_in_user_id), -1);
+        if (currentUserId == -1) {
+            currentUserId = preferences.getInt(getResources().getString(R.string.logging_in_user_id), -1);
+        }
 
         // setup view
         editTextSalaryAmount = activity.findViewById(R.id.editTextEditRecurringTransactionAmount);
@@ -71,16 +78,14 @@ public class EditRecurringTransactionFragment extends BaseFragment {
 
 
         // determine fragment purpose (create / edit)
-        currentRecurringTransactionId = -1; // default for create
-        if (getArguments() != null) {
-            currentRecurringTransactionId = getArguments().getInt("recurringTransactionId", -1);
-        }
+        currentRecurringTransactionId = getArguments() == null
+                ? -1   // create
+                : getArguments().getInt("recurringTransactionId", -1);   // edit
 
         if (currentRecurringTransactionId == -1) {
 
             // create
             buttonOK.setOnClickListener(v -> {
-                int userId = preferences.getInt(getResources().getString(R.string.logged_in_user_id), -1);
                 double amount = Double.parseDouble(editTextSalaryAmount.getText().toString());
                 amount = radioButtonIsBill.isChecked() ? -amount : amount;
                 int date = Integer.parseInt(editTextSalaryDate.getText().toString());
@@ -88,10 +93,12 @@ public class EditRecurringTransactionFragment extends BaseFragment {
 
                 // db insert
                 recurringTransactionViewModel.insertRecurringTransactions(
-                        new RecurringTransaction(userId, amount, date, description));
+                        new RecurringTransaction(currentUserId, amount, date, description));
 
                 //nav back
                 navController.navigateUp();
+                inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
             });
 
         } else {
@@ -124,33 +131,9 @@ public class EditRecurringTransactionFragment extends BaseFragment {
 
                 // nav back
                 navController.navigateUp();
-
+                inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
             });
 
         }
-
-        // button
-        buttonOK.setOnClickListener(v -> {
-            int userId = preferences.getInt(getResources().getString(R.string.logged_in_user_id), -1);
-            double amount = Double.parseDouble(editTextSalaryAmount.getText().toString());
-            amount = radioButtonIsBill.isChecked() ? -amount : amount;
-            int date = Integer.parseInt(editTextSalaryDate.getText().toString());
-            String description = editTextSalaryDescription.getText().toString();
-
-            // insert or update
-            if (userId != -1) {
-                if (currentRecurringTransactionId == -1) {
-                    recurringTransactionViewModel.insertRecurringTransactions(new RecurringTransaction(userId, amount, date, description));
-                } else {
-                    currentRecurringTransaction.setAmount(amount);
-                    currentRecurringTransaction.setDate(date);
-                    currentRecurringTransaction.setDescription(description);
-                    recurringTransactionViewModel.updateRecurringTransactions(currentRecurringTransaction);
-                }
-            }
-
-            // nav back
-            navController.navigateUp();
-        });
     }
 }

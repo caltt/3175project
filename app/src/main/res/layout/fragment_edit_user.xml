@@ -11,42 +11,45 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Password"
+        android:hint="@string/hint_password"
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/editTextEditUserVerifyPassword"
         app:layout_constraintEnd_toEndOf="@+id/editTextEditUserOldPassword"
         app:layout_constraintStart_toStartOf="@+id/editTextEditUserOldPassword"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEditUserOldPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextEditUserOldPassword"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/editTextEditUserVerifyPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Verify password"
+        android:hint="@string/hint_verify_password"
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
         app:layout_constraintEnd_toEndOf="@+id/editTextEditUserPassword"
         app:layout_constraintStart_toStartOf="@+id/editTextEditUserPassword"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEditUserPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextEditUserPassword"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/editTextEditUserOldPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Old password"
+        android:hint="@string/hint_old_password"
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/editTextEditUserPassword"
         app:layout_constraintEnd_toEndOf="@+id/editTextEditUserEmail"
         app:layout_constraintStart_toStartOf="@+id/editTextEditUserEmail"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEditUserEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextEditUserEmail"
+        android:autofillHints="" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewEditUserTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create Account"
+        android:text="@string/title_create_account"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/editTextEditUserEmail"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,12 +61,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Email"
+        android:hint="@string/hint_email"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/editTextEditUserOldPassword"
-        app:layout_constraintEnd_toEndOf="@+id/textView"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintEnd_toEndOf="@+id/textViewEditUserTitle"
+        app:layout_constraintStart_toStartOf="@+id/textViewEditUserTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textViewEditUserTitle"
+        android:autofillHints="" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"
@@ -90,7 +94,7 @@
         android:id="@+id/buttonEditUserOK"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create account"
+        android:text="@string/button_text_ok"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -10,7 +10,7 @@
         android:id="@+id/buttonEditTransactionOK"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="OK"
+        android:text="@string/button_text_ok"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline25" />
@@ -20,30 +20,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Description"
+        android:hint="@string/hint_description"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/guideline25"
         app:layout_constraintEnd_toEndOf="@+id/editTextEditTransactionDate"
         app:layout_constraintStart_toStartOf="@+id/editTextEditTransactionDate"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEditTransactionDate" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextEditTransactionDate"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/editTextEditTransactionAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Amount"
+        android:hint="@string/hint_amount"
         android:inputType="numberDecimal"
         app:layout_constraintBottom_toTopOf="@+id/editTextEditTransactionDate"
-        app:layout_constraintEnd_toEndOf="@+id/editTextEditTransactionCategory"
-        app:layout_constraintStart_toStartOf="@+id/editTextEditTransactionCategory"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEditTransactionCategory" />
+        app:layout_constraintEnd_toEndOf="@+id/editTextEditTransactionCategoryName"
+        app:layout_constraintStart_toStartOf="@+id/editTextEditTransactionCategoryName"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEditTransactionCategoryName"
+        android:autofillHints="" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Transaction"
+        android:text="@string/title_transaction"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline26"
         app:layout_constraintEnd_toEndOf="parent"
@@ -68,15 +70,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Date"
+        android:hint="@string/hint_date"
         android:inputType="date"
         app:layout_constraintBottom_toTopOf="@+id/editTextEditTransactionDescription"
         app:layout_constraintEnd_toEndOf="@+id/editTextEditTransactionAmount"
         app:layout_constraintStart_toStartOf="@+id/editTextEditTransactionAmount"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEditTransactionAmount" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextEditTransactionAmount"
+        android:autofillHints="" />
 
     <EditText
-        android:id="@+id/editTextEditTransactionCategory"
+        android:id="@+id/editTextEditTransactionCategoryName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -84,6 +87,7 @@
         app:layout_constraintBottom_toTopOf="@+id/editTextEditTransactionAmount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline26" />
+        app:layout_constraintTop_toTopOf="@+id/guideline26"
+        android:autofillHints="" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

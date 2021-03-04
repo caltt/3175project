@@ -33,7 +33,7 @@
         android:id="@+id/buttonEditRecurringTransactionOK"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="OK"
+        android:text="@string/button_text_ok"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline9" />
@@ -45,29 +45,31 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:ems="10"
-        android:hint="Amount"
+        android:hint="@string/hint_amount"
         android:inputType="numberDecimal"
         app:layout_constraintBottom_toTopOf="@+id/editTextEditRecurringTransactionDate"
         app:layout_constraintStart_toStartOf="@+id/guideline18"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/editTextEditRecurringTransactionDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Date"
+        android:hint="@string/hint_date"
         android:inputType="number"
         app:layout_constraintBottom_toTopOf="@+id/editTextEditRecurringTransactionDescription"
         app:layout_constraintEnd_toEndOf="@+id/editTextEditRecurringTransactionAmount"
         app:layout_constraintStart_toStartOf="@+id/editTextEditRecurringTransactionAmount"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEditRecurringTransactionAmount" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextEditRecurringTransactionAmount"
+        android:autofillHints="" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Salary / Bill"
+        android:text="@string/title_salary_bill"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline13"
         app:layout_constraintEnd_toEndOf="parent"
@@ -78,12 +80,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Description"
+        android:hint="@string/hint_description"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/buttonEditRecurringTransactionOK"
         app:layout_constraintEnd_toEndOf="@+id/editTextEditRecurringTransactionDate"
         app:layout_constraintStart_toStartOf="@+id/editTextEditRecurringTransactionDate"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEditRecurringTransactionDate" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextEditRecurringTransactionDate"
+        android:autofillHints="" />
 
     <RadioGroup
         android:layout_width="wrap_content"
@@ -98,13 +101,13 @@
             android:id="@+id/radioButtonIsSalary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Salary" />
+            android:text="@string/radio_button_text_recurring_1" />
 
         <RadioButton
             android:id="@+id/radioButtonIsBill"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Bill" />
+            android:text="@string/radio_button_text_recurring_2" />
 
     </RadioGroup>
 

@@ -6,6 +6,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.example.a3175.utils.Utils;
+
 @Entity
 public class User {
     @PrimaryKey(autoGenerate = true)
@@ -18,6 +20,12 @@ public class User {
     public User(String email, String password) {
         this.email = email;
         this.password = password;
+    }
+
+    public static User[] getPrePopulateData() {
+        return new User[]{
+                new User("admin", Utils.encode("admin"))
+        };
     }
 
     public int getId() {
@@ -43,4 +51,5 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

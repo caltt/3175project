@@ -23,6 +23,6 @@ public interface TransactionDao {
     @Query("SELECT * FROM `transaction` WHERE id = :id")
     Transaction getTransactionById(int id);
 
-    @Query("SELECT * FROM `transaction` WHERE user_id = :userId")
+    @Query("SELECT * FROM `transaction` WHERE user_id = :userId ORDER BY datetime DESC")
     LiveData<List<Transaction>> getTransactionsByUserId(int userId);
 }

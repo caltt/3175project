@@ -18,6 +18,15 @@ public class Category {
         this.isIncome = isIncome;
     }
 
+    public static Category[] getPrePopulateData(){
+        return new Category[]{
+                new Category("income1", true),
+                new Category("income2", true),
+                new Category("expense1", false),
+                new Category("expense2", false),
+        };
+    }
+
     public int getId() {
         return id;
     }

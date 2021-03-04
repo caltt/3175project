@@ -14,9 +14,6 @@
             android:id="@+id/action_loginFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
         <action
-            android:id="@+id/action_loginFragment_to_firstTimeLoginFragment"
-            app:destination="@id/firstTimeLoginFragment" />
-        <action
             android:id="@+id/action_loginFragment_to_adminFragment"
             app:destination="@id/adminFragment" />
         <action
@@ -25,6 +22,9 @@
         <action
             android:id="@+id/action_loginFragment_to_initializeFragment"
             app:destination="@id/initializeFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_firstLoginChangePasswordFragment"
+            app:destination="@id/firstLoginChangePasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
@@ -53,20 +53,11 @@
         android:label="fragment_initialize"
         tools:layout="@layout/fragment_initialize">
         <action
-            android:id="@+id/action_inputInformationFragment_to_recurringTransactionFragment"
+            android:id="@+id/action_initializeFragment_to_recurringTransactionFragment"
             app:destination="@id/recurringTransactionFragment" />
         <action
             android:id="@+id/action_initializeFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/firstTimeLoginFragment"
-        android:name="com.example.a3175.FirstTimeLoginFragment"
-        android:label="fragment_first_time_login"
-        tools:layout="@layout/fragment_first_time_login" >
-        <action
-            android:id="@+id/action_firstTimeLoginFragment_to_inputInformationFragment"
-            app:destination="@id/initializeFragment" />
     </fragment>
     <fragment
         android:id="@+id/adminFragment"
@@ -122,9 +113,13 @@
         android:id="@+id/editUserFragment"
         android:name="com.example.a3175.EditUserFragment"
         android:label="fragment_edit_user"
-        tools:layout="@layout/fragment_edit_user" >
+        tools:layout="@layout/fragment_edit_user" />
+    <fragment
+        android:id="@+id/firstLoginChangePasswordFragment"
+        android:name="com.example.a3175.FirstLoginChangePasswordFragment"
+        android:label="FirstLoginChangePasswordFragment" >
         <action
-            android:id="@+id/action_editUserFragment_to_initializeFragment"
+            android:id="@+id/action_firstLoginChangePasswordFragment_to_initializeFragment"
             app:destination="@id/initializeFragment" />
     </fragment>
 </navigation>

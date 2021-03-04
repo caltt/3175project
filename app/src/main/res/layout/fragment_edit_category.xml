@@ -18,13 +18,13 @@
             android:id="@+id/radioButtonEditCategoryIsIncome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Income" />
+            android:text="@string/radio_button_text_category_1" />
 
         <RadioButton
             android:id="@+id/radioButtonEditCategoryIsExpense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Expense" />
+            android:text="@string/radio_button_text_category_2" />
     </RadioGroup>
 
     <EditText
@@ -32,11 +32,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Category name"
+        android:hint="@string/hint_category_name"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/guideline30"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:autofillHints="" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline29"
@@ -63,7 +64,7 @@
         android:id="@+id/buttonEditCategoryOK"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="OK"
+        android:text="@string/button_text_next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,7 +74,7 @@
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Category"
+        android:text="@string/title_category"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline31"
         app:layout_constraintEnd_toEndOf="parent"
