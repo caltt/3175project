@@ -1,9 +1,12 @@
 package com.example.a3175;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -46,6 +49,34 @@ public class AdminFragment extends BaseFragment {
 
         LiveData<List<User>> liveDataUser = userViewModel.getAllUsers();
         liveDataUser.observe(getViewLifecycleOwner(), users -> userAdapter.submitList(users));
+
+        // swipe delete
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
+                0,
+                ItemTouchHelper.START | ItemTouchHelper.END) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView,
+                                  @NonNull RecyclerView.ViewHolder viewHolder,
+                                  @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                new AlertDialog.Builder(activity)
+                        .setTitle("Delete?")
+                        .setPositiveButton("Yes", (dialog, which) -> {
+                            User userToDelete = liveDataUser.getValue().get(viewHolder.getAdapterPosition());
+                            userViewModel.deleteUsers(userToDelete);
+
+                        })
+                        .setNegativeButton("No", (dialog, which) -> {
+                            userAdapter.notifyItemChanged(viewHolder.getAdapterPosition());
+                        })
+                        .create()
+                        .show();
+            }
+        }).attachToRecyclerView(recyclerView);
 
         // button
         buttonCreateAccount.setOnClickListener(v -> {

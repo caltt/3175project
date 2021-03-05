@@ -53,7 +53,6 @@ public class LoginFragment extends BaseFragment {
         buttonCreateAccount = activity.findViewById(R.id.buttonLoginCreateAccount);
 
 
-        // FIXME cipher the password
         buttonLogin.setOnClickListener(v -> {
             // verify tokens
             String email = editTextEmail.getText().toString();
@@ -70,7 +69,7 @@ public class LoginFragment extends BaseFragment {
             } else {
                 // login successful
 
-                if (email == "admin") {
+                if (email.equals("admin")) {
                     // as admin
 
                     // nav to admin fragment

@@ -77,6 +77,7 @@ public class RecurringTransactionFragment extends BaseFragment {
             adapterForBill.submitList(liveDataBill.getValue());
         });
 
+
         // button
         buttonToAdd.setOnClickListener(v -> {
             navController.navigate(R.id.action_recurringTransactionFragment_to_editRecurringTransactionFragment);
