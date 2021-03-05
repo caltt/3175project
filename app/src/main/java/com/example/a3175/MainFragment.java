@@ -37,6 +37,8 @@ public class MainFragment extends BaseFragment {
 
         // setup
         setHasOptionsMenu(true);
+        NavController navControllerBottomNav = Navigation.findNavController(activity, R.id.navHostFragmentMainFragmentBottom);
+
 
         // setup bottom nav bar
         BottomNavigationView bottomNavigationView = activity.findViewById(R.id.bottomNavigationView);

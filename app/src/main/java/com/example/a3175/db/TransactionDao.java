@@ -10,19 +10,11 @@ import androidx.room.Update;
 import java.util.List;
 
 @Dao
-public interface TransactionDao {
-    @Insert
-    void insertTransactions(Transaction... transactions);
-
-    @Update
-    void updateTransactions(Transaction... transactions);
-
-    @Delete
-    void deleteTransactions(Transaction... transactions);
+public interface TransactionDao extends BaseDao<Transaction>{
 
     @Query("SELECT * FROM `transaction` WHERE id = :id")
-    Transaction getTransactionById(int id);
+    Transaction selectById(int id);
 
     @Query("SELECT * FROM `transaction` WHERE user_id = :userId ORDER BY datetime DESC")
-    LiveData<List<Transaction>> getTransactionsByUserId(int userId);
+    LiveData<List<Transaction>> selectByUserId(int userId);
 }

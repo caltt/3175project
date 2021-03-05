@@ -76,7 +76,8 @@ public class EditUserFragment extends BaseFragment {
                     Toast.makeText(activity, "Email already exists.", Toast.LENGTH_SHORT).show();
                 } else {
                     // db insert
-                    userViewModel.insertUsers(new User(email, Utils.encode(password)));
+//                    userViewModel.insertUsers(new User(email, Utils.encode(password)));
+                    userViewModel.insert(new User(email, Utils.encode(password)));
 
                     // mark as need initialize
                     int newUserId = userViewModel.getUserByEmail(email).getId();

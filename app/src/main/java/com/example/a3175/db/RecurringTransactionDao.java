@@ -10,25 +10,17 @@ import androidx.room.Update;
 import java.util.List;
 
 @Dao
-public interface RecurringTransactionDao {
-    @Insert
-    void insertRecurringTransactions(RecurringTransaction... transactions);
-
-    @Update
-    void updateRecurringTransactions(RecurringTransaction... transactions);
-
-    @Delete
-    void deleteRecurringTransactions(RecurringTransaction... transactions);
+public interface RecurringTransactionDao extends BaseDao<RecurringTransaction> {
 
     @Query("SELECT * FROM recurringtransaction WHERE id = :id")
-    RecurringTransaction getRecurringTransactionById(int id);
+    RecurringTransaction selectById(int id);
 
     @Query("SELECT * FROM recurringtransaction WHERE user_id = :userId")
-    LiveData<List<RecurringTransaction>> getRecurringTransactionsByUserId(int userId);
+    LiveData<List<RecurringTransaction>> selectByUserId(int userId);
 
     @Query("SELECT * FROM recurringtransaction WHERE user_id = :userId AND amount < 0 ORDER BY date ASC")
-    LiveData<List<RecurringTransaction>> getRecurringExpensesByUserId(int userId);
+    LiveData<List<RecurringTransaction>> selectRecurringExpensesByUserId(int userId);
 
     @Query("SELECT * FROM recurringtransaction WHERE user_id = :userId AND amount > 0 ORDER BY date ASC")
-    LiveData<List<RecurringTransaction>> getRecurringIncomesByUserId(int userId);
+    LiveData<List<RecurringTransaction>> selectRecurringIncomesByUserId(int userId);
 }

@@ -10,16 +10,8 @@ import androidx.room.Update;
 import java.util.List;
 
 @Dao
-public interface OverviewDao {
-    @Insert
-    void insertOverviews(Overview... overviews);
-
-    @Update
-    void updateOverviews(Overview... overviews);
-
-    @Delete
-    void deleteOverviews(Overview... overviews);
+public interface OverviewDao extends BaseDao<Overview>{
 
     @Query("SELECT * FROM overview WHERE user_id = :userId")
-    LiveData<Overview> getOverviewByUserId(int userId);
+    LiveData<Overview> selectById(int userId);
 }

@@ -35,8 +35,8 @@ public abstract class A3175Database extends RoomDatabase {
                         public void onCreate(@NonNull SupportSQLiteDatabase db) {
                             super.onCreate(db);
                             Executors.newSingleThreadScheduledExecutor().execute(() -> {
-                                getDatabase(context).getUserDao().insertUsers(User.getPrePopulateData());
-                                getDatabase(context).getCategoryDao().insertCategories(Category.getPrePopulateData());
+                                getDatabase(context).getUserDao().insert(User.getPrePopulateData());
+                                getDatabase(context).getCategoryDao().insert(Category.getPrePopulateData());
 
                             });
                         }
@@ -46,7 +46,7 @@ public abstract class A3175Database extends RoomDatabase {
         return instance;
     }
 
-    abstract Dao<T> getDao<T>();
+    // test
     abstract UserDao getUserDao();
 
     abstract OverviewDao getOverviewDao();

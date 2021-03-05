@@ -10,26 +10,18 @@ import androidx.room.Update;
 import java.util.List;
 
 @Dao
-public interface CategoryDao extends A3175Dao<CategoryDao>{
-    @Insert
-    void insertCategories(Category... categories);
-
-    @Update
-    void updateCategories(Category... categories);
-
-    @Delete
-    void deleteCategories(Category... categories);
+public interface CategoryDao extends BaseDao<Category>{
 
     @Query("SELECT * FROM category WHERE id = :id")
-    Category getCategoryById(int id);
+    Category selectById(int id);
 
     @Query("SELECT * FROM category")
-    LiveData<List<Category>> getAllCategories();
+    LiveData<List<Category>> selectAll();
 
     @Query("SELECT * FROM category WHERE is_income = 0")
-    LiveData<List<Category>> getAllExpenseCategories();
+    LiveData<List<Category>> selectAllExpenseCategories();
 
     @Query("SELECT * FROM category WHERE is_income = 1")
-    LiveData<List<Category>> getAllIncomeCategories();
+    LiveData<List<Category>> selectAllIncomeCategories();
 
 }

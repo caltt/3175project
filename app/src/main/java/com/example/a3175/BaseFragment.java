@@ -54,7 +54,7 @@ public class BaseFragment extends Fragment {
         preferences = activity.getPreferences(Context.MODE_PRIVATE);
         editor = preferences.edit();
         navController = Navigation.findNavController(activity, R.id.navHostFragmentMainActivity);
-        navControllerBottomNav = Navigation.findNavController(activity, R.id.navHostFragmentMainFragmentBottom);
+//        navControllerBottomNav = Navigation.findNavController(activity, R.id.navHostFragmentMainFragmentBottom);
         inputMethodManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
 
         userViewModel = new ViewModelProvider(activity).get(UserViewModel.class);

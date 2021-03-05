@@ -34,126 +34,126 @@ public class A3175Repository {
 
     // user
     LiveData<List<User>> getAllUsers() {
-        return userDao.getAllUsers();
+        return userDao.selectAll();
     }
 
     User getUserByEmail(String email) {
-        return userDao.getUserByEmail(email);
+        return userDao.selectByEmail(email);
     }
 
     User getUserById(int id) {
-        return userDao.getUserById(id);
+        return userDao.selectById(id);
     }
 
     User getUserByEmailPassword(String email, String password) {
-        return userDao.getUserByEmailPassword(email, password);
+        return userDao.selectByEmailPassword(email, password);
     }
 
     void insertUsers(User... users) {
-        userDao.insertUsers(users);
+        userDao.insert(users);
     }
 
     void updateUsers(User... users) {
-        userDao.updateUsers(users);
+        userDao.update(users);
     }
 
     void deleteUsers(User... users) {
-        userDao.deleteUsers(users);
+        userDao.delete(users);
     }
 
     // overview
     LiveData<Overview> getOverviewByUserId(int id) {
-        return overviewDao.getOverviewByUserId(id);
+        return overviewDao.selectById(id);
     }
 
     void insertOverviews(Overview... overviews) {
-        overviewDao.insertOverviews(overviews);
+        overviewDao.insert(overviews);
     }
 
     void updateOverviews(Overview... overviews) {
-        overviewDao.updateOverviews(overviews);
+        overviewDao.update(overviews);
     }
 
     void deleteOverviews(Overview... overviews) {
-        overviewDao.deleteOverviews(overviews);
+        overviewDao.delete(overviews);
     }
 
     // recurring transaction
     RecurringTransaction getRecurringTransactionById(int id) {
-        return recurringTransactionDao.getRecurringTransactionById(id);
+        return recurringTransactionDao.selectById(id);
     }
 
     LiveData<List<RecurringTransaction>> getRecurringTransactionsByUserId(int id) {
-        return recurringTransactionDao.getRecurringTransactionsByUserId(id);
+        return recurringTransactionDao.selectByUserId(id);
     }
 
     LiveData<List<RecurringTransaction>> getRecurringExpensesByUserId(int id) {
-        return recurringTransactionDao.getRecurringExpensesByUserId(id);
+        return recurringTransactionDao.selectRecurringExpensesByUserId(id);
     }
 
     LiveData<List<RecurringTransaction>> getRecurringIncomesByUserId(int id) {
-        return recurringTransactionDao.getRecurringIncomesByUserId(id);
+        return recurringTransactionDao.selectRecurringIncomesByUserId(id);
     }
 
     void insertRecurringTransactions(RecurringTransaction... transactions) {
-        recurringTransactionDao.insertRecurringTransactions(transactions);
+        recurringTransactionDao.insert(transactions);
     }
 
     void updateRecurringTransactions(RecurringTransaction... transactions) {
-        recurringTransactionDao.updateRecurringTransactions(transactions);
+        recurringTransactionDao.update(transactions);
     }
 
     void deleteRecurringTransactions(RecurringTransaction... transactions) {
-        recurringTransactionDao.deleteRecurringTransactions(transactions);
+        recurringTransactionDao.delete(transactions);
     }
 
 
     // transaction
     Transaction getTransactionById(int id){
-        return transactionDao.getTransactionById(id);
+        return transactionDao.selectById(id);
     }
     LiveData<List<Transaction>> getTransactionsByUserId(int id) {
-        return transactionDao.getTransactionsByUserId(id);
+        return transactionDao.selectByUserId(id);
     }
 
     void insertTransactions(Transaction... transactions) {
-        transactionDao.insertTransactions(transactions);
+        transactionDao.insert(transactions);
     }
 
     void updateTransactions(Transaction... transactions) {
-        transactionDao.updateTransactions(transactions);
+        transactionDao.update(transactions);
     }
 
     void deleteTransactions(Transaction... transactions) {
-        transactionDao.deleteTransactions(transactions);
+        transactionDao.delete(transactions);
     }
 
     // category
     Category getCategoryById(int id) {
-        return categoryDao.getCategoryById(id);
+        return categoryDao.selectById(id);
     }
 
     LiveData<List<Category>> getAllCategories() {
-        return categoryDao.getAllCategories();
+        return categoryDao.selectAll();
     }
 
     LiveData<List<Category>> getAllIncomeCategories() {
-        return categoryDao.getAllIncomeCategories();
+        return categoryDao.selectAllIncomeCategories();
     }
 
     LiveData<List<Category>> getAllExpenseCategories() {
-        return categoryDao.getAllExpenseCategories();
+        return categoryDao.selectAllExpenseCategories();
     }
 
     void insertCategories(Category... categories) {
-        categoryDao.insertCategories(categories);
+        categoryDao.insert(categories);
     }
 
     void updateCategories(Category... categories) {
-        categoryDao.updateCategories(categories);
+        categoryDao.update(categories);
     }
 
     void deleteCategories(Category... categories) {
-        categoryDao.deleteCategories(categories);
+        categoryDao.delete(categories);
     }
 }
