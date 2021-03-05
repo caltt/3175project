@@ -10,7 +10,7 @@ import androidx.room.Update;
 import java.util.List;
 
 @Dao
-public interface CategoryDao {
+public interface CategoryDao extends A3175Dao<CategoryDao>{
     @Insert
     void insertCategories(Category... categories);
 

@@ -22,7 +22,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainFragment extends BaseFragment {
 
-    NavController navControllerBottomNav;
     FloatingActionButton floatingActionButton;
 
     @Override
@@ -39,8 +38,6 @@ public class MainFragment extends BaseFragment {
         // setup
         setHasOptionsMenu(true);
 
-        navControllerBottomNav = Navigation.findNavController(activity, R.id.navHostFragmentMain);
-
         // setup bottom nav bar
         BottomNavigationView bottomNavigationView = activity.findViewById(R.id.bottomNavigationView);
         AppBarConfiguration configuration = new AppBarConfiguration.Builder(bottomNavigationView.getMenu()).build();
@@ -51,14 +48,16 @@ public class MainFragment extends BaseFragment {
         // floating button
         floatingActionButton = activity.findViewById(R.id.floatingActionButton);
         floatingActionButton.setOnClickListener(v -> {
-            // nav based on current fragment id
+
+            // nav to different destinations based on current fragment id
             int currentFragmentId = navControllerBottomNav.getCurrentDestination().getId();
             if (currentFragmentId == R.id.expenseTrackerFragment) {
-                // mark
+                // mark & nav
                 Bundle bundle = new Bundle();
                 bundle.putBoolean("isAddingTransaction", true);
                 navController.navigate(R.id.action_mainFragment_to_categoryFragment, bundle);
             } else if (currentFragmentId == R.id.bigExpensePlannerFragment) {
+                // nav
                 navController.navigate(R.id.action_mainFragment_to_editBigExpenseFragment);
             }
 

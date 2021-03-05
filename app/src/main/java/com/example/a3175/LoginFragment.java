@@ -39,27 +39,25 @@ public class LoginFragment extends BaseFragment {
         // FIXME
         currentUserId = preferences.getInt(getResources().getString(R.string.logged_in_user_id), -1);
 
-        // if a user already logged in, nav to main, unable to nav back
+        //region IF ALREADY LOGGED IN, NAV TO MAIN, UNABLE TO NAV BACK
         if (currentUserId != -1) {
             navController.navigate(R.id.action_loginFragment_to_mainFragment,
                     null,
                     new NavOptions.Builder().setPopUpTo(R.id.loginFragment, true).build());
         }
+        //endregion
 
-        // view
+        //region VIEW
         editTextEmail = activity.findViewById(R.id.editTextLoginEmail);
         editTextPassword = activity.findViewById(R.id.editTextLoginPassword);
         buttonLogin = activity.findViewById(R.id.buttonLogin);
         buttonCreateAccount = activity.findViewById(R.id.buttonLoginCreateAccount);
+        //endregion
 
-
+        //region LOGIN
         buttonLogin.setOnClickListener(v -> {
-            // verify tokens
             String email = editTextEmail.getText().toString();
             String password = editTextPassword.getText().toString();
-
-            // FIXME hardcoded
-            // as user
             User user = userViewModel.getUserByEmailPassword(email, Utils.encode(password));
 
             if (user == null) {
@@ -69,7 +67,7 @@ public class LoginFragment extends BaseFragment {
             } else {
                 // login successful
 
-                if (email.equals("admin")) {
+                if (email.equals(getResources().getString(R.string.admin_username))) {
                     // as admin
 
                     // nav to admin fragment
@@ -79,9 +77,11 @@ public class LoginFragment extends BaseFragment {
 
                     int currentUserId = user.getId();
 
-                    // set logging in id for change password & initialize fragment
+                    // mark as "logging in" for change password & initialize fragment
+                    // will be removed after initialize fragment
                     editor.putInt(getResources().getString(R.string.logging_in_user_id), currentUserId).apply();
 
+                    // nav to different destinations based on different marks
                     if (preferences.getBoolean(getResources().getString(R.string.need_change_password) + currentUserId, false)) {
 
                         // nav to first login change password
@@ -95,9 +95,8 @@ public class LoginFragment extends BaseFragment {
                         // mark as logged in
                         editor.putInt(getResources().getString(R.string.logged_in_user_id), currentUserId).apply();
 
-                        // nav to main, unable to nav back
-                        navController.navigate(R.id.action_loginFragment_to_mainFragment,
-                                null,
+                        // nav to main, unable to nav back &  hide keyboard
+                        navController.navigate(R.id.action_loginFragment_to_mainFragment, null,
                                 new NavOptions.Builder().setPopUpTo(R.id.loginFragment, true).build());
                         inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
                     }
@@ -105,9 +104,11 @@ public class LoginFragment extends BaseFragment {
             }
 
         });
+        //endregion
 
         buttonCreateAccount.setOnClickListener(v -> {
             navController.navigate(R.id.action_loginFragment_to_editUserFragment);
+            inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
         });
 
     }

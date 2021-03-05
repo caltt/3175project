@@ -46,6 +46,7 @@ public abstract class A3175Database extends RoomDatabase {
         return instance;
     }
 
+    abstract Dao<T> getDao<T>();
     abstract UserDao getUserDao();
 
     abstract OverviewDao getOverviewDao();

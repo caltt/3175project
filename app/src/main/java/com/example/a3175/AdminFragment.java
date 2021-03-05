@@ -38,19 +38,21 @@ public class AdminFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        // view
+        //region VIEW
         recyclerView = activity.findViewById(R.id.recyclerViewUser);
         buttonCreateAccount = activity.findViewById(R.id.buttonAdminCreateAccount);
+        //endregion
 
-        // recycler view
+        //region RECYCLER VIEW
         userAdapter = new UserAdapter(R.layout.cell_user);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setAdapter(userAdapter);
 
         LiveData<List<User>> liveDataUser = userViewModel.getAllUsers();
         liveDataUser.observe(getViewLifecycleOwner(), users -> userAdapter.submitList(users));
+        //endregion
 
-        // swipe delete
+        //region SWIPE DELETE
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
                 0,
                 ItemTouchHelper.START | ItemTouchHelper.END) {
@@ -77,10 +79,12 @@ public class AdminFragment extends BaseFragment {
                         .show();
             }
         }).attachToRecyclerView(recyclerView);
+        //endregion
 
-        // button
+        //region BUTTON
         buttonCreateAccount.setOnClickListener(v -> {
             navController.navigate(R.id.action_adminFragment_to_editUserFragment);
         });
+        //endregion
     }
 }

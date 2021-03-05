@@ -37,7 +37,7 @@ public class FirstLoginChangePasswordFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        // setup
+        //region VIEW
         textViewTitle = activity.findViewById(R.id.textViewEditUserTitle);
         editTextEmail = activity.findViewById(R.id.editTextEditUserEmail);
         editTextOldPassword = activity.findViewById(R.id.editTextEditUserOldPassword);
@@ -45,15 +45,15 @@ public class FirstLoginChangePasswordFragment extends BaseFragment {
         editTextVerifyNewPassword = activity.findViewById(R.id.editTextEditUserVerifyPassword);
         buttonOK = activity.findViewById(R.id.buttonEditUserOK);
 
-        // view
         textViewTitle.setText(R.string.title_first_login_set_password);
         editTextNewPassword.setHint(R.string.hint_new_password);
         editTextVerifyNewPassword.setHint(R.string.hint_verify_new_password);
         editTextEmail.setVisibility(View.GONE);
         editTextOldPassword.setVisibility(View.GONE);
         buttonOK.setEnabled(false);
+        //endregion
 
-        // valid password & activate button
+        //region VALIDATE INPUT & ACTIVATE BUTTON
         TextWatcher textWatcher = new TextWatcher() {
             String newPassword, verifyNewPassword;
 
@@ -74,8 +74,9 @@ public class FirstLoginChangePasswordFragment extends BaseFragment {
         };
         editTextNewPassword.addTextChangedListener(textWatcher);
         editTextVerifyNewPassword.addTextChangedListener(textWatcher);
+        //endregion
 
-        // button
+        //region BUTTON
         buttonOK.setOnClickListener(v -> {
 
             // update db
@@ -94,6 +95,7 @@ public class FirstLoginChangePasswordFragment extends BaseFragment {
                     null,
                     new NavOptions.Builder().setPopUpTo(R.id.firstLoginChangePasswordFragment, true).build());
         });
+        //endregion
 
         // when nav back with phone button,
 //        activity.getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {

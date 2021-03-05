@@ -63,7 +63,7 @@ public class TransactionAdapter extends ListAdapter<Transaction, TransactionView
         // FIXME
         holder.textViewTransactionCategory.setText(categoryViewModel.getCategoryById(transaction.getCategoryId()).getName());
         holder.textViewTransactionDescription.setText(transaction.getDescription());
-        holder.textViewTransactionDescription.setText(String.valueOf(transaction.getAmount()));
+        holder.textViewTransactionAmount.setText(String.valueOf(transaction.getAmount()));
 
         holder.itemView.setOnClickListener(v -> {
             Bundle bundle = new Bundle();

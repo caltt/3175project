@@ -58,8 +58,8 @@ public class CategoryFragment extends BaseFragment {
         // determine fragment purpose
         // argument passed in:  add transaction
         // no argument:         edit category
-        LiveData<List<Category>> incomeCategories = categoryViewModel.getAllIncomeCategories();
-        LiveData<List<Category>> expenseCategories = categoryViewModel.getAllExpenseCategories();
+        LiveData<List<Category>> liveDataIncomeCategories = categoryViewModel.getAllIncomeCategories();
+        LiveData<List<Category>> liveDataExpenseCategories = categoryViewModel.getAllExpenseCategories();
 
         if (getArguments() != null && getArguments().getBoolean("isAddingTransaction", false)) {
             // for adding transaction
@@ -70,10 +70,10 @@ public class CategoryFragment extends BaseFragment {
             recyclerViewExpenseCategories.setAdapter(adapterExpenseForTransaction);
 
             // live data
-            incomeCategories.observe(getViewLifecycleOwner(), categories -> {
+            liveDataIncomeCategories.observe(getViewLifecycleOwner(), categories -> {
                 adapterIncomeForTransaction.submitList(categories);
             });
-            expenseCategories.observe(getViewLifecycleOwner(), categories -> {
+            liveDataExpenseCategories.observe(getViewLifecycleOwner(), categories -> {
                 adapterExpenseForTransaction.submitList(categories);
             });
 
@@ -85,14 +85,69 @@ public class CategoryFragment extends BaseFragment {
             recyclerViewExpenseCategories.setAdapter(adapterExpenseCategories);
 
             // live data
-            incomeCategories.observe(getViewLifecycleOwner(), categories -> {
+            liveDataIncomeCategories.observe(getViewLifecycleOwner(), categories -> {
                 adapterIncomeCategories.submitList(categories);
             });
-            expenseCategories.observe(getViewLifecycleOwner(), categories -> {
+            liveDataExpenseCategories.observe(getViewLifecycleOwner(), categories -> {
                 adapterExpenseCategories.submitList(categories);
             });
 
             // swipe delete
+            // for income category
+            new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
+                    0,
+                    ItemTouchHelper.START | ItemTouchHelper.END) {
+                @Override
+                public boolean onMove(@NonNull RecyclerView recyclerView,
+                                      @NonNull RecyclerView.ViewHolder viewHolder,
+                                      @NonNull RecyclerView.ViewHolder target) {
+                    return false;
+                }
+
+                @Override
+                public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                    new AlertDialog.Builder(activity)
+                            .setTitle("Delete?")
+                            .setPositiveButton("Yes", (dialog, which) -> {
+                                Category toDelete = liveDataIncomeCategories.getValue().get(viewHolder.getAdapterPosition());
+                                categoryViewModel.deleteCategories(toDelete);
+
+                            })
+                            .setNegativeButton("No", (dialog, which) -> {
+                                adapterIncomeCategories.notifyItemChanged(viewHolder.getAdapterPosition());
+                            })
+                            .create()
+                            .show();
+                }
+            }).attachToRecyclerView(recyclerViewIncomeCategories);
+
+            // for expense category
+            new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
+                    0,
+                    ItemTouchHelper.START | ItemTouchHelper.END) {
+                @Override
+                public boolean onMove(@NonNull RecyclerView recyclerView,
+                                      @NonNull RecyclerView.ViewHolder viewHolder,
+                                      @NonNull RecyclerView.ViewHolder target) {
+                    return false;
+                }
+
+                @Override
+                public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                    new AlertDialog.Builder(activity)
+                            .setTitle("Delete?")
+                            .setPositiveButton("Yes", (dialog, which) -> {
+                                Category toDelete = liveDataExpenseCategories.getValue().get(viewHolder.getAdapterPosition());
+                                categoryViewModel.deleteCategories(toDelete);
+
+                            })
+                            .setNegativeButton("No", (dialog, which) -> {
+                                adapterExpenseCategories.notifyItemChanged(viewHolder.getAdapterPosition());
+                            })
+                            .create()
+                            .show();
+                }
+            }).attachToRecyclerView(recyclerViewExpenseCategories);
         }
 
 

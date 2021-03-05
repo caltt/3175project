@@ -33,7 +33,7 @@ public class RecurringTransactionAdapter extends ListAdapter<RecurringTransactio
                         && oldItem.getDescription().equals(newItem.getDescription());
             }
         });
-        this.navController = Navigation.findNavController(activity, R.id.navHostFragment);
+        this.navController = Navigation.findNavController(activity, R.id.navHostFragmentMainActivity);
         this.layoutId = layoutId;
     }
 

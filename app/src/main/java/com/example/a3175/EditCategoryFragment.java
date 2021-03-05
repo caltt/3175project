@@ -35,15 +35,16 @@ public class EditCategoryFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        // view
+        //region VIEW
         radioButtonIsIncome = activity.findViewById(R.id.radioButtonEditCategoryIsIncome);
         radioButtonIsExpense = activity.findViewById(R.id.radioButtonEditCategoryIsExpense);
         editTextCategoryName = activity.findViewById(R.id.editTextEditCategoryName);
         buttonOK = activity.findViewById(R.id.buttonEditCategoryOK);
 
         radioButtonIsExpense.setChecked(true);
+        //endregion
 
-        // validate input & activate ok button
+        //region VALIDATE INPUT & ACTIVATE BUTTON
         buttonOK.setEnabled(false);
 
         View.OnClickListener onClickListener = v -> {
@@ -68,9 +69,10 @@ public class EditCategoryFragment extends BaseFragment {
 
             }
         });
+        //endregion
 
 
-        // determine fragment purpose (create / edit)
+        //region DETERMINE FRAGMENT PURPOSE (ADD / EDIT)
         currentCategoryId = getArguments() != null
                 ? getArguments().getInt("categoryId", -1)
                 : -1;
@@ -112,6 +114,7 @@ public class EditCategoryFragment extends BaseFragment {
                 inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
             });
         }
+        //endregion
 
     }
 }

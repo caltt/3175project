@@ -16,7 +16,7 @@ public class A3175Repository {
     private static CategoryDao categoryDao;
     private static BigExpenseDao bigExpenseDao;
 
-    public A3175Repository(Context context) {
+    private A3175Repository(Context context) {
         A3175Database database = A3175Database.getDatabase(context.getApplicationContext());
         userDao = database.getUserDao();
         overviewDao = database.getOverviewDao();

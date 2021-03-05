@@ -38,22 +38,24 @@ public class EditUserFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        // setup view
+        //region VIEW
         textViewTitle = activity.findViewById(R.id.textViewEditUserTitle);
         editTextEmail = activity.findViewById(R.id.editTextEditUserEmail);
         editTextPassword = activity.findViewById(R.id.editTextEditUserPassword);
         editTextVerifyPassword = activity.findViewById(R.id.editTextEditUserVerifyPassword);
         editTextOldPassword = activity.findViewById(R.id.editTextEditUserOldPassword);
         buttonOK = activity.findViewById(R.id.buttonEditUserOK);
+        //endregion
 
-
-        // determine fragment purpose based on previous fragment
+        //region CONTEXTUAL DATA
         currentUser = userViewModel.getUserById(preferences.getInt(getResources().getString(R.string.logged_in_user_id), -1));
         if (currentUser != null) {
             currentUserId = currentUser.getId();
         }
         boolean needChangePassword = preferences.getBoolean(getResources().getString(R.string.need_change_password) + currentUserId, false);
+        //endregion
 
+        //region DETERMINE FRAGMENT PURPOSE
         int previousFragmentId = navController.getPreviousBackStackEntry().getDestination().getId();
         if (previousFragmentId != R.id.mainFragment) {
             // CREATE ACCOUNT
@@ -63,6 +65,7 @@ public class EditUserFragment extends BaseFragment {
             buttonOK.setText(R.string.button_text_create);
             editTextOldPassword.setVisibility(View.GONE);
             editTextEmail.requestFocus();
+            inputMethodManager.showSoftInput(editTextEmail, 0);
 
             // button function
             buttonOK.setOnClickListener(v -> {
@@ -75,16 +78,16 @@ public class EditUserFragment extends BaseFragment {
                     // db insert
                     userViewModel.insertUsers(new User(email, Utils.encode(password)));
 
-                    // need initialize later
+                    // mark as need initialize
                     int newUserId = userViewModel.getUserByEmail(email).getId();
                     editor.putBoolean(getResources().getString(R.string.need_initialize) + newUserId, true).apply();
 
-                    // need change password (admin created user)
+                    // mark as need change password (admin created user)
                     if (previousFragmentId == R.id.adminFragment) {
                         editor.putBoolean(getResources().getString(R.string.need_change_password) + newUserId, true).apply();
                     }
 
-                    // nav back
+                    // nav back & hide keyboard
                     navController.navigateUp();
                     Toast.makeText(activity, "Account created.", Toast.LENGTH_SHORT).show();
                     inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
@@ -118,17 +121,16 @@ public class EditUserFragment extends BaseFragment {
                     currentUser.setPassword(Utils.encode(password));
                     userViewModel.updateUsers(currentUser);
 
-                    // nav back
+                    // nav back & hide keyboard
                     navController.navigateUp();
                     Toast.makeText(activity, "Account information updated.", Toast.LENGTH_SHORT).show();
                     inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }
             });
         }
+        //endregion
 
-        // edit text validation
-        // only activate ok button when valid
-
+        //region VALIDATE INPUT & ACTIVATE BUTTON
         buttonOK.setEnabled(false);
 
         // initial values
@@ -191,6 +193,6 @@ public class EditUserFragment extends BaseFragment {
         };
         editTextPassword.addTextChangedListener(textWatcherForPassword);
         editTextVerifyPassword.addTextChangedListener(textWatcherForPassword);
-
+        //endregion
     }
 }

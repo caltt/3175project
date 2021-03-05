@@ -36,13 +36,14 @@ public class EditRecurringTransactionFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        // get user id
+        //region CONTEXTUAL DATA
         currentUserId = preferences.getInt(getResources().getString(R.string.logged_in_user_id), -1);
         if (currentUserId == -1) {
             currentUserId = preferences.getInt(getResources().getString(R.string.logging_in_user_id), -1);
         }
+        //endregion
 
-        // setup view
+        //region VIEW
         editTextSalaryAmount = activity.findViewById(R.id.editTextEditRecurringTransactionAmount);
         editTextSalaryDate = activity.findViewById(R.id.editTextEditRecurringTransactionDate);
         editTextSalaryDescription = activity.findViewById(R.id.editTextEditRecurringTransactionDescription);
@@ -52,8 +53,9 @@ public class EditRecurringTransactionFragment extends BaseFragment {
 
         radioButtonIsSalary.setChecked(true);
         buttonOK.setEnabled(false);
+        //endregion
 
-        // activate button ok if editText all valid
+        //region VALIDATE EDIT TEXT & ACTIVATE BUTTON
         TextWatcher textWatcher = new TextWatcher() {
             String amount, date;
 
@@ -75,16 +77,16 @@ public class EditRecurringTransactionFragment extends BaseFragment {
 
         editTextSalaryAmount.addTextChangedListener(textWatcher);
         editTextSalaryDate.addTextChangedListener(textWatcher);
+        //endregion
 
-
-        // determine fragment purpose (create / edit)
+        //region DETERMINE FRAGMENT PURPOSE (ADD / EDIT)
         currentRecurringTransactionId = getArguments() == null
                 ? -1   // create
                 : getArguments().getInt("recurringTransactionId", -1);   // edit
 
         if (currentRecurringTransactionId == -1) {
 
-            // create
+            // add a recurring transaction
             buttonOK.setOnClickListener(v -> {
                 double amount = Double.parseDouble(editTextSalaryAmount.getText().toString());
                 amount = radioButtonIsBill.isChecked() ? -amount : amount;
@@ -102,7 +104,7 @@ public class EditRecurringTransactionFragment extends BaseFragment {
             });
 
         } else {
-            // edit
+            // edit a recurring transaction
 
             currentRecurringTransaction = recurringTransactionViewModel.getRecurringTransactionById(currentRecurringTransactionId);
 

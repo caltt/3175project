@@ -29,11 +29,13 @@ public class InitializeFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        // setup view
+        //region VIEW
         editTextCurrentSavings = activity.findViewById(R.id.editTextCurrentSavings);
         buttonSalaryBill = activity.findViewById(R.id.buttonFirstTimeManageSalary);
         buttonOK = activity.findViewById(R.id.buttonInputInformationToMain);
+        //endregion
 
+        //region BUTTON
         buttonSalaryBill.setOnClickListener(v -> {
             navController.navigate(R.id.action_initializeFragment_to_recurringTransactionFragment);
         });
@@ -60,5 +62,6 @@ public class InitializeFragment extends BaseFragment {
                     new NavOptions.Builder().setPopUpTo(R.id.loginFragment, true).build());                        inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
             inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
         });
+        //endregion
     }
 }

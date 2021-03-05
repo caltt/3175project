@@ -31,7 +31,7 @@ public class CategoryAdapter extends ListAdapter<Category, CategoryViewHolder> {
                 return oldItem.getName().equals(newItem.getName());
             }
         });
-        this.navController = Navigation.findNavController(activity, R.id.navHostFragment);
+        this.navController = Navigation.findNavController(activity, R.id.navHostFragmentMainActivity);
         this.layoutId = layoutId;
         this.isForTransaction = isForTransaction;
     }
