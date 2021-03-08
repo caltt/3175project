@@ -2,6 +2,7 @@ package com.example.a3175.db;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity
@@ -13,6 +14,13 @@ public class Category {
     @ColumnInfo(name = "is_income")
     private boolean isIncome;
 
+    @Ignore
+    public Category(int id, String name, boolean isIncome) {
+        this.id = id;
+        this.name = name;
+        this.isIncome = isIncome;
+    }
+
     public Category(String name, boolean isIncome) {
         this.name = name;
         this.isIncome = isIncome;
@@ -20,10 +28,10 @@ public class Category {
 
     public static Category[] getPrePopulateData(){
         return new Category[]{
+                new Category(1, "Salary", true),
+                new Category(2, "Bill", false),
                 new Category("income1", true),
-                new Category("income2", true),
                 new Category("expense1", false),
-                new Category("expense2", false),
         };
     }
 

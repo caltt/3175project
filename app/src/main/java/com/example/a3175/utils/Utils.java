@@ -10,11 +10,13 @@ import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.a3175.db.Overview;
 import com.example.a3175.db.User;
 
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.crypto.NoSuchPaddingException;
@@ -23,16 +25,20 @@ public class Utils {
     private static final String TAG = "test";
     private static MessageDigest messageDigest;
 
+    private static DecimalFormat decimalFormat;
+
     static {
         try {
             messageDigest = MessageDigest.getInstance("MD5");
         } catch (NoSuchAlgorithmException e) {
             Log.d(TAG, "static initializer: " + e.getMessage());
         }
+
+        decimalFormat = new DecimalFormat("#.##");
     }
 
     /**
-     * For encoding a password string
+     * Encode a password string
      */
     public static String encode(String plaintext) {
         String encoded = "";
@@ -40,6 +46,17 @@ public class Utils {
         encoded = new String(messageDigest.digest());
         return encoded;
     }
+
+    /**
+     * Format a double
+     *
+     * @param n
+     * @return
+     */
+    public static String formatDouble(double n){
+        return decimalFormat.format(n);
+    }
+
 
 //    public static <T> ItemTouchHelper getItemTouchHelper(
 //            Activity activity,

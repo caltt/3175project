@@ -7,24 +7,23 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import android.os.SystemClock;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.example.a3175.db.Category;
+import com.example.a3175.db.Overview;
 import com.example.a3175.db.Transaction;
+import com.example.a3175.utils.Calculators;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDate;
 
 public class EditTransactionFragment extends BaseFragment {
 
@@ -34,7 +33,11 @@ public class EditTransactionFragment extends BaseFragment {
 
     Transaction currentTransaction;
     Category currentCategory;
-    int currentUserId, currentTransactionId, currentCategoryId;
+    //    Overview currentOverview;
+//    int currentUserId;
+    int currentTransactionId, currentCategoryId;
+
+    LocalDate datePickerDate;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,7 +46,7 @@ public class EditTransactionFragment extends BaseFragment {
         return inflater.inflate(R.layout.fragment_edit_transaction, container, false);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -63,7 +66,8 @@ public class EditTransactionFragment extends BaseFragment {
 
         //region CONTEXTUAL DATA
         // FIXME
-        currentUserId = preferences.getInt(getResources().getString(R.string.logged_in_user_id), -1);
+//        currentUserId = preferences.getInt(getResources().getString(R.string.logged_in_user_id), -1);
+//        currentOverview = overviewViewModel.getByUserIdForUpdate(currentUserId);
         if (getArguments() != null) {
             currentCategoryId = getArguments().getInt("categoryId");
             currentTransactionId = getArguments().getInt("transactionId");
@@ -71,23 +75,22 @@ public class EditTransactionFragment extends BaseFragment {
             // there must be a category, no matter from category id / transaction id
             // but not necessarily a transaction
             if (currentCategoryId != 0) {
-                currentCategory = categoryViewModel.getCategoryById(currentCategoryId);
+                currentCategory = categoryViewModel.getById(currentCategoryId);
             } else {
-                currentTransaction = transactionViewModel.getTransactionById(currentTransactionId);
-                currentCategory = categoryViewModel.getCategoryById(currentTransaction.getCategoryId());
+                currentTransaction = transactionViewModel.getById(currentTransactionId);
+                currentCategory = categoryViewModel.getById(currentTransaction.getCategoryId());
             }
         }
         //endregion
 
         //region DATE PICKER
         buttonDatePicker.setOnClickListener(v -> {
-            calendar = Calendar.getInstance();
+//            calendar = Calendar.getInstance();
             DatePickerDialog datePickerDialog = new DatePickerDialog(activity);
             datePickerDialog.setOnDateSetListener((view, year, month, dayOfMonth) -> {
-                // FIXME: hr & min ?
-                calendar.set(year, month, dayOfMonth);
-
-                editTextDate.setText(dateFormat.format(calendar.getTime()));
+//                calendar.set(year, month, dayOfMonth);
+                datePickerDate = LocalDate.of(year, month + 1, dayOfMonth);
+                editTextDate.setText(datePickerDate.toString());
             });
             datePickerDialog.show();
         });
@@ -120,21 +123,27 @@ public class EditTransactionFragment extends BaseFragment {
 
             // fill editText
             if (currentCategoryId != 0) {
-                editTextCategory.setText(categoryViewModel.getCategoryById(currentCategoryId).getName());
+                editTextCategory.setText(categoryViewModel.getById(currentCategoryId).getName());
             }
-            editTextDate.setText(dateFormat.format(calendar.getTime()));
+            datePickerDate = LocalDate.now();
+            editTextDate.setText(datePickerDate.toString());
 
             buttonOK.setOnClickListener(v -> {
 
                 double amount = Double.parseDouble(editTextAmount.getText().toString());
                 amount = currentCategory.isIncome() ? amount : -amount;
-                Date date = new Date(calendar.getTimeInMillis());
+//                Date date = new Date(calendar.getTimeInMillis());
                 String description = editTextDescription.getText().toString();
 
                 // db insert
-                transactionViewModel.insertTransactions(
-                        new Transaction(currentUserId, amount, date, currentCategoryId, description)
+                transactionViewModel.insert(
+                        new Transaction(currentUserId, amount, datePickerDate, currentCategoryId, description)
                 );
+
+                // FIXME
+                // db update: overview
+                Calculators.processTransaction(currentOverview, amount);
+                overviewViewModel.update(currentOverview);
 
                 // nav back to main & hide keyboard
                 navController.popBackStack(R.id.mainFragment, false);
@@ -145,26 +154,33 @@ public class EditTransactionFragment extends BaseFragment {
             // edit transaction
 
             // fill editText
-            String currentCategoryName = categoryViewModel.getCategoryById(currentTransaction.getCategoryId()).getName();
-            Date datetime = currentTransaction.getDatetime();
+//            String currentCategoryName = categoryViewModel.getCategoryById(currentTransaction.getCategoryId()).getName();
+            String currentCategoryName = transactionViewModel.getCategoryById(currentTransactionId).getName();
+            datePickerDate = currentTransaction.getDate();
+            double oldAmount = currentTransaction.getAmount();
+
             editTextCategory.setText(currentCategoryName);
-            editTextDate.setText(dateFormat.format(datetime));
-            calendar.setTime(datetime);
+            editTextAmount.setText(String.valueOf(Math.abs(oldAmount)));
+            editTextDate.setText(datePickerDate.toString());
+//            calendar.setTime(datetime);
             editTextDescription.setText(currentTransaction.getDescription());
-            editTextAmount.setText(String.valueOf(Math.abs(currentTransaction.getAmount())));
 
             buttonOK.setOnClickListener(v -> {
                 // db update
                 double amount = Double.parseDouble(editTextAmount.getText().toString());
                 amount = currentCategory.isIncome() ? amount : -amount;
-                Date date = new Date(calendar.getTimeInMillis());
+//                Date date = new Date(calendar.getTimeInMillis());
                 String description = editTextDescription.getText().toString();
 
                 currentTransaction.setAmount(amount);
-                currentTransaction.setDatetime(date);
+                currentTransaction.setDate(datePickerDate);
                 currentTransaction.setDescription(description);
 
-                transactionViewModel.updateTransactions(currentTransaction);
+                transactionViewModel.update(currentTransaction);
+
+                // update overview
+                Calculators.processTransaction(currentOverview, amount - oldAmount);
+                overviewViewModel.update(currentOverview);
 
                 // nav back & hide keyboard
                 navController.navigateUp();

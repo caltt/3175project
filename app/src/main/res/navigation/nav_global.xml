@@ -12,19 +12,29 @@
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
         <action
             android:id="@+id/action_loginFragment_to_adminFragment"
-            app:destination="@id/adminFragment" />
+            app:destination="@id/adminFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
         <action
             android:id="@+id/action_loginFragment_to_editUserFragment"
-            app:destination="@id/editUserFragment" />
+            app:destination="@id/editUserFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
         <action
             android:id="@+id/action_loginFragment_to_initializeFragment"
-            app:destination="@id/initializeFragment" />
+            app:destination="@id/initializeFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
         <action
             android:id="@+id/action_loginFragment_to_firstLoginChangePasswordFragment"
-            app:destination="@id/firstLoginChangePasswordFragment" />
+            app:destination="@id/firstLoginChangePasswordFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
@@ -33,19 +43,27 @@
         tools:layout="@layout/fragment_main" >
         <action
             android:id="@+id/action_mainFragment_to_categoryFragment"
-            app:destination="@id/categoryFragment" />
+            app:destination="@id/categoryFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
         <action
             android:id="@+id/action_mainFragment_to_editBigExpenseFragment"
             app:destination="@id/editBigExpenseFragment" />
         <action
             android:id="@+id/action_mainFragment_to_recurringTransactionFragment"
-            app:destination="@id/recurringTransactionFragment" />
+            app:destination="@id/recurringTransactionFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
         <action
             android:id="@+id/action_mainFragment_to_editUserFragment"
-            app:destination="@id/editUserFragment" />
+            app:destination="@id/editUserFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
         <action
             android:id="@+id/action_mainFragment_to_editTransactionFragment"
-            app:destination="@id/editTransactionFragment" />
+            app:destination="@id/editTransactionFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/initializeFragment"
@@ -54,10 +72,14 @@
         tools:layout="@layout/fragment_initialize">
         <action
             android:id="@+id/action_initializeFragment_to_recurringTransactionFragment"
-            app:destination="@id/recurringTransactionFragment" />
+            app:destination="@id/recurringTransactionFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
         <action
             android:id="@+id/action_initializeFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/adminFragment"
@@ -66,7 +88,9 @@
         tools:layout="@layout/fragment_admin" >
         <action
             android:id="@+id/action_adminFragment_to_editUserFragment"
-            app:destination="@id/editUserFragment" />
+            app:destination="@id/editUserFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
@@ -75,10 +99,14 @@
         tools:layout="@layout/fragment_category" >
         <action
             android:id="@+id/action_categoryFragment_to_editCategoryFragment"
-            app:destination="@id/editCategoryFragment" />
+            app:destination="@id/editCategoryFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
         <action
             android:id="@+id/action_categoryFragment_to_editTransactionFragment"
-            app:destination="@id/editTransactionFragment" />
+            app:destination="@id/editTransactionFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/recurringTransactionFragment"
@@ -87,7 +115,9 @@
         tools:layout="@layout/fragment_recurring_transaction" >
         <action
             android:id="@+id/action_recurringTransactionFragment_to_editRecurringTransactionFragment"
-            app:destination="@id/editRecurringTransactionFragment" />
+            app:destination="@id/editRecurringTransactionFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/editRecurringTransactionFragment"
@@ -108,7 +138,12 @@
         android:id="@+id/editBigExpenseFragment"
         android:name="com.example.a3175.EditBigExpenseFragment"
         android:label="fragment_edit_big_expense"
-        tools:layout="@layout/fragment_edit_big_expense" />
+        tools:layout="@layout/fragment_edit_big_expense" >
+        <action
+            android:id="@+id/action_editBigExpenseFragment_to_bigExpensePlanFragment"
+            app:destination="@id/bigExpensePlanFragment"
+            app:enterAnim="@anim/nav_default_enter_anim" />
+    </fragment>
     <fragment
         android:id="@+id/editUserFragment"
         android:name="com.example.a3175.EditUserFragment"
@@ -120,6 +155,13 @@
         android:label="FirstLoginChangePasswordFragment" >
         <action
             android:id="@+id/action_firstLoginChangePasswordFragment_to_initializeFragment"
-            app:destination="@id/initializeFragment" />
+            app:destination="@id/initializeFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
+    <fragment
+        android:id="@+id/bigExpensePlanFragment"
+        android:name="com.example.a3175.BigExpensePlanFragment"
+        android:label="fragment_big_expense_plan"
+        tools:layout="@layout/fragment_big_expense_plan" />
 </navigation>

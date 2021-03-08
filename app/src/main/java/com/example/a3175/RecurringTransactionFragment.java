@@ -46,11 +46,12 @@ public class RecurringTransactionFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        // get user id
-        int currentUserId = preferences.getInt(getResources().getString(R.string.logged_in_user_id), -1);
-        if (currentUserId == -1) {
-            currentUserId = preferences.getInt(getResources().getString(R.string.logging_in_user_id), -1);
-        }
+        //region CONTEXTUAL DATA
+//        int currentUserId = preferences.getInt(getResources().getString(R.string.logged_in_user_id), -1);
+//        if (currentUserId == -1) {
+//            currentUserId = preferences.getInt(getResources().getString(R.string.logging_in_user_id), -1);
+//        }
+        //endregion
 
         // setup
         adapterForSalary = new RecurringTransactionAdapter(activity, R.layout.cell_recurring_transaction);

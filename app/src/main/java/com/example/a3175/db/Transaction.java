@@ -4,14 +4,10 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
-import androidx.room.TypeConverters;
 
-import com.example.a3175.utils.DateConverter;
-
-import java.sql.Date;
+import java.time.LocalDate;
 
 @Entity(foreignKeys = @ForeignKey(entity = User.class, parentColumns = "id", childColumns = "user_id"))
-@TypeConverters({DateConverter.class})
 public class Transaction {
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -21,15 +17,15 @@ public class Transaction {
     private int categoryId;
     @ColumnInfo(name = "amount")
     private double amount;
-    @ColumnInfo(name = "datetime")
-    private Date datetime;
+    @ColumnInfo(name = "date")
+    private LocalDate date;
     @ColumnInfo(name = "description")
     private String description;
 
-    public Transaction(int userId, double amount, Date datetime, int categoryId, String description) {
+    public Transaction(int userId, double amount, LocalDate date, int categoryId, String description) {
         this.userId = userId;
         this.amount = amount;
-        this.datetime = datetime;
+        this.date = date;
         this.categoryId = categoryId;
         this.description = description;
     }
@@ -58,12 +54,12 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public Date getDatetime() {
-        return datetime;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setDatetime(Date datetime) {
-        this.datetime = datetime;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public String getDescription() {

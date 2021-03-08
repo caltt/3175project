@@ -7,14 +7,14 @@
     tools:context=".ExpenseTrackerFragment">
 
     <TextView
-        android:id="@+id/textViewAvailableTodayTitle"
+        android:id="@+id/textViewTodayRemainingTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="Available Today"
+        android:text="Today remaining"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewSavingsTitle"
+        app:layout_constraintBottom_toTopOf="@+id/textViewTodayAllowedTitle"
         app:layout_constraintEnd_toStartOf="@+id/guideline24"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,8 +25,18 @@
         android:text="Savings"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/textViewIncomeTitle"
-        app:layout_constraintEnd_toEndOf="@+id/textViewAvailableTodayTitle"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAvailableTodayTitle" />
+        app:layout_constraintEnd_toEndOf="@+id/textViewTodayAllowedTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTodayAllowedTitle" />
+
+    <TextView
+        android:id="@+id/textViewTodayAllowedTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Today available"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewSavingsTitle"
+        app:layout_constraintEnd_toEndOf="@+id/textViewTodayRemainingTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTodayRemainingTitle" />
 
     <TextView
         android:id="@+id/textViewIncomeTitle"
@@ -34,19 +44,9 @@
         android:layout_height="wrap_content"
         android:text="Income"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewDebtTitle"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewTransaction"
         app:layout_constraintEnd_toEndOf="@+id/textViewSavingsTitle"
         app:layout_constraintTop_toBottomOf="@+id/textViewSavingsTitle" />
-
-    <TextView
-        android:id="@+id/textViewDebtTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Debt"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerViewTransaction"
-        app:layout_constraintEnd_toEndOf="@+id/textViewIncomeTitle"
-        app:layout_constraintTop_toBottomOf="@+id/textViewIncomeTitle" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline27"
@@ -65,13 +65,13 @@
         app:layout_constraintTop_toTopOf="@+id/guideline27" />
 
     <TextView
-        android:id="@+id/textViewAvailableTodayAmount"
+        android:id="@+id/textViewTodayRemainingAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewSavingsAmount"
+        app:layout_constraintBottom_toTopOf="@+id/textViewTodayAllowedAmount"
         app:layout_constraintStart_toStartOf="@+id/guideline24"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="15" />
@@ -82,29 +82,28 @@
         android:layout_height="wrap_content"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/textViewIncomeAmount"
-        app:layout_constraintStart_toStartOf="@+id/textViewAvailableTodayAmount"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAvailableTodayAmount"
+        app:layout_constraintStart_toStartOf="@+id/textViewTodayAllowedAmount"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTodayAllowedAmount"
         tools:text="5" />
+
+    <TextView
+        android:id="@+id/textViewTodayAllowedAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewSavingsAmount"
+        app:layout_constraintStart_toStartOf="@+id/textViewTodayRemainingAmount"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTodayRemainingAmount"
+        tools:text="15" />
 
     <TextView
         android:id="@+id/textViewIncomeAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewDebtAmount"
-        app:layout_constraintStart_toStartOf="@+id/textViewSavingsAmount"
-        app:layout_constraintTop_toBottomOf="@+id/textViewSavingsAmount"
-        tools:text="15" />
-
-    <TextView
-        android:id="@+id/textViewDebtAmount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewTransaction"
-        app:layout_constraintStart_toStartOf="@+id/textViewIncomeAmount"
-        app:layout_constraintTop_toBottomOf="@+id/textViewIncomeAmount"
+        app:layout_constraintStart_toStartOf="@+id/textViewSavingsAmount"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSavingsAmount"
         tools:text="15" />
 
     <androidx.constraintlayout.widget.Guideline

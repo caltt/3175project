@@ -15,6 +15,9 @@ public interface CategoryDao extends BaseDao<Category>{
     @Query("SELECT * FROM category WHERE id = :id")
     Category selectById(int id);
 
+    @Query("SELECT * FROM category WHERE name = :name")
+    Category selectByName(String name);
+
     @Query("SELECT * FROM category")
     LiveData<List<Category>> selectAll();
 

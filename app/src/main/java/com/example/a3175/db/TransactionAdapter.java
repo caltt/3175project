@@ -1,20 +1,15 @@
 package com.example.a3175.db;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
-import com.example.a3175.BaseFragment;
 import com.example.a3175.R;
 
 public class TransactionAdapter extends ListAdapter<Transaction, TransactionViewHolder> {
@@ -33,9 +28,9 @@ public class TransactionAdapter extends ListAdapter<Transaction, TransactionView
             @Override
             public boolean areContentsTheSame(@NonNull Transaction oldItem, @NonNull Transaction newItem) {
                 return oldItem.getUserId() == newItem.getUserId()
-                        && oldItem.getAmount() == newItem.getAmount()
+                        && Math.abs(oldItem.getAmount() - newItem.getAmount()) < 0.01
                         && oldItem.getCategoryId() == newItem.getCategoryId()
-                        && oldItem.getDatetime().equals(newItem.getDatetime())
+                        && oldItem.getDate().equals(newItem.getDate())
                         && oldItem.getDescription().equals(newItem.getDescription());
             }
         });
@@ -61,7 +56,7 @@ public class TransactionAdapter extends ListAdapter<Transaction, TransactionView
         Transaction transaction = getItem(position);
 
         // FIXME
-        holder.textViewTransactionCategory.setText(categoryViewModel.getCategoryById(transaction.getCategoryId()).getName());
+        holder.textViewTransactionCategory.setText(categoryViewModel.getById(transaction.getCategoryId()).getName());
         holder.textViewTransactionDescription.setText(transaction.getDescription());
         holder.textViewTransactionAmount.setText(String.valueOf(transaction.getAmount()));
 

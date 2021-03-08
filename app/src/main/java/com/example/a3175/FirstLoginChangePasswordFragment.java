@@ -2,14 +2,11 @@ package com.example.a3175;
 
 import android.os.Bundle;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.navigation.NavOptions;
-import androidx.navigation.Navigation;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,12 +77,12 @@ public class FirstLoginChangePasswordFragment extends BaseFragment {
         buttonOK.setOnClickListener(v -> {
 
             // update db
-            int currentUserId = preferences.getInt(getResources().getString(R.string.logging_in_user_id), -1);
-            User currentUser = userViewModel.getUserById(currentUserId);
+//            int currentUserId = preferences.getInt(getResources().getString(R.string.logging_in_user_id), -1);
+//            User currentUser = userViewModel.getById(currentUserId);
             String password = editTextNewPassword.getText().toString();
 
             currentUser.setPassword(Utils.encode(password));
-            userViewModel.updateUsers(currentUser);
+            userViewModel.update(currentUser);
 
             // remove flag
             editor.remove(getResources().getString(R.string.need_change_password) + currentUserId).apply();

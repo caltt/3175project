@@ -8,7 +8,7 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-public class CategoryViewModel extends AndroidViewModel{
+public class CategoryViewModel extends AndroidViewModel {
     private A3175Repository repository;
 
 
@@ -17,8 +17,12 @@ public class CategoryViewModel extends AndroidViewModel{
         repository = A3175Repository.getInstance(application);
     }
 
-    public Category getCategoryById(int id){
+    public Category getById(int id) {
         return repository.getCategoryById(id);
+    }
+
+    public Category getByName(String name) {
+        return repository.getCategoryByName(name);
     }
 
     public LiveData<List<Category>> getAllCategories() {
@@ -33,15 +37,15 @@ public class CategoryViewModel extends AndroidViewModel{
         return repository.getAllExpenseCategories();
     }
 
-    public void insertCategories(Category... categories) {
+    public void insert(Category... categories) {
         repository.insertCategories(categories);
     }
 
-    public void updateCategories(Category... categories) {
+    public void update(Category... categories) {
         repository.updateCategories(categories);
     }
 
-    public void deleteCategories(Category... categories) {
+    public void delete(Category... categories) {
         repository.deleteCategories(categories);
     }
 }

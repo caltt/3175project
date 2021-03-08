@@ -63,7 +63,11 @@ public class A3175Repository {
 
     // overview
     LiveData<Overview> getOverviewByUserId(int id) {
-        return overviewDao.selectById(id);
+        return overviewDao.selectByUserId(id);
+    }
+
+    Overview getOverviewByUserIdForUpdate(int id) {
+        return overviewDao.selectByUserIdForUpdate(id);
     }
 
     void insertOverviews(Overview... overviews) {
@@ -95,6 +99,14 @@ public class A3175Repository {
         return recurringTransactionDao.selectRecurringIncomesByUserId(id);
     }
 
+    List<RecurringTransaction> getRecurringTransactionsByUserIdBetweenDates(int id, int from, int to) {
+        return recurringTransactionDao.selectByUserIdBetweenDates(id, from, to);
+    }
+
+    List<RecurringTransaction> getRecurringTransactionsByUserIdDate(int id, int date) {
+        return recurringTransactionDao.selectByUserIdDate(id, date);
+    }
+
     void insertRecurringTransactions(RecurringTransaction... transactions) {
         recurringTransactionDao.insert(transactions);
     }
@@ -109,11 +121,16 @@ public class A3175Repository {
 
 
     // transaction
-    Transaction getTransactionById(int id){
+    Transaction getTransactionById(int id) {
         return transactionDao.selectById(id);
     }
+
     LiveData<List<Transaction>> getTransactionsByUserId(int id) {
         return transactionDao.selectByUserId(id);
+    }
+
+    Category getCategoryByTransactionId(int id) {
+        return transactionDao.selectCategoryById(id);
     }
 
     void insertTransactions(Transaction... transactions) {
@@ -131,6 +148,10 @@ public class A3175Repository {
     // category
     Category getCategoryById(int id) {
         return categoryDao.selectById(id);
+    }
+
+    Category getCategoryByName(String name) {
+        return categoryDao.selectByName(name);
     }
 
     LiveData<List<Category>> getAllCategories() {

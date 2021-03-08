@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 
 import com.example.a3175.db.Category;
 import com.example.a3175.db.CategoryAdapter;
-import com.example.a3175.db.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -110,7 +109,7 @@ public class CategoryFragment extends BaseFragment {
                             .setTitle("Delete?")
                             .setPositiveButton("Yes", (dialog, which) -> {
                                 Category toDelete = liveDataIncomeCategories.getValue().get(viewHolder.getAdapterPosition());
-                                categoryViewModel.deleteCategories(toDelete);
+                                categoryViewModel.delete(toDelete);
 
                             })
                             .setNegativeButton("No", (dialog, which) -> {
@@ -138,7 +137,7 @@ public class CategoryFragment extends BaseFragment {
                             .setTitle("Delete?")
                             .setPositiveButton("Yes", (dialog, which) -> {
                                 Category toDelete = liveDataExpenseCategories.getValue().get(viewHolder.getAdapterPosition());
-                                categoryViewModel.deleteCategories(toDelete);
+                                categoryViewModel.delete(toDelete);
 
                             })
                             .setNegativeButton("No", (dialog, which) -> {

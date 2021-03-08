@@ -15,14 +15,17 @@ public class Overview {
     private double incomes;
     @ColumnInfo(name = "savings")
     private double savings;
-    @ColumnInfo(name = "debt")
-    private double debt;
+    @ColumnInfo(name = "today_allowed")
+    private double todayAllowed;
+    @ColumnInfo(name = "today_remaining")
+    private double todayRemaining;
 
-    public Overview(int userId, double incomes, double savings, double debt) {
+    public Overview(int userId, double incomes, double savings, double todayAllowed, double todayRemaining) {
         this.userId = userId;
         this.incomes = incomes;
         this.savings = savings;
-        this.debt = debt;
+        this.todayAllowed = todayAllowed;
+        this.todayRemaining = todayRemaining;
     }
 
     public int getId() {
@@ -57,11 +60,19 @@ public class Overview {
         this.savings = savings;
     }
 
-    public double getDebt() {
-        return debt;
+    public double getTodayAllowed() {
+        return todayAllowed;
     }
 
-    public void setDebt(double debt) {
-        this.debt = debt;
+    public void setTodayAllowed(double todayAllowed) {
+        this.todayAllowed = todayAllowed;
+    }
+
+    public double getTodayRemaining() {
+        return todayRemaining;
+    }
+
+    public void setTodayRemaining(double todayRemaining) {
+        this.todayRemaining = todayRemaining;
     }
 }

@@ -28,7 +28,7 @@ public class RecurringTransactionAdapter extends ListAdapter<RecurringTransactio
             @Override
             public boolean areContentsTheSame(@NonNull RecurringTransaction oldItem, @NonNull RecurringTransaction newItem) {
                 return oldItem.getUserId() == newItem.getUserId()
-                        && oldItem.getAmount() == newItem.getAmount()
+                        && Math.abs(oldItem.getAmount() - newItem.getAmount()) < 0.01
                         && oldItem.getDate() == newItem.getDate()
                         && oldItem.getDescription().equals(newItem.getDescription());
             }

@@ -13,5 +13,8 @@ import java.util.List;
 public interface OverviewDao extends BaseDao<Overview>{
 
     @Query("SELECT * FROM overview WHERE user_id = :userId")
-    LiveData<Overview> selectById(int userId);
+    LiveData<Overview> selectByUserId(int userId);
+
+    @Query("SELECT * FROM overview WHERE user_id = :userId")
+    Overview selectByUserIdForUpdate(int userId);
 }

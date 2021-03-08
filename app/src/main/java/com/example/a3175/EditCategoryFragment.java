@@ -83,7 +83,7 @@ public class EditCategoryFragment extends BaseFragment {
             // button
             buttonOK.setOnClickListener(v -> {
                 // db insert
-                categoryViewModel.insertCategories(
+                categoryViewModel.insert(
                         new Category(editTextCategoryName.getText().toString(), radioButtonIsIncome.isChecked()));
 
                 // nav back
@@ -94,7 +94,7 @@ public class EditCategoryFragment extends BaseFragment {
             // edit
 
             // fill editText with data
-            currentCategory = categoryViewModel.getCategoryById(currentCategoryId);
+            currentCategory = categoryViewModel.getById(currentCategoryId);
             if (currentCategory.isIncome()) {
                 radioButtonIsIncome.setChecked(true);
             } else {
@@ -107,7 +107,7 @@ public class EditCategoryFragment extends BaseFragment {
                 // db update
                 currentCategory.setName(editTextCategoryName.getText().toString());
                 currentCategory.setIncome(radioButtonIsIncome.isChecked());
-                categoryViewModel.updateCategories(currentCategory);
+                categoryViewModel.update(currentCategory);
 
                 // nav back
                 navController.navigateUp();

@@ -6,8 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import java.util.List;
-
 public class OverviewViewModel extends AndroidViewModel {
     private A3175Repository repository;
 
@@ -15,17 +13,19 @@ public class OverviewViewModel extends AndroidViewModel {
         super(application);
         repository = A3175Repository.getInstance(application);
     }
-    public LiveData<Overview> getOverviewByUserId(int id){return repository.getOverviewByUserId(id);}
+    public LiveData<Overview> getByUserId(int id){return repository.getOverviewByUserId(id);}
 
-    public void insertOverviews(Overview... overviews) {
+    public Overview getByUserIdForUpdate(int id){return repository.getOverviewByUserIdForUpdate(id);}
+
+    public void insert(Overview... overviews) {
         repository.insertOverviews(overviews);
     }
 
-    public void updateOverviews(Overview... overviews) {
+    public void update(Overview... overviews) {
         repository.updateOverviews(overviews);
     }
 
-    public void deleteOverviews(Overview... overviews) {
+    public void delete(Overview... overviews) {
         repository.deleteOverviews(overviews);
     }
 }

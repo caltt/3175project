@@ -16,9 +16,11 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 
 import com.example.a3175.db.BigExpenseViewModel;
 import com.example.a3175.db.CategoryViewModel;
+import com.example.a3175.db.Overview;
 import com.example.a3175.db.OverviewViewModel;
 import com.example.a3175.db.RecurringTransactionViewModel;
 import com.example.a3175.db.TransactionViewModel;
+import com.example.a3175.db.User;
 import com.example.a3175.db.UserViewModel;
 
 import java.text.DateFormat;
@@ -27,7 +29,7 @@ import java.util.Calendar;
 import java.util.List;
 
 public class BaseFragment extends Fragment {
-    protected static String TAG = "test";
+    protected static String TAG = "tttt";
 
     protected static FragmentActivity activity;
     protected static SharedPreferences preferences;
@@ -43,8 +45,10 @@ public class BaseFragment extends Fragment {
     protected static RecurringTransactionViewModel recurringTransactionViewModel;
     protected static BigExpenseViewModel bigExpenseViewModel;
 
-    protected static DateFormat dateFormat;
-    protected static Calendar calendar;
+    protected User currentUser;
+    protected Overview currentOverview;
+
+    protected int currentUserId;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -64,12 +68,16 @@ public class BaseFragment extends Fragment {
         recurringTransactionViewModel = new ViewModelProvider(activity).get(RecurringTransactionViewModel.class);
         bigExpenseViewModel = new ViewModelProvider(activity).get(BigExpenseViewModel.class);
 
-         calendar = Calendar.getInstance();
-        dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+        currentUserId = preferences.getInt(getResources().getString(R.string.logged_in_user_id), -1);
+        if (currentUserId == -1) {
+            currentUserId = preferences.getInt(getResources().getString(R.string.logging_in_user_id), -1);
+        }
+        currentUser = userViewModel.getById(currentUserId);
+        currentOverview = overviewViewModel.getByUserIdForUpdate(currentUserId);
     }
 
     // TODO
-    public <T> ItemTouchHelper getSwipeDeleteItemTouchHelper(LiveData<List<T>> liveData){
+    public <T> ItemTouchHelper getSwipeDeleteItemTouchHelper(LiveData<List<T>> liveData) {
         return null;
     }
 

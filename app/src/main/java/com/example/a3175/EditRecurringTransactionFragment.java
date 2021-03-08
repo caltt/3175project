@@ -1,8 +1,11 @@
 package com.example.a3175;
 
+import android.app.AlertDialog;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,7 +17,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
+import com.example.a3175.db.Overview;
 import com.example.a3175.db.RecurringTransaction;
+import com.example.a3175.db.Transaction;
+import com.example.a3175.utils.Calculators;
+
+import java.time.LocalDate;
 
 public class EditRecurringTransactionFragment extends BaseFragment {
 
@@ -23,7 +31,13 @@ public class EditRecurringTransactionFragment extends BaseFragment {
     RadioButton radioButtonIsSalary, radioButtonIsBill;
 
     RecurringTransaction currentRecurringTransaction;
-    int currentUserId, currentRecurringTransactionId;
+//    Overview currentOverview;
+//    int currentUserId;
+    int currentRecurringTransactionId;
+
+    int categoryId, date;
+    double amount;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,15 +46,17 @@ public class EditRecurringTransactionFragment extends BaseFragment {
         return inflater.inflate(R.layout.fragment_edit_recurring_transaction, container, false);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         //region CONTEXTUAL DATA
-        currentUserId = preferences.getInt(getResources().getString(R.string.logged_in_user_id), -1);
-        if (currentUserId == -1) {
-            currentUserId = preferences.getInt(getResources().getString(R.string.logging_in_user_id), -1);
-        }
+//        currentUserId = preferences.getInt(getResources().getString(R.string.logged_in_user_id), -1);
+//        if (currentUserId == -1) {
+//            currentUserId = preferences.getInt(getResources().getString(R.string.logging_in_user_id), -1);
+//        }
+//        currentOverview = overviewViewModel.getByUserIdForUpdate(currentUserId);
         //endregion
 
         //region VIEW
@@ -88,14 +104,43 @@ public class EditRecurringTransactionFragment extends BaseFragment {
 
             // add a recurring transaction
             buttonOK.setOnClickListener(v -> {
-                double amount = Double.parseDouble(editTextSalaryAmount.getText().toString());
-                amount = radioButtonIsBill.isChecked() ? -amount : amount;
-                int date = Integer.parseInt(editTextSalaryDate.getText().toString());
+                amount = Double.parseDouble(editTextSalaryAmount.getText().toString());
+                categoryId = 0;
+                if (radioButtonIsBill.isChecked()) {
+                    amount = -amount;
+                    categoryId = categoryViewModel.getByName(getResources().getString(R.string.category_bill)).getId();
+                } else {
+                    categoryId = categoryViewModel.getByName(getResources().getString(R.string.category_salary)).getId();
+                }
+                date = Integer.parseInt(editTextSalaryDate.getText().toString());
                 String description = editTextSalaryDescription.getText().toString();
 
                 // db insert
-                recurringTransactionViewModel.insertRecurringTransactions(
-                        new RecurringTransaction(currentUserId, amount, date, description));
+                recurringTransactionViewModel.insert(
+                        new RecurringTransaction(currentUserId, categoryId, amount, date, description));
+
+                // !!!
+                // if the adding date is exactly the transaction date, ask whether do this transaction immediately
+                if (date == LocalDate.now().getDayOfMonth()) {
+                    new AlertDialog.Builder(activity)
+                            .setTitle("Do this transaction now?")
+                            .setPositiveButton("Yes", (dialog, which) -> {
+                                // db insert: transaction
+                                transactionViewModel.insert(
+                                        new Transaction(currentUserId, amount, LocalDate.now(), categoryId, description));
+
+                                Log.d(TAG, "onActivityCreated: " + amount);
+
+                                // db update: overview
+                                Calculators.processRecurringTransaction(currentOverview, amount);
+                                overviewViewModel.update(currentOverview);
+                            })
+                            .setNegativeButton("No", (dialog, which) -> {
+                            })
+                            .create()
+                            .show();
+                }
+
 
                 //nav back
                 navController.navigateUp();
@@ -106,7 +151,7 @@ public class EditRecurringTransactionFragment extends BaseFragment {
         } else {
             // edit a recurring transaction
 
-            currentRecurringTransaction = recurringTransactionViewModel.getRecurringTransactionById(currentRecurringTransactionId);
+            currentRecurringTransaction = recurringTransactionViewModel.getById(currentRecurringTransactionId);
 
             // fill editText with data
             double amount = currentRecurringTransaction.getAmount();
@@ -129,7 +174,7 @@ public class EditRecurringTransactionFragment extends BaseFragment {
                 currentRecurringTransaction.setAmount(newAmount);
                 currentRecurringTransaction.setDate(date);
                 currentRecurringTransaction.setDescription(description);
-                recurringTransactionViewModel.updateRecurringTransactions(currentRecurringTransaction);
+                recurringTransactionViewModel.update(currentRecurringTransaction);
 
                 // nav back
                 navController.navigateUp();

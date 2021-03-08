@@ -55,34 +55,31 @@ public class UserViewModel extends BaseViewModel<User> {
         database = A3175Database.getDatabase(application);
     }
 
-    public void insert(User... users){
-        database.getUserDao().insert(users);
-    }
-    public LiveData<List<User>> getAllUsers() {
+    public LiveData<List<User>> getAll() {
         return repository.getAllUsers();
     }
 
-    public User getUserById(int id) {
+    public User getById(int id) {
         return repository.getUserById(id);
     }
 
-    public User getUserByEmail(String email) {
+    public User getByEmail(String email) {
         return repository.getUserByEmail(email);
     }
 
-    public User getUserByEmailPassword(String email, String password) {
+    public User getByEmailPassword(String email, String password) {
         return repository.getUserByEmailPassword(email, password);
     }
 
-    public void insertUsers(User... users) {
+    public void insert(User... users) {
         repository.insertUsers(users);
     }
 
-    public void updateUsers(User... users) {
+    public void update(User... users) {
         repository.updateUsers(users);
     }
 
-    public void deleteUsers(User... users) {
+    public void delete(User... users) {
         repository.deleteUsers(users);
     }
 }

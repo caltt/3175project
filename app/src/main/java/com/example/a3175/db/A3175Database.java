@@ -6,7 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
+
+import com.example.a3175.utils.LocalDateConverter;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -18,15 +21,16 @@ import java.util.concurrent.Executors;
         Transaction.class,
         Category.class,
         BigExpense.class,
-}, version = 7, exportSchema = false)
-public abstract class A3175Database extends RoomDatabase {
+}, version = 12, exportSchema = false)
+@TypeConverters({LocalDateConverter.class})
+public abstract class A3175Database<T> extends RoomDatabase {
     private static A3175Database instance;
 
     static synchronized A3175Database getDatabase(Context context) {
         if (instance == null) {
 
             instance = Room.databaseBuilder(context.getApplicationContext(), A3175Database.class, "a3175_database")
-//                    .fallbackToDestructiveMigration()
+                    .fallbackToDestructiveMigration()
                     .allowMainThreadQueries()
 
                     // fill some data
@@ -47,6 +51,8 @@ public abstract class A3175Database extends RoomDatabase {
     }
 
     // test
+//    abstract BaseDao<T> getDao();
+
     abstract UserDao getUserDao();
 
     abstract OverviewDao getOverviewDao();

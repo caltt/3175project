@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.navigation.NavOptions;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +13,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.a3175.db.User;
-import com.example.a3175.db.UserViewHolder;
-import com.example.a3175.db.UserViewModel;
 import com.example.a3175.utils.Utils;
 
 public class LoginFragment extends BaseFragment {
@@ -23,7 +20,7 @@ public class LoginFragment extends BaseFragment {
     EditText editTextEmail, editTextPassword;
     Button buttonLogin, buttonCreateAccount;
 
-    int currentUserId;
+//    int currentUserId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,7 +34,7 @@ public class LoginFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
 
         // FIXME
-        currentUserId = preferences.getInt(getResources().getString(R.string.logged_in_user_id), -1);
+//        currentUserId = preferences.getInt(getResources().getString(R.string.logged_in_user_id), -1);
 
         //region IF ALREADY LOGGED IN, NAV TO MAIN, UNABLE TO NAV BACK
         if (currentUserId != -1) {
@@ -58,7 +55,7 @@ public class LoginFragment extends BaseFragment {
         buttonLogin.setOnClickListener(v -> {
             String email = editTextEmail.getText().toString();
             String password = editTextPassword.getText().toString();
-            User user = userViewModel.getUserByEmailPassword(email, Utils.encode(password));
+            User user = userViewModel.getByEmailPassword(email, Utils.encode(password));
 
             if (user == null) {
                 // login failed
@@ -77,16 +74,18 @@ public class LoginFragment extends BaseFragment {
 
                     int currentUserId = user.getId();
 
-                    // mark as "logging in" for change password & initialize fragment
-                    // will be removed after initialize fragment
-                    editor.putInt(getResources().getString(R.string.logging_in_user_id), currentUserId).apply();
 
                     // nav to different destinations based on different marks
                     if (preferences.getBoolean(getResources().getString(R.string.need_change_password) + currentUserId, false)) {
+                        // mark as "logging in" for change password & initialize fragment
+                        // will be removed after initialize fragment
+                        editor.putInt(getResources().getString(R.string.logging_in_user_id), currentUserId).apply();
 
                         // nav to first login change password
                         navController.navigate(R.id.action_loginFragment_to_firstLoginChangePasswordFragment);
                     } else if (preferences.getBoolean(getResources().getString(R.string.need_initialize) + currentUserId, false)) {
+                        // mark as "logging in" for change password & initialize fragment
+                        editor.putInt(getResources().getString(R.string.logging_in_user_id), currentUserId).apply();
 
                         // nav to initialize
                         navController.navigate(R.id.action_loginFragment_to_initializeFragment);

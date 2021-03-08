@@ -18,6 +18,9 @@ public class InitializeFragment extends BaseFragment {
     EditText editTextCurrentSavings;
     Button buttonSalaryBill, buttonOK;
 
+//    Overview currentOverview;
+//    int currentUserId;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -29,6 +32,11 @@ public class InitializeFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        //region CONTEXTUAL DATA
+//        currentUserId = preferences.getInt(getResources().getString(R.string.logging_in_user_id), -1);
+//        currentOverview = overviewViewModel.getByUserIdForUpdate(currentUserId);
+
+        //endregion
         //region VIEW
         editTextCurrentSavings = activity.findViewById(R.id.editTextCurrentSavings);
         buttonSalaryBill = activity.findViewById(R.id.buttonFirstTimeManageSalary);
@@ -41,13 +49,12 @@ public class InitializeFragment extends BaseFragment {
         });
 
         buttonOK.setOnClickListener(v -> {
-            // db insert
-            int currentUserId = preferences.getInt(getResources().getString(R.string.logging_in_user_id), -1);
+            // db update
             double savings = editTextCurrentSavings.getText().toString().isEmpty()
                     ? 0
                     : Double.parseDouble(editTextCurrentSavings.getText().toString());
-            Overview newOverview = new Overview(currentUserId, 0, savings, 0);
-            overviewViewModel.insertOverviews(newOverview);
+            currentOverview.setSavings(savings);
+            overviewViewModel.update(currentOverview);
 
             // remove need initialize flag
             // set logged in flag

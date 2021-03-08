@@ -12,6 +12,8 @@ public class RecurringTransaction {
     private int id;
     @ColumnInfo(name = "user_id")
     private int userId;
+    @ColumnInfo(name = "category_id")
+    private int categoryId;
     @ColumnInfo(name = "amount")
     private double amount;
     @ColumnInfo(name = "date")
@@ -19,8 +21,9 @@ public class RecurringTransaction {
     @ColumnInfo(name = "description")
     private String description;
 
-    public RecurringTransaction(int userId, double amount, int date, String description) {
+    public RecurringTransaction(int userId, int categoryId, double amount, int date, String description) {
         this.userId = userId;
+        this.categoryId = categoryId;
         this.amount = amount;
         this.date = date;
         this.description = description;
@@ -40,6 +43,14 @@ public class RecurringTransaction {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     public double getAmount() {

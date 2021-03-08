@@ -16,23 +16,27 @@ public class TransactionViewModel extends AndroidViewModel {
         repository = A3175Repository.getInstance(application);
     }
 
-    public Transaction getTransactionById(int id){
+    public Transaction getById(int id) {
         return repository.getTransactionById(id);
     }
 
-    public LiveData<List<Transaction>> getTransactionsByUserId(int id) {
+    public Category getCategoryById(int id) {
+        return repository.getCategoryByTransactionId(id);
+    }
+
+    public LiveData<List<Transaction>> getByUserId(int id) {
         return repository.getTransactionsByUserId(id);
     }
 
-    public void insertTransactions(Transaction... transactions) {
+    public void insert(Transaction... transactions) {
         repository.insertTransactions(transactions);
     }
 
-    public void updateTransactions(Transaction... transactions) {
+    public void update(Transaction... transactions) {
         repository.updateTransactions(transactions);
     }
 
-    public void deleteTransactions(Transaction... transactions) {
+    public void delete(Transaction... transactions) {
         repository.deleteTransactions(transactions);
     }
 

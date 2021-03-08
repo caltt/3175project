@@ -6,9 +6,14 @@
     <!--    admin-->
     <string name="admin_username">admin</string>
 
+    <!--    for db-->
+    <string name="category_salary">Salary</string>
+    <string name="category_bill">Bill</string>
+
     <!--    for shared preferences-->
     <string name="logging_in_user_id">loggingInUserId</string>
     <string name="logged_in_user_id">loggedInUserId</string>
+    <string name="last_login_date">lastLoginDate</string>
     <string name="need_initialize">needInitialize</string>
     <string name="need_change_password">needChangePassword</string>
 
@@ -24,6 +29,7 @@
     <string name="title_transaction">Transaction</string>
     <string name="title_initialize">Before using...</string>
     <string name="title_edit_account">Edit account</string>
+    <string name="title_big_expense">Big Expense</string>
 
     <!--    button text-->
     <string name="button_text_next">Next</string>

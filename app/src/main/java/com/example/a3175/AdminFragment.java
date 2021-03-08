@@ -48,7 +48,7 @@ public class AdminFragment extends BaseFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setAdapter(userAdapter);
 
-        LiveData<List<User>> liveDataUser = userViewModel.getAllUsers();
+        LiveData<List<User>> liveDataUser = userViewModel.getAll();
         liveDataUser.observe(getViewLifecycleOwner(), users -> userAdapter.submitList(users));
         //endregion
 
@@ -69,7 +69,7 @@ public class AdminFragment extends BaseFragment {
                         .setTitle("Delete?")
                         .setPositiveButton("Yes", (dialog, which) -> {
                             User userToDelete = liveDataUser.getValue().get(viewHolder.getAdapterPosition());
-                            userViewModel.deleteUsers(userToDelete);
+                            userViewModel.delete(userToDelete);
 
                         })
                         .setNegativeButton("No", (dialog, which) -> {

@@ -3,7 +3,6 @@ package com.example.a3175;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.example.a3175.db.Overview;
 import com.example.a3175.db.User;
 import com.example.a3175.utils.Utils;
 
@@ -23,8 +23,9 @@ public class EditUserFragment extends BaseFragment {
     EditText editTextEmail, editTextPassword, editTextVerifyPassword, editTextOldPassword;
     Button buttonOK;
 
-    User currentUser;
-    int currentUserId;
+//    User currentUser;
+//    Overview currentOverview;
+//    int currentUserId;
     boolean isPasswordValid, isEmailValid;
 
     @Override
@@ -48,10 +49,10 @@ public class EditUserFragment extends BaseFragment {
         //endregion
 
         //region CONTEXTUAL DATA
-        currentUser = userViewModel.getUserById(preferences.getInt(getResources().getString(R.string.logged_in_user_id), -1));
-        if (currentUser != null) {
-            currentUserId = currentUser.getId();
-        }
+//        currentUser = userViewModel.getById(preferences.getInt(getResources().getString(R.string.logged_in_user_id), -1));
+//        if (currentUser != null) {
+//            currentUserId = currentUser.getId();
+//        }
         boolean needChangePassword = preferences.getBoolean(getResources().getString(R.string.need_change_password) + currentUserId, false);
         //endregion
 
@@ -72,15 +73,17 @@ public class EditUserFragment extends BaseFragment {
                 String email = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
 
-                if (userViewModel.getUserByEmail(email) != null) {
+                if (userViewModel.getByEmail(email) != null) {
                     Toast.makeText(activity, "Email already exists.", Toast.LENGTH_SHORT).show();
                 } else {
-                    // db insert
-//                    userViewModel.insertUsers(new User(email, Utils.encode(password)));
+                    // db insert: user
                     userViewModel.insert(new User(email, Utils.encode(password)));
+                    int newUserId = userViewModel.getByEmail(email).getId();
+
+                    // db insert: overview
+                    overviewViewModel.insert(new Overview(newUserId, 0, 0, 0, 0));
 
                     // mark as need initialize
-                    int newUserId = userViewModel.getUserByEmail(email).getId();
                     editor.putBoolean(getResources().getString(R.string.need_initialize) + newUserId, true).apply();
 
                     // mark as need change password (admin created user)
@@ -120,7 +123,7 @@ public class EditUserFragment extends BaseFragment {
                 } else {
                     // db update
                     currentUser.setPassword(Utils.encode(password));
-                    userViewModel.updateUsers(currentUser);
+                    userViewModel.update(currentUser);
 
                     // nav back & hide keyboard
                     navController.navigateUp();
