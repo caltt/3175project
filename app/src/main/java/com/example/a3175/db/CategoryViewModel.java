@@ -8,13 +8,10 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-public class CategoryViewModel extends AndroidViewModel {
-    private A3175Repository repository;
-
+public class CategoryViewModel extends BaseViewModel {
 
     public CategoryViewModel(@NonNull Application application) {
         super(application);
-        repository = A3175Repository.getInstance(application);
     }
 
     public Category getById(int id) {

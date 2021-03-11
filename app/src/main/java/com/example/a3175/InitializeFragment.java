@@ -13,6 +13,8 @@ import android.widget.EditText;
 
 import com.example.a3175.db.Overview;
 
+import java.math.BigDecimal;
+
 public class InitializeFragment extends BaseFragment {
 
     EditText editTextCurrentSavings;
@@ -50,9 +52,9 @@ public class InitializeFragment extends BaseFragment {
 
         buttonOK.setOnClickListener(v -> {
             // db update
-            double savings = editTextCurrentSavings.getText().toString().isEmpty()
-                    ? 0
-                    : Double.parseDouble(editTextCurrentSavings.getText().toString());
+            BigDecimal savings = editTextCurrentSavings.getText().toString().isEmpty()
+                    ? BigDecimal.ZERO
+                    : new BigDecimal(editTextCurrentSavings.getText().toString());
             currentOverview.setSavings(savings);
             overviewViewModel.update(currentOverview);
 

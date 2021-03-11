@@ -9,9 +9,9 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.example.a3175.utils.BigDecimalConverter;
 import com.example.a3175.utils.LocalDateConverter;
 
-import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 @Database(entities = {
@@ -21,9 +21,12 @@ import java.util.concurrent.Executors;
         Transaction.class,
         Category.class,
         BigExpense.class,
-}, version = 12, exportSchema = false)
-@TypeConverters({LocalDateConverter.class})
-public abstract class A3175Database<T> extends RoomDatabase {
+}, version = 13, exportSchema = false)
+@TypeConverters({
+        LocalDateConverter.class,
+        BigDecimalConverter.class,
+})
+public abstract class A3175Database extends RoomDatabase {
     private static A3175Database instance;
 
     static synchronized A3175Database getDatabase(Context context) {

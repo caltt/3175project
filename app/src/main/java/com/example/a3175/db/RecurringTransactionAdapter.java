@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.ListAdapter;
 
 import com.example.a3175.R;
 
+import java.math.BigDecimal;
+
 public class RecurringTransactionAdapter extends ListAdapter<RecurringTransaction, RecurringTransactionViewHolder> {
     NavController navController;
     private final int layoutId;
@@ -28,7 +30,7 @@ public class RecurringTransactionAdapter extends ListAdapter<RecurringTransactio
             @Override
             public boolean areContentsTheSame(@NonNull RecurringTransaction oldItem, @NonNull RecurringTransaction newItem) {
                 return oldItem.getUserId() == newItem.getUserId()
-                        && Math.abs(oldItem.getAmount() - newItem.getAmount()) < 0.01
+                        && oldItem.getAmount().equals(newItem.getAmount())
                         && oldItem.getDate() == newItem.getDate()
                         && oldItem.getDescription().equals(newItem.getDescription());
             }
@@ -55,7 +57,8 @@ public class RecurringTransactionAdapter extends ListAdapter<RecurringTransactio
         holder.textViewRecurringTransactionId.setText(String.valueOf(position + 1));
         holder.textViewRecurringTransactionDate.setText(String.valueOf(recurringTransaction.getDate()));
         holder.textViewRecurringTransactionDescription.setText(recurringTransaction.getDescription());
-        holder.textViewRecurringTransactionAmount.setText(String.valueOf(recurringTransaction.getAmount()));
+        holder.textViewRecurringTransactionAmount.setText(
+                recurringTransaction.getAmount().setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString());
 
         holder.itemView.setOnClickListener(v -> {
             Bundle bundle = new Bundle();

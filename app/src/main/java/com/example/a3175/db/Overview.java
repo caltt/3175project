@@ -5,22 +5,24 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity(foreignKeys = @ForeignKey(entity = User.class, parentColumns = "id", childColumns = "user_id"))
+import java.math.BigDecimal;
+
+@Entity
 public class Overview {
     @PrimaryKey(autoGenerate = true)
     private int id;
     @ColumnInfo(name = "user_id")
     private int userId;
     @ColumnInfo(name = "incomes")
-    private double incomes;
+    private BigDecimal incomes;
     @ColumnInfo(name = "savings")
-    private double savings;
+    private BigDecimal savings;
     @ColumnInfo(name = "today_allowed")
-    private double todayAllowed;
+    private BigDecimal todayAllowed;
     @ColumnInfo(name = "today_remaining")
-    private double todayRemaining;
+    private BigDecimal todayRemaining;
 
-    public Overview(int userId, double incomes, double savings, double todayAllowed, double todayRemaining) {
+    public Overview(int userId, BigDecimal incomes, BigDecimal savings, BigDecimal todayAllowed, BigDecimal todayRemaining) {
         this.userId = userId;
         this.incomes = incomes;
         this.savings = savings;
@@ -44,35 +46,35 @@ public class Overview {
         this.userId = userId;
     }
 
-    public double getIncomes() {
+    public BigDecimal getIncomes() {
         return incomes;
     }
 
-    public void setIncomes(double incomes) {
+    public void setIncomes(BigDecimal incomes) {
         this.incomes = incomes;
     }
 
-    public double getSavings() {
+    public BigDecimal getSavings() {
         return savings;
     }
 
-    public void setSavings(double savings) {
+    public void setSavings(BigDecimal savings) {
         this.savings = savings;
     }
 
-    public double getTodayAllowed() {
+    public BigDecimal getTodayAllowed() {
         return todayAllowed;
     }
 
-    public void setTodayAllowed(double todayAllowed) {
+    public void setTodayAllowed(BigDecimal todayAllowed) {
         this.todayAllowed = todayAllowed;
     }
 
-    public double getTodayRemaining() {
+    public BigDecimal getTodayRemaining() {
         return todayRemaining;
     }
 
-    public void setTodayRemaining(double todayRemaining) {
+    public void setTodayRemaining(BigDecimal todayRemaining) {
         this.todayRemaining = todayRemaining;
     }
 }

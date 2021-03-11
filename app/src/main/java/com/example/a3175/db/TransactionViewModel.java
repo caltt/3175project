@@ -8,12 +8,10 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-public class TransactionViewModel extends AndroidViewModel {
-    private A3175Repository repository;
+public class TransactionViewModel extends BaseViewModel {
 
     public TransactionViewModel(@NonNull Application application) {
         super(application);
-        repository = A3175Repository.getInstance(application);
     }
 
     public Transaction getById(int id) {
@@ -26,6 +24,10 @@ public class TransactionViewModel extends AndroidViewModel {
 
     public LiveData<List<Transaction>> getByUserId(int id) {
         return repository.getTransactionsByUserId(id);
+    }
+
+    public List<Transaction> getByUserIdYearMonth(int id, String yearMonth){
+        return repository.getTransactionByUserIdYearMonth(id, yearMonth);
     }
 
     public void insert(Transaction... transactions) {

@@ -1,25 +1,11 @@
 package com.example.a3175.utils;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.a3175.db.Overview;
-import com.example.a3175.db.User;
-
-import java.security.InvalidKeyException;
+import java.math.BigDecimal;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
-import java.util.List;
-
-import javax.crypto.NoSuchPaddingException;
 
 public class Utils {
     private static final String TAG = "test";
@@ -41,7 +27,7 @@ public class Utils {
      * Encode a password string
      */
     public static String encode(String plaintext) {
-        String encoded = "";
+        String encoded;
         messageDigest.update(plaintext.getBytes());
         encoded = new String(messageDigest.digest());
         return encoded;
@@ -49,12 +35,9 @@ public class Utils {
 
     /**
      * Format a double
-     *
-     * @param n
-     * @return
      */
-    public static String formatDouble(double n){
-        return decimalFormat.format(n);
+    public static String formatBigDecimal(BigDecimal n) {
+        return n.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString();
     }
 
 

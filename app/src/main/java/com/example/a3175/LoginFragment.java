@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.a3175.db.User;
@@ -18,9 +19,8 @@ import com.example.a3175.utils.Utils;
 public class LoginFragment extends BaseFragment {
 
     EditText editTextEmail, editTextPassword;
-    Button buttonLogin, buttonCreateAccount;
-
-//    int currentUserId;
+    Button buttonLogin;
+    TextView textViewCreateAccount;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,7 +48,7 @@ public class LoginFragment extends BaseFragment {
         editTextEmail = activity.findViewById(R.id.editTextLoginEmail);
         editTextPassword = activity.findViewById(R.id.editTextLoginPassword);
         buttonLogin = activity.findViewById(R.id.buttonLogin);
-        buttonCreateAccount = activity.findViewById(R.id.buttonLoginCreateAccount);
+        textViewCreateAccount = activity.findViewById(R.id.textViewCreateAccount);
         //endregion
 
         //region LOGIN
@@ -105,7 +105,7 @@ public class LoginFragment extends BaseFragment {
         });
         //endregion
 
-        buttonCreateAccount.setOnClickListener(v -> {
+        textViewCreateAccount.setOnClickListener(v -> {
             navController.navigate(R.id.action_loginFragment_to_editUserFragment);
             inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
         });

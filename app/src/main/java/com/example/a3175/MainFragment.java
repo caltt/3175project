@@ -85,6 +85,9 @@ public class MainFragment extends BaseFragment {
             case R.id.menuItemAccount:
                 navController.navigate(R.id.action_mainFragment_to_editUserFragment);
                 break;
+            case R.id.menuItemReport:
+                navController.navigate(R.id.action_mainFragment_to_reportFragment);
+                break;
             case R.id.menuItemLogout:
                 // remove logged in user info
                 editor.remove(getResources().getString(R.string.logged_in_user_id)).apply();

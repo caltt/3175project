@@ -23,12 +23,12 @@ import com.example.a3175.db.RecurringTransaction;
 import com.example.a3175.db.Transaction;
 import com.example.a3175.db.TransactionAdapter;
 import com.example.a3175.utils.Calculators;
-import com.example.a3175.utils.Utils;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ExpenseTrackerFragment extends BaseFragment {
 
@@ -75,10 +75,14 @@ public class ExpenseTrackerFragment extends BaseFragment {
         LiveData<Overview> liveDataOverview = overviewViewModel.getByUserId(currentUserId);
         liveDataOverview.observe(getViewLifecycleOwner(), overview -> {
             // calculate today's available from income & remainingDays
-            textViewTodayRemaining.setText(Utils.formatDouble(overview.getTodayRemaining()));
-            textViewTodayAllowed.setText(Utils.formatDouble(overview.getTodayAllowed()));
-            textViewSavings.setText(Utils.formatDouble(overview.getSavings()));
-            textViewIncome.setText(Utils.formatDouble(overview.getIncomes()));
+            textViewTodayRemaining.setText(
+                    overview.getTodayRemaining().setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString());
+            textViewTodayAllowed.setText(
+                    overview.getTodayAllowed().setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString());
+            textViewSavings.setText(
+                    overview.getSavings().setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString());
+            textViewIncome.setText(
+                    overview.getIncomes().setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString());
         });
 
         // UPDATE
@@ -106,9 +110,9 @@ public class ExpenseTrackerFragment extends BaseFragment {
 
             // for each date during this period, get and do recurring transactions on that date
             LocalDate date;
-            String description = "";
-            double amount = 0;
-            int categoryId = 0;
+            String description;
+            BigDecimal amount;
+            int categoryId;
 
             for (int i = 1; i <= duration; i++) {
                 // get
@@ -131,7 +135,30 @@ public class ExpenseTrackerFragment extends BaseFragment {
             }
 
             // 2. update today available
-            Calculators.resetTodayAllowed(currentOverview);
+            // get next income date
+            LocalDate today = LocalDate.now();
+            int todayDate = today.getDayOfMonth();
+            int nextIncomeDate = today.lengthOfMonth();     // initial value
+
+            List<RecurringTransaction> currentUserIncomes =
+                    recurringTransactionViewModel.getRecurringIncomesByUserIdForUpdate(currentUserId);
+
+            int minDaysBetween = 32;
+            for (RecurringTransaction i : currentUserIncomes) {
+                int incomeDate = i.getDate();
+                int daysBetween = todayDate <= incomeDate
+                        ? incomeDate - todayDate
+                        : incomeDate + today.lengthOfMonth() - todayDate;
+                if (daysBetween < minDaysBetween) {
+                    minDaysBetween = daysBetween;
+                    nextIncomeDate = incomeDate;
+                }
+            }
+
+            Log.d(TAG, "onActivityCreated: " + nextIncomeDate);
+
+            // reset today allowed
+            Calculators.resetTodayAllowed(currentOverview, nextIncomeDate);
 
             // all overview changes done
             // db update
@@ -177,11 +204,11 @@ public class ExpenseTrackerFragment extends BaseFragment {
                         .setPositiveButton("Yes", (dialog, which) -> {
                             // db delete: transaction
                             Transaction toDelete = liveDataTransaction.getValue().get(viewHolder.getAdapterPosition());
-                            double amount = toDelete.getAmount();
+                            BigDecimal amount = toDelete.getAmount();
                             transactionViewModel.delete(toDelete);
 
                             // db update: overview
-                            Calculators.processTransaction(currentOverview, -amount);
+                            Calculators.processTransaction(currentOverview, amount.negate());
                             overviewViewModel.update(currentOverview);
 
                         })

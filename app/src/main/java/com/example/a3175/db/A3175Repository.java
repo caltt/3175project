@@ -99,6 +99,10 @@ public class A3175Repository {
         return recurringTransactionDao.selectRecurringIncomesByUserId(id);
     }
 
+    List<RecurringTransaction> getRecurringIncomesByUserIdForUpdate(int id){
+        return recurringTransactionDao.selectRecurringIncomesByUserIdForUpdate(id);
+    }
+
     List<RecurringTransaction> getRecurringTransactionsByUserIdBetweenDates(int id, int from, int to) {
         return recurringTransactionDao.selectByUserIdBetweenDates(id, from, to);
     }
@@ -130,9 +134,12 @@ public class A3175Repository {
     }
 
     Category getCategoryByTransactionId(int id) {
-        return transactionDao.selectCategoryById(id);
+        return transactionDao.selectCategoryNameById(id);
     }
 
+    List<Transaction> getTransactionByUserIdYearMonth(int id, String yearMonth){
+        return transactionDao.selectByUserIdYearMonth(id, yearMonth);
+    }
     void insertTransactions(Transaction... transactions) {
         transactionDao.insert(transactions);
     }

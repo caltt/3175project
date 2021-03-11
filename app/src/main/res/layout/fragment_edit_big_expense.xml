@@ -10,14 +10,14 @@
         android:id="@+id/editTextEditBigExpenseAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/hint_amount"
         android:inputType="numberDecimal"
         app:layout_constraintBottom_toTopOf="@+id/editTextEditBigExpenseDescription"
-        app:layout_constraintEnd_toEndOf="@+id/textViewEditBigExpenseTitle"
-        app:layout_constraintStart_toStartOf="@+id/textViewEditBigExpenseTitle"
-        app:layout_constraintTop_toBottomOf="@+id/textViewEditBigExpenseTitle"
-        android:autofillHints="" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
     <TextView
         android:id="@+id/textViewEditBigExpenseTitle"
@@ -25,10 +25,9 @@
         android:layout_height="wrap_content"
         android:text="@string/title_big_expense"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextEditBigExpenseAmount"
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/buttonEditBigExpenseOK"
@@ -43,19 +42,26 @@
         android:id="@+id/editTextEditBigExpenseDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:autofillHints=""
         android:ems="10"
-        android:hint="@string/hint_date"
+        android:hint="@string/hint_description"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/buttonEditBigExpenseOK"
+        app:layout_constraintBottom_toTopOf="@+id/guideline34"
         app:layout_constraintEnd_toEndOf="@+id/editTextEditBigExpenseAmount"
         app:layout_constraintStart_toStartOf="@+id/editTextEditBigExpenseAmount"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEditBigExpenseAmount"
-        android:autofillHints="" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextEditBigExpenseAmount" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline34"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".5" />
+        app:layout_constraintGuide_percent="0.53" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
 </androidx.constraintlayout.widget.ConstraintLayout>

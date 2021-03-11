@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.ListAdapter;
 
 import com.example.a3175.R;
 
+import java.math.BigDecimal;
+
 public class TransactionAdapter extends ListAdapter<Transaction, TransactionViewHolder> {
     CategoryViewModel categoryViewModel;
     NavController navController;
@@ -28,7 +30,7 @@ public class TransactionAdapter extends ListAdapter<Transaction, TransactionView
             @Override
             public boolean areContentsTheSame(@NonNull Transaction oldItem, @NonNull Transaction newItem) {
                 return oldItem.getUserId() == newItem.getUserId()
-                        && Math.abs(oldItem.getAmount() - newItem.getAmount()) < 0.01
+                        && oldItem.getAmount().equals(newItem.getAmount())
                         && oldItem.getCategoryId() == newItem.getCategoryId()
                         && oldItem.getDate().equals(newItem.getDate())
                         && oldItem.getDescription().equals(newItem.getDescription());
@@ -55,10 +57,10 @@ public class TransactionAdapter extends ListAdapter<Transaction, TransactionView
     public void onBindViewHolder(@NonNull TransactionViewHolder holder, int position) {
         Transaction transaction = getItem(position);
 
-        // FIXME
         holder.textViewTransactionCategory.setText(categoryViewModel.getById(transaction.getCategoryId()).getName());
         holder.textViewTransactionDescription.setText(transaction.getDescription());
-        holder.textViewTransactionAmount.setText(String.valueOf(transaction.getAmount()));
+        holder.textViewTransactionAmount.setText(
+                transaction.getAmount().setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString());
 
         holder.itemView.setOnClickListener(v -> {
             Bundle bundle = new Bundle();

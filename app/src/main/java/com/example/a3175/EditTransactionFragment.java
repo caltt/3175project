@@ -23,6 +23,7 @@ import com.example.a3175.db.Overview;
 import com.example.a3175.db.Transaction;
 import com.example.a3175.utils.Calculators;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class EditTransactionFragment extends BaseFragment {
@@ -129,9 +130,8 @@ public class EditTransactionFragment extends BaseFragment {
             editTextDate.setText(datePickerDate.toString());
 
             buttonOK.setOnClickListener(v -> {
-
-                double amount = Double.parseDouble(editTextAmount.getText().toString());
-                amount = currentCategory.isIncome() ? amount : -amount;
+                BigDecimal amount = new BigDecimal(editTextAmount.getText().toString());
+                amount = currentCategory.isIncome() ? amount : amount.negate();
 //                Date date = new Date(calendar.getTimeInMillis());
                 String description = editTextDescription.getText().toString();
 
@@ -157,18 +157,18 @@ public class EditTransactionFragment extends BaseFragment {
 //            String currentCategoryName = categoryViewModel.getCategoryById(currentTransaction.getCategoryId()).getName();
             String currentCategoryName = transactionViewModel.getCategoryById(currentTransactionId).getName();
             datePickerDate = currentTransaction.getDate();
-            double oldAmount = currentTransaction.getAmount();
+            BigDecimal oldAmount = currentTransaction.getAmount();
 
             editTextCategory.setText(currentCategoryName);
-            editTextAmount.setText(String.valueOf(Math.abs(oldAmount)));
+            editTextAmount.setText(oldAmount.abs().toString());
             editTextDate.setText(datePickerDate.toString());
 //            calendar.setTime(datetime);
             editTextDescription.setText(currentTransaction.getDescription());
 
             buttonOK.setOnClickListener(v -> {
                 // db update
-                double amount = Double.parseDouble(editTextAmount.getText().toString());
-                amount = currentCategory.isIncome() ? amount : -amount;
+                BigDecimal amount = new BigDecimal(editTextAmount.getText().toString());
+                amount = currentCategory.isIncome() ? amount : amount.negate();
 //                Date date = new Date(calendar.getTimeInMillis());
                 String description = editTextDescription.getText().toString();
 
@@ -179,7 +179,7 @@ public class EditTransactionFragment extends BaseFragment {
                 transactionViewModel.update(currentTransaction);
 
                 // update overview
-                Calculators.processTransaction(currentOverview, amount - oldAmount);
+                Calculators.processTransaction(currentOverview, amount.subtract(oldAmount));
                 overviewViewModel.update(currentOverview);
 
                 // nav back & hide keyboard

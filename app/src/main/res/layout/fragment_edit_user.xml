@@ -10,40 +10,40 @@
         android:id="@+id/editTextEditUserPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/hint_password"
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/editTextEditUserVerifyPassword"
         app:layout_constraintEnd_toEndOf="@+id/editTextEditUserOldPassword"
         app:layout_constraintStart_toStartOf="@+id/editTextEditUserOldPassword"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEditUserOldPassword"
-        android:autofillHints="" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextEditUserOldPassword" />
 
     <EditText
         android:id="@+id/editTextEditUserVerifyPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/hint_verify_password"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        app:layout_constraintBottom_toTopOf="@+id/buttonEditUserOK"
         app:layout_constraintEnd_toEndOf="@+id/editTextEditUserPassword"
         app:layout_constraintStart_toStartOf="@+id/editTextEditUserPassword"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEditUserPassword"
-        android:autofillHints="" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextEditUserPassword" />
 
     <EditText
         android:id="@+id/editTextEditUserOldPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/hint_old_password"
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/editTextEditUserPassword"
         app:layout_constraintEnd_toEndOf="@+id/editTextEditUserEmail"
         app:layout_constraintStart_toStartOf="@+id/editTextEditUserEmail"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEditUserEmail"
-        android:autofillHints="" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextEditUserEmail" />
 
     <TextView
         android:id="@+id/textViewEditUserTitle"
@@ -51,51 +51,42 @@
         android:layout_height="wrap_content"
         android:text="@string/title_create_account"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextEditUserEmail"
+        app:layout_constraintBottom_toTopOf="@+id/guideline7"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline7" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/editTextEditUserEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/hint_email"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/editTextEditUserOldPassword"
-        app:layout_constraintEnd_toEndOf="@+id/textViewEditUserTitle"
-        app:layout_constraintStart_toStartOf="@+id/textViewEditUserTitle"
-        app:layout_constraintTop_toBottomOf="@+id/textViewEditUserTitle"
-        android:autofillHints="" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".6" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewEditUserTitle" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".5" />
+        app:layout_constraintGuide_percent="0.53" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.05" />
+        app:layout_constraintGuide_percent="0.15" />
 
     <Button
         android:id="@+id/buttonEditUserOK"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/button_text_ok"
-        app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline6" />

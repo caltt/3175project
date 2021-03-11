@@ -15,9 +15,9 @@ import androidx.recyclerview.widget.ListAdapter;
 import com.example.a3175.R;
 
 public class CategoryAdapter extends ListAdapter<Category, CategoryViewHolder> {
-    private NavController navController;
+    private final NavController navController;
     private final int layoutId;
-    private boolean isForTransaction;
+    private final boolean isForTransaction;
 
     public CategoryAdapter(Activity activity, int layoutId, boolean isForTransaction) {
         super(new DiffUtil.ItemCallback<Category>() {

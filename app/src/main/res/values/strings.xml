@@ -16,6 +16,14 @@
     <string name="last_login_date">lastLoginDate</string>
     <string name="need_initialize">needInitialize</string>
     <string name="need_change_password">needChangePassword</string>
+    
+    <!--    menu item text-->
+    <string name="menu_item_category">Category</string>
+    <string name="menu_item_salary_bill">Salary and Bill</string>
+    <string name="menu_item_setting">Account</string>
+    <string name="menu_item_report">Report</string>
+    <string name="menu_item_log_out">Log out</string>
+    
 
     <!--    title text-->
     <string name="title_first_login_set_password">Please set a new password</string>
@@ -30,6 +38,7 @@
     <string name="title_initialize">Before using...</string>
     <string name="title_edit_account">Edit account</string>
     <string name="title_big_expense">Big Expense</string>
+    <string name="title_choose_big_expense_plan">Choose a plan</string>
 
     <!--    button text-->
     <string name="button_text_next">Next</string>

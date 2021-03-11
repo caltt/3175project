@@ -5,9 +5,10 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Entity(foreignKeys = @ForeignKey(entity = User.class, parentColumns = "id", childColumns = "user_id"))
+@Entity()
 public class Transaction {
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -16,13 +17,13 @@ public class Transaction {
     @ColumnInfo(name = "category_id")
     private int categoryId;
     @ColumnInfo(name = "amount")
-    private double amount;
+    private BigDecimal amount;
     @ColumnInfo(name = "date")
     private LocalDate date;
     @ColumnInfo(name = "description")
     private String description;
 
-    public Transaction(int userId, double amount, LocalDate date, int categoryId, String description) {
+    public Transaction(int userId, BigDecimal amount, LocalDate date, int categoryId, String description) {
         this.userId = userId;
         this.amount = amount;
         this.date = date;
@@ -46,11 +47,11 @@ public class Transaction {
         this.userId = userId;
     }
 
-    public double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 

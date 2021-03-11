@@ -6,7 +6,9 @@ import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
-@Entity(foreignKeys = @ForeignKey(entity = User.class, parentColumns = "id", childColumns = "user_id"))
+import java.math.BigDecimal;
+
+@Entity()
 public class RecurringTransaction {
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -15,13 +17,13 @@ public class RecurringTransaction {
     @ColumnInfo(name = "category_id")
     private int categoryId;
     @ColumnInfo(name = "amount")
-    private double amount;
+    private BigDecimal amount;
     @ColumnInfo(name = "date")
     private int date;
     @ColumnInfo(name = "description")
     private String description;
 
-    public RecurringTransaction(int userId, int categoryId, double amount, int date, String description) {
+    public RecurringTransaction(int userId, int categoryId, BigDecimal amount, int date, String description) {
         this.userId = userId;
         this.categoryId = categoryId;
         this.amount = amount;
@@ -53,11 +55,11 @@ public class RecurringTransaction {
         this.categoryId = categoryId;
     }
 
-    public double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 

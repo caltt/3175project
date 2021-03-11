@@ -17,6 +17,8 @@ import com.example.a3175.db.Overview;
 import com.example.a3175.db.User;
 import com.example.a3175.utils.Utils;
 
+import java.math.BigDecimal;
+
 public class EditUserFragment extends BaseFragment {
 
     TextView textViewTitle;
@@ -81,7 +83,8 @@ public class EditUserFragment extends BaseFragment {
                     int newUserId = userViewModel.getByEmail(email).getId();
 
                     // db insert: overview
-                    overviewViewModel.insert(new Overview(newUserId, 0, 0, 0, 0));
+                    overviewViewModel.insert(new Overview(
+                            newUserId, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO));
 
                     // mark as need initialize
                     editor.putBoolean(getResources().getString(R.string.need_initialize) + newUserId, true).apply();

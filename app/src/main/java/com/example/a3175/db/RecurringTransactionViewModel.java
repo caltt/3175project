@@ -9,12 +9,10 @@ import androidx.lifecycle.LiveData;
 import java.sql.Date;
 import java.util.List;
 
-public class RecurringTransactionViewModel extends AndroidViewModel {
-    private A3175Repository repository;
+public class RecurringTransactionViewModel extends BaseViewModel {
 
     public RecurringTransactionViewModel(@NonNull Application application) {
         super(application);
-        repository = A3175Repository.getInstance(application);
     }
 
     public RecurringTransaction getById(int id) {
@@ -31,6 +29,10 @@ public class RecurringTransactionViewModel extends AndroidViewModel {
 
     public LiveData<List<RecurringTransaction>> getRecurringIncomesByUserId(int id) {
         return repository.getRecurringIncomesByUserId(id);
+    }
+
+    public List<RecurringTransaction> getRecurringIncomesByUserIdForUpdate(int id){
+        return repository.getRecurringIncomesByUserIdForUpdate(id);
     }
 
     public List<RecurringTransaction> getByUserIdBetweenDates(int id, int from, int to) {

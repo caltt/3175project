@@ -22,6 +22,7 @@ import com.example.a3175.db.RecurringTransaction;
 import com.example.a3175.db.Transaction;
 import com.example.a3175.utils.Calculators;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class EditRecurringTransactionFragment extends BaseFragment {
@@ -31,12 +32,12 @@ public class EditRecurringTransactionFragment extends BaseFragment {
     RadioButton radioButtonIsSalary, radioButtonIsBill;
 
     RecurringTransaction currentRecurringTransaction;
-//    Overview currentOverview;
+    //    Overview currentOverview;
 //    int currentUserId;
     int currentRecurringTransactionId;
 
     int categoryId, date;
-    double amount;
+    BigDecimal amount;
 
 
     @Override
@@ -104,10 +105,10 @@ public class EditRecurringTransactionFragment extends BaseFragment {
 
             // add a recurring transaction
             buttonOK.setOnClickListener(v -> {
-                amount = Double.parseDouble(editTextSalaryAmount.getText().toString());
+                amount = new BigDecimal(editTextSalaryAmount.getText().toString());
                 categoryId = 0;
                 if (radioButtonIsBill.isChecked()) {
-                    amount = -amount;
+                    amount = amount.negate();
                     categoryId = categoryViewModel.getByName(getResources().getString(R.string.category_bill)).getId();
                 } else {
                     categoryId = categoryViewModel.getByName(getResources().getString(R.string.category_salary)).getId();
@@ -154,20 +155,20 @@ public class EditRecurringTransactionFragment extends BaseFragment {
             currentRecurringTransaction = recurringTransactionViewModel.getById(currentRecurringTransactionId);
 
             // fill editText with data
-            double amount = currentRecurringTransaction.getAmount();
-            if (amount < 0) {
+            BigDecimal amount = currentRecurringTransaction.getAmount();
+            if (amount.compareTo(BigDecimal.ZERO) < 0) {    // < 0
                 radioButtonIsBill.setChecked(true);
             } else {
                 radioButtonIsSalary.setChecked(true);
             }
-            editTextSalaryAmount.setText(String.valueOf(Math.abs(amount)));
+            editTextSalaryAmount.setText(amount.abs().toString());
             editTextSalaryDate.setText(String.valueOf(currentRecurringTransaction.getDate()));
             editTextSalaryDescription.setText(String.valueOf(currentRecurringTransaction.getDescription()));
 
             buttonOK.setOnClickListener(v -> {
                 // db update
-                double newAmount = Double.parseDouble(editTextSalaryAmount.getText().toString());
-                newAmount = radioButtonIsBill.isChecked() ? -newAmount : newAmount;
+                BigDecimal newAmount = new BigDecimal(editTextSalaryAmount.getText().toString());
+                newAmount = radioButtonIsBill.isChecked() ? newAmount.negate() : newAmount;
                 int date = Integer.parseInt(editTextSalaryDate.getText().toString());
                 String description = editTextSalaryDescription.getText().toString();
 

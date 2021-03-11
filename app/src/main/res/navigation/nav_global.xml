@@ -64,6 +64,9 @@
             app:destination="@id/editTransactionFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_mainFragment_to_reportFragment"
+            app:destination="@id/reportFragment" />
     </fragment>
     <fragment
         android:id="@+id/initializeFragment"
@@ -164,4 +167,9 @@
         android:name="com.example.a3175.BigExpensePlanFragment"
         android:label="fragment_big_expense_plan"
         tools:layout="@layout/fragment_big_expense_plan" />
+    <fragment
+        android:id="@+id/reportFragment"
+        android:name="com.example.a3175.ReportFragment"
+        android:label="fragment_report"
+        tools:layout="@layout/fragment_report" />
 </navigation>

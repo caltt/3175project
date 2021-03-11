@@ -5,27 +5,37 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-import java.sql.Date;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Entity(foreignKeys = @ForeignKey(entity = User.class, parentColumns = "id", childColumns = "user_id"))
+@Entity()
 public class BigExpense {
     @PrimaryKey(autoGenerate = true)
     private int id;
     @ColumnInfo(name = "user_id")
     private int userId;
     @ColumnInfo(name = "amount")
-    private double amount;
+    private BigDecimal amount;
     @ColumnInfo(name = "datetime")
     private LocalDate datetime;
     @ColumnInfo(name = "description")
     private String description;
     @ColumnInfo(name = "income_needed")
-    private double incomeNeeded;
+    private BigDecimal incomeNeeded;
     @ColumnInfo(name = "saving_needed")
-    private double savingNeeded;
+    private BigDecimal savingNeeded;
     @ColumnInfo(name = "loan_needed")
-    private double loanNeeded;
+    private BigDecimal loanNeeded;
+
+    public BigExpense(int userId, BigDecimal amount, LocalDate datetime, String description, BigDecimal incomeNeeded, BigDecimal savingNeeded, BigDecimal loanNeeded) {
+        this.userId = userId;
+        this.amount = amount;
+        this.datetime = datetime;
+        this.description = description;
+        this.incomeNeeded = incomeNeeded;
+        this.savingNeeded = savingNeeded;
+        this.loanNeeded = loanNeeded;
+    }
 
     public int getId() {
         return id;
@@ -43,11 +53,11 @@ public class BigExpense {
         this.userId = userId;
     }
 
-    public double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
@@ -67,27 +77,27 @@ public class BigExpense {
         this.description = description;
     }
 
-    public double getIncomeNeeded() {
+    public BigDecimal getIncomeNeeded() {
         return incomeNeeded;
     }
 
-    public void setIncomeNeeded(double incomeNeeded) {
+    public void setIncomeNeeded(BigDecimal incomeNeeded) {
         this.incomeNeeded = incomeNeeded;
     }
 
-    public double getSavingNeeded() {
+    public BigDecimal getSavingNeeded() {
         return savingNeeded;
     }
 
-    public void setSavingNeeded(double savingNeeded) {
+    public void setSavingNeeded(BigDecimal savingNeeded) {
         this.savingNeeded = savingNeeded;
     }
 
-    public double getLoanNeeded() {
+    public BigDecimal getLoanNeeded() {
         return loanNeeded;
     }
 
-    public void setLoanNeeded(double loanNeeded) {
+    public void setLoanNeeded(BigDecimal loanNeeded) {
         this.loanNeeded = loanNeeded;
     }
 }

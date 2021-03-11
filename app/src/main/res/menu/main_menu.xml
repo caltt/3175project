@@ -3,14 +3,17 @@
 
     <item
         android:id="@+id/menuItemCategory"
-        android:title="Category" />
+        android:title="@string/menu_item_category" />
     <item
         android:id="@+id/menuItemSalaryBill"
-        android:title="Salary and Bill" />
+        android:title="@string/menu_item_salary_bill" />
     <item
         android:id="@+id/menuItemAccount"
-        android:title="Account" />
+        android:title="@string/menu_item_setting" />
+    <item
+        android:id="@+id/menuItemReport"
+        android:title="@string/menu_item_report" />
     <item
         android:id="@+id/menuItemLogout"
-        android:title="Log out" />
+        android:title="@string/menu_item_log_out" />
 </menu>

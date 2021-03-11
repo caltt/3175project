@@ -25,6 +25,9 @@ public interface RecurringTransactionDao extends BaseDao<RecurringTransaction> {
     @Query("SELECT * FROM recurringtransaction WHERE user_id = :userId AND amount > 0 ORDER BY date ASC")
     LiveData<List<RecurringTransaction>> selectRecurringIncomesByUserId(int userId);
 
+    @Query("SELECT * FROM recurringtransaction WHERE user_id = :userId AND amount > 0 ORDER BY date ASC")
+    List<RecurringTransaction> selectRecurringIncomesByUserIdForUpdate(int userId);
+
     @Query("SELECT * FROM recurringtransaction WHERE user_id = :userId AND :from <= date AND date <= :to")
     List<RecurringTransaction> selectByUserIdBetweenDates(int userId, int from, int to);
 
