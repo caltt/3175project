@@ -4,19 +4,19 @@
 
   * **Activity**
 
-    * File: 	**MainActivity.java**
+    * File: 	**MainActivity.java**   
 
-      
+      <br/>
 
     * Only one main activity that works as app's main page and container for sub-fragments
 
-      
+      <br/>
 
   * **Base Fragment**
 
     * File: 	**BaseFragment.java**
 
-      
+      <br/>
 
     * The base class of all other fragments
 
@@ -24,18 +24,18 @@
 
       (e.g currently logged in user id, currently selected transaction id, DB & shared preference related components, ...)
 
-      
+      <br/>
 
   * **Fragment**
 
     * File: 	**MainFragment.java** and others
 
-    
+    <br/>
 
     * Basic unit of page with specific features
     * **Can be** **considered as activities** 
 
-    ​	
+    <br/>
 
 * **How they work**
 
@@ -43,7 +43,7 @@
 
   * **It should be possible to convert it to a normal multi-activity structure.**
 
-    
+    <br/>
 
 ## DB
 
@@ -55,19 +55,19 @@
 
     * File: 	/java/package/db/**A3175Database.java**
 
-    
+    <br/>
 
     * The definition of the DB 
     * Contains entities (see below), converters (see below) and create DB method
     * When creating, some initial data is inserted (like admin account and some categories)	
 
-    
+    <br/>
 
   * **Entity** 	
 
     - File:	/java/package/db/**User.java** and all others with similar names	
 
-    
+    <br/>
 
     - Specific classes for tables. Each table has its entity class
 
@@ -79,19 +79,19 @@
 
     - Pre-fill data methods are also defined here
 
-      
+      <br/>
 
   * **Converter**
 
     * File: 	/java/package/utils/**Converter.java**
 
-      
+      <br/>
 
     * Used to convert more complex object type to basic data types that SQLite supports
 
     * e.g convert a LocalDate (used for date) / BigDecimal (used for money) variable to int / long and vice versa
 
-      
+      <br/>
 
   * **DAO**
 
@@ -99,7 +99,7 @@
 
       ​			/java/package/db/**UserDao.Java** and all others with similar names
 
-    
+    <br/>
 
     - Have INSERT / UPDATE / DELETE / SELECT methods that directly interact with DB
 
@@ -113,29 +113,29 @@
       2. List<T>: for selecting a series of records (not for displaying)
       3. LiveData<T>: for selecting single or multiple (for displaying in like a list,see below)
 
-      
+      <br/>
 
   * ~~**Repository**~~
 
     - File: 	/java/package/db/**A3175Repository.java**
 
-    
+    <br/>
 
     - A middle layer between DAO and ViewModel (looks a bit redundant & useless, just ignore it)
 
-  ​		
+   	<br/>
 
   * **ViewModel**
 
     - File: 	/java/package/db/**UserViewModel.java** and all others with similar names	
 
-      
+      <br/>
 
     - Used for fragments or some other classes to interact with DB
 
     - When trying to interact with DB, only methods in ViewModels are called, DAOs and repository are at a base level
 
-      
+      <br/>
 
   * **LiveData**
 
@@ -143,7 +143,7 @@
 
     * Its purpose is that when the data is changed, the UI (like the list of data) will automatically update and make sure what is shown is always the latest data (see adapter below)
 
-      
+      <br/>
 
 * **How they work**
 
@@ -163,7 +163,7 @@
 
   **This part should be possible to be converted to a regular implementation.**
 
-
+<br/>
 
 ## UI
 
@@ -173,7 +173,7 @@
 
     * Where to find:	where lists of data are displayed
 
-      
+      <br/>
 
     * The view for displaying multiple rows of data from DB (an advanced **ListView**)
 
@@ -181,13 +181,13 @@
 
     * **Swipe to delete** feature is attached to it
 
-      
+      <br/>
 
   * **ListAdapter**
 
     * File: 	/java/package/db/**UserAdapter.java** and similar files
 
-      
+      <br/>
 
     * The mediator between data and view
 
@@ -197,17 +197,17 @@
 
     * Items on the list can be interactable. **Click to edit** feature is implemented here
 
-      
+      <br/>
 
   * **ViewHolder**
 
     * File:	/java/package/db/**UserViewHolder.java** and similar files
 
-      
+      <br/>
 
     * References all like textViews on the item cell's layout, so the adapter knows where to display which part.
 
-      
+      <br/>
 
   * **BottomNavigationView**
 
@@ -215,25 +215,25 @@
 
     * File:	/res/menu/**bottom_nav_bar**.xml
 
-      
+      <br/>
 
     * Lets the content of MainFragment switch between Expense Tracker & Big Expense Planner
 
     * ...
 
-      
+      <br/>
 
   * **ViewPager**
 
     * Where to find:	**ReportFragment**
 
-      
+      <br/>
 
     * Shows tabs at the top and clicking each tab can lead to different fragments which show text / line chart / pie chart respectively
 
     * ...
 
-    
+    <br/>
 
   * **Menu**
 
@@ -241,19 +241,19 @@
 
     * File:	/res/menu/**main_menu.xml**
 
-      
+      <br/>
 
     * 3 dots in the top right corner of main page
 
     * Menu items lead to fragments for different  purposes
 
-    
+    <br/>
 
 * **How they work**
 
   ​	TODO
 
-  
+  <br/>
 
 ## Navigation
 
@@ -268,12 +268,14 @@
       ​			/res/layout/navigation/**nav_bottom.xml**
 
       ​				Only for the two fragments from bottom navigation bar 
+      
+      <br/>
 
   * **Nav controller**
 
     * Where to find:	**BaseFragment** & anywhere that navigation is needed
 
-      
+      <br/>
 
   
 
