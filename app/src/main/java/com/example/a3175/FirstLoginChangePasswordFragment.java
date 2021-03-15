@@ -1,10 +1,6 @@
 package com.example.a3175;
 
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.navigation.NavOptions;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -14,7 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.a3175.db.User;
+import androidx.annotation.Nullable;
+import androidx.navigation.NavOptions;
+
 import com.example.a3175.utils.Utils;
 
 public class FirstLoginChangePasswordFragment extends BaseFragment {

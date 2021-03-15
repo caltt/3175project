@@ -47,9 +47,8 @@ public class EditCategoryFragment extends BaseFragment {
         //region VALIDATE INPUT & ACTIVATE BUTTON
         buttonOK.setEnabled(false);
 
-        View.OnClickListener onClickListener = v -> {
-            buttonOK.setEnabled(!editTextCategoryName.getText().toString().isEmpty());
-        };
+        View.OnClickListener onClickListener =
+                v -> buttonOK.setEnabled(!editTextCategoryName.getText().toString().isEmpty());
         radioButtonIsIncome.setOnClickListener(onClickListener);
         radioButtonIsExpense.setOnClickListener(onClickListener);
 

@@ -3,14 +3,9 @@ package com.example.a3175;
 import android.app.DatePickerDialog;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+
 import com.example.a3175.db.Category;
-import com.example.a3175.db.Overview;
 import com.example.a3175.db.Transaction;
 import com.example.a3175.utils.Calculators;
 
@@ -34,8 +31,6 @@ public class EditTransactionFragment extends BaseFragment {
 
     Transaction currentTransaction;
     Category currentCategory;
-    //    Overview currentOverview;
-//    int currentUserId;
     int currentTransactionId, currentCategoryId;
 
     LocalDate datePickerDate;
@@ -160,7 +155,7 @@ public class EditTransactionFragment extends BaseFragment {
             BigDecimal oldAmount = currentTransaction.getAmount();
 
             editTextCategory.setText(currentCategoryName);
-            editTextAmount.setText(oldAmount.abs().toString());
+            editTextAmount.setText(oldAmount.abs().toPlainString());
             editTextDate.setText(datePickerDate.toString());
 //            calendar.setTime(datetime);
             editTextDescription.setText(currentTransaction.getDescription());

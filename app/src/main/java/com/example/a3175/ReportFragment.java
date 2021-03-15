@@ -2,6 +2,9 @@ package com.example.a3175;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,18 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.example.a3175.db.Transaction;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 public class ReportFragment extends BaseFragment {
 
@@ -60,13 +53,12 @@ public class ReportFragment extends BaseFragment {
             public Fragment createFragment(int position) {
                 switch (position) {
                     case 0:
+                    default:
                         return new ReportTextFragment();
                     case 1:
                         return new ReportLineChartFragment();
                     case 2:
                         return new ReportPieChartFragment();
-                    default:
-                        return null;
                 }
             }
 

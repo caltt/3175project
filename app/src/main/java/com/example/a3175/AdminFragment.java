@@ -82,9 +82,8 @@ public class AdminFragment extends BaseFragment {
         //endregion
 
         //region BUTTON
-        buttonCreateAccount.setOnClickListener(v -> {
-            navController.navigate(R.id.action_adminFragment_to_editUserFragment);
-        });
+        buttonCreateAccount.setOnClickListener(
+                v -> navController.navigate(R.id.action_adminFragment_to_editUserFragment));
         //endregion
     }
 }

@@ -3,10 +3,6 @@ package com.example.a3175;
 import android.app.AlertDialog;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -17,7 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
-import com.example.a3175.db.Overview;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+
 import com.example.a3175.db.RecurringTransaction;
 import com.example.a3175.db.Transaction;
 import com.example.a3175.utils.Calculators;
@@ -51,14 +49,6 @@ public class EditRecurringTransactionFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        //region CONTEXTUAL DATA
-//        currentUserId = preferences.getInt(getResources().getString(R.string.logged_in_user_id), -1);
-//        if (currentUserId == -1) {
-//            currentUserId = preferences.getInt(getResources().getString(R.string.logging_in_user_id), -1);
-//        }
-//        currentOverview = overviewViewModel.getByUserIdForUpdate(currentUserId);
-        //endregion
 
         //region VIEW
         editTextSalaryAmount = activity.findViewById(R.id.editTextEditRecurringTransactionAmount);
@@ -161,7 +151,7 @@ public class EditRecurringTransactionFragment extends BaseFragment {
             } else {
                 radioButtonIsSalary.setChecked(true);
             }
-            editTextSalaryAmount.setText(amount.abs().toString());
+            editTextSalaryAmount.setText(amount.abs().toPlainString());
             editTextSalaryDate.setText(String.valueOf(currentRecurringTransaction.getDate()));
             editTextSalaryDescription.setText(String.valueOf(currentRecurringTransaction.getDescription()));
 
@@ -183,5 +173,6 @@ public class EditRecurringTransactionFragment extends BaseFragment {
             });
 
         }
+        //endregion
     }
 }

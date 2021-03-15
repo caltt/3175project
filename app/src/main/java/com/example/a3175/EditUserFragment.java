@@ -25,9 +25,6 @@ public class EditUserFragment extends BaseFragment {
     EditText editTextEmail, editTextPassword, editTextVerifyPassword, editTextOldPassword;
     Button buttonOK;
 
-//    User currentUser;
-//    Overview currentOverview;
-//    int currentUserId;
     boolean isPasswordValid, isEmailValid;
 
     @Override

@@ -1,6 +1,7 @@
 package com.example.a3175;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -69,12 +70,10 @@ public class CategoryFragment extends BaseFragment {
             recyclerViewExpenseCategories.setAdapter(adapterExpenseForTransaction);
 
             // live data
-            liveDataIncomeCategories.observe(getViewLifecycleOwner(), categories -> {
-                adapterIncomeForTransaction.submitList(categories);
-            });
-            liveDataExpenseCategories.observe(getViewLifecycleOwner(), categories -> {
-                adapterExpenseForTransaction.submitList(categories);
-            });
+            liveDataIncomeCategories.observe(getViewLifecycleOwner(),
+                    categories -> adapterIncomeForTransaction.submitList(categories));
+            liveDataExpenseCategories.observe(getViewLifecycleOwner(),
+                    categories -> adapterExpenseForTransaction.submitList(categories));
 
         } else {
             // for edit
@@ -84,12 +83,10 @@ public class CategoryFragment extends BaseFragment {
             recyclerViewExpenseCategories.setAdapter(adapterExpenseCategories);
 
             // live data
-            liveDataIncomeCategories.observe(getViewLifecycleOwner(), categories -> {
-                adapterIncomeCategories.submitList(categories);
-            });
-            liveDataExpenseCategories.observe(getViewLifecycleOwner(), categories -> {
-                adapterExpenseCategories.submitList(categories);
-            });
+            liveDataIncomeCategories.observe(getViewLifecycleOwner(),
+                    categories -> adapterIncomeCategories.submitList(categories));
+            liveDataExpenseCategories.observe(getViewLifecycleOwner(),
+                    categories -> adapterExpenseCategories.submitList(categories));
 
             // swipe delete
             // for income category
@@ -108,13 +105,11 @@ public class CategoryFragment extends BaseFragment {
                     new AlertDialog.Builder(activity)
                             .setTitle("Delete?")
                             .setPositiveButton("Yes", (dialog, which) -> {
-                                Category toDelete = liveDataIncomeCategories.getValue().get(viewHolder.getAdapterPosition());
+                                Category toDelete = liveDataIncomeCategories.getValue().get(viewHolder.getBindingAdapterPosition());
                                 categoryViewModel.delete(toDelete);
-
                             })
-                            .setNegativeButton("No", (dialog, which) -> {
-                                adapterIncomeCategories.notifyItemChanged(viewHolder.getAdapterPosition());
-                            })
+                            .setNegativeButton("No",
+                                    (dialog, which) -> adapterIncomeCategories.notifyItemChanged(viewHolder.getBindingAdapterPosition()))
                             .create()
                             .show();
                 }
@@ -136,13 +131,12 @@ public class CategoryFragment extends BaseFragment {
                     new AlertDialog.Builder(activity)
                             .setTitle("Delete?")
                             .setPositiveButton("Yes", (dialog, which) -> {
-                                Category toDelete = liveDataExpenseCategories.getValue().get(viewHolder.getAdapterPosition());
+                                Category toDelete = liveDataExpenseCategories.getValue().get(viewHolder.getBindingAdapterPosition());
                                 categoryViewModel.delete(toDelete);
 
                             })
-                            .setNegativeButton("No", (dialog, which) -> {
-                                adapterExpenseCategories.notifyItemChanged(viewHolder.getAdapterPosition());
-                            })
+                            .setNegativeButton("No",
+                                    (dialog, which) -> adapterExpenseCategories.notifyItemChanged(viewHolder.getBindingAdapterPosition()))
                             .create()
                             .show();
                 }
@@ -152,8 +146,7 @@ public class CategoryFragment extends BaseFragment {
 
 
         // button
-        floatingActionButton.setOnClickListener(v -> {
-            navController.navigate(R.id.action_categoryFragment_to_editCategoryFragment);
-        });
+        floatingActionButton.setOnClickListener(
+                v -> navController.navigate(R.id.action_categoryFragment_to_editCategoryFragment));
     }
 }

@@ -37,9 +37,6 @@ public class ExpenseTrackerFragment extends BaseFragment {
     RecyclerView recyclerView;
     TextView textViewTodayRemaining, textViewSavings, textViewIncome, textViewTodayAllowed;
 
-//    int currentUserId;
-//    Overview currentOverview;
-
     public ExpenseTrackerFragment() {
         // Required empty public constructor
     }
@@ -56,13 +53,8 @@ public class ExpenseTrackerFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        // contextual data
-//        currentUserId = preferences.getInt(getResources().getString(R.string.logged_in_user_id), -1);
-//        currentOverview = overviewViewModel.getByUserIdForUpdate(currentUserId);
-
         // setup
         adapter = new TransactionAdapter(categoryViewModel, navController, R.layout.cell_transaction);
-
 
         // view
         textViewTodayRemaining = activity.findViewById(R.id.textViewTodayRemainingAmount);
@@ -203,7 +195,7 @@ public class ExpenseTrackerFragment extends BaseFragment {
                         .setTitle("Delete?")
                         .setPositiveButton("Yes", (dialog, which) -> {
                             // db delete: transaction
-                            Transaction toDelete = liveDataTransaction.getValue().get(viewHolder.getAdapterPosition());
+                            Transaction toDelete = liveDataTransaction.getValue().get(viewHolder.getBindingAdapterPosition());
                             BigDecimal amount = toDelete.getAmount();
                             transactionViewModel.delete(toDelete);
 
@@ -213,7 +205,7 @@ public class ExpenseTrackerFragment extends BaseFragment {
 
                         })
                         .setNegativeButton("No", (dialog, which) -> {
-                            adapter.notifyItemChanged(viewHolder.getAdapterPosition());
+                            adapter.notifyItemChanged(viewHolder.getBindingAdapterPosition());
                         })
                         .create()
                         .show();

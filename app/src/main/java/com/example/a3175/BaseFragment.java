@@ -1,5 +1,6 @@
 package com.example.a3175;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -34,8 +35,8 @@ public class BaseFragment extends Fragment {
     protected static FragmentActivity activity;
     protected static SharedPreferences preferences;
     protected static SharedPreferences.Editor editor;
-    protected static NavController navController;
-    protected static NavController navControllerBottomNav;
+    protected NavController navController;
+//    protected NavController navControllerBottomNav;
     protected static InputMethodManager inputMethodManager;
 
     protected static UserViewModel userViewModel;
@@ -50,6 +51,7 @@ public class BaseFragment extends Fragment {
 
     protected int currentUserId;
 
+    @SuppressLint("CommitPrefEdits")
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
